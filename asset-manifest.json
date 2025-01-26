@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/SilkPurseImageEditor/static/css/main.cbad32f8.css",
-    "main.js": "/SilkPurseImageEditor/static/js/main.1bfa97df.js",
+    "main.js": "/SilkPurseImageEditor/static/js/main.2caccb01.js",
     "static/js/453.c4df6758.chunk.js": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js",
     "index.html": "/SilkPurseImageEditor/index.html",
     "main.cbad32f8.css.map": "/SilkPurseImageEditor/static/css/main.cbad32f8.css.map",
-    "main.1bfa97df.js.map": "/SilkPurseImageEditor/static/js/main.1bfa97df.js.map",
+    "main.2caccb01.js.map": "/SilkPurseImageEditor/static/js/main.2caccb01.js.map",
     "453.c4df6758.chunk.js.map": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cbad32f8.css",
-    "static/js/main.1bfa97df.js"
+    "static/js/main.2caccb01.js"
   ]
 }
