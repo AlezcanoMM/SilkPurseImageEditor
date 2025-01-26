@@ -13,7 +13,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
   const imageRef = useRef(null); // Reference for the image to edit
   const canvasRef = useRef(null); // Reference for the canvas
-  
+
   const resetState = () => {
     setZoom(1);
     setRotation(0);
@@ -31,24 +31,27 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   // Handle zoom change
   const handleZoomChange = (e) => {
     setZoom(e.target.value);
-  }
+  };
 
   // Handle rotation change
   const handleRotationChange = (e) => setRotation(e.target.value);
 
   // Start dragging
   const startDrag = (e) => {
+    // Only start drag if mouse button is pressed
     setDragging(true);
     setStartX(e.clientX - offsetX);
     setStartY(e.clientY - offsetY);
   };
 
   // Stop dragging
-  const stopDrag = () => setDragging(false);
+  const stopDrag = () => {
+    setDragging(false); // Stop dragging on mouseup or mouseleave
+  };
 
   // Drag image
   const dragImage = (e) => {
-    if (!dragging) return;
+    if (!dragging) return; // If not dragging, don't update position
 
     const newOffsetX = e.clientX - startX;
     const newOffsetY = e.clientY - startY;
@@ -83,7 +86,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
       ctx.save();
 
       // Translate to the center of the canvas (150, 150) - since the canvas is 300x300
-      ctx.translate((canvas.width/2)+offsetX, (canvas.height/2)+offsetY); // Move to the center of the canvas
+      ctx.translate((canvas.width / 2) + offsetX, (canvas.height / 2) + offsetY); // Move to the center of the canvas
 
       // Apply rotation to the image
       ctx.rotate((rotation * Math.PI) / 180); // Convert rotation to radians
@@ -127,7 +130,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
   return (
     <div className="SectionDetails">
-      <div className='subtitleDiv'>
+      <div className="subtitleDiv">
         <span>Click and drag the image to move it,</span>
         <span>and use the sliders to rotate or zoom the image.</span>
       </div>
