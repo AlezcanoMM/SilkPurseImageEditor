@@ -1,0 +1,79 @@
+.SectionDetails{
+  padding-top: 0px;
+}
+
+.parentDiv {
+    display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    height: 80%; /* Full height for the parent */
+    width: 80%; /* Full width for the parent */
+  }
+  
+  .rowDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+  }
+  
+  .order-details {
+    flex: 0.1; /* Take 10% of the parent's height */
+    border-bottom: 1px solid #ddd; /* Optional: Divider between rows */
+    padding: 8px;
+  }
+  
+  .images {
+    flex: 0.9; /* Take 90% of the parent's height */
+    overflow-y: auto; /* Allow scrolling if images exceed container height */
+    padding: 16px;
+  }
+  
+  .detail-row {
+    display: flex; /* Align elements in a row */
+    justify-content: space-between; /* Space out items evenly */
+    align-items: center; /* Vertically center the items */
+    gap: 16px; /* Add spacing between the detail pairs */
+  }
+  
+  .detail-pair {
+    display: flex;
+    flex-direction: column; /* Stack h4 and span vertically inside each pair */
+    text-align: center; /* Center-align text within each pair */
+  }
+  
+  .detail-pair h4 {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .detail-pair span {
+    margin-top: 4px;
+    font-size: 12px;
+  }
+  
+  .edited-images-container {
+    display: grid; /* Use grid layout */
+    grid-template-columns: repeat(5, 1fr); /* 5 columns of equal width */
+    gap: 16px; /* Add spacing between grid items */
+    justify-content: center; /* Center the grid horizontally */
+    padding: 16px;
+  }
+  
+  .edited-image-item {
+    width: 100%; /* Ensures the image fits within the grid cell */
+    aspect-ratio: 1; /* Maintain a square aspect ratio */
+  }
+  
+  .edited-image {
+    width: 100%; /* Make the image fill its container */
+    height: 100%; /* Ensure the image respects the square aspect ratio */
+    object-fit: cover; /* Crop the image if needed to fit the square */
+    border-radius: 8px; /* Optional: Add rounded corners to the images */
+  }
+
+  .edited-image-item img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+  }

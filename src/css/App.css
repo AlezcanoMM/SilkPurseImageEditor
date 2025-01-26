@@ -1,0 +1,40 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* SilkPurseHeader remains unchanged */
+.SilkPurseHeader {
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+}
+
+/* Sections container with horizontal layout */
+.Sections {
+  display: flex;
+  width: 100%;
+  height: 80vh; /* 80% of screen height */
+  position: relative;
+}
+
+/* Styling for each section */
+.Section {
+  width: 100vw; /* Each section takes full width of viewport */
+  height: 100%; /* Take full height */
+  position: absolute;
+  top: 0;
+  left: 100%; /* Initially off-screen to the right */
+  opacity: 0;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.Section.active {
+  left: 0; /* Active section is fully visible */
+  opacity: 1;
+}

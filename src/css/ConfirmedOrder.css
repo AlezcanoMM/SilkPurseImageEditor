@@ -1,0 +1,9 @@
+.subtitleDiv {
+    display: flex;
+    flex-direction: column;
+    width: 40%; 
+    border-bottom: 1px solid #5e5e5e;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }

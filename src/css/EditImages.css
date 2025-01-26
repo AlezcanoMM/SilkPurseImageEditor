@@ -1,0 +1,66 @@
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .image-preview-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+  
+  .image-preview-row {
+    display: flex;
+    flex-direction: row; /* Ensure items are laid out in a row */
+    flex-wrap: wrap; /* Wrap items to the next line if necessary */
+    gap: 10px; /* Add space between items */
+  }
+  
+  .image-item {
+    display: flex;
+    flex-direction: column; /* Align image and button vertically */
+    align-items: center; /* Center the content within each image-item */
+    width: 120px; /* Set a fixed width for each image item */
+  }
+  
+  .image-preview {
+    width: 120px; /* Constrain image width to 120px */
+    height: 120px; /* Constrain image height to 120px */
+    object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the 120px by 120px box */
+  }
+  
+  button {
+    margin-top: 5px; /* Space between the image and the button */
+  }
+  
+  .edit-button, .delete-button {
+    width: 100%; /* Ensure buttons take up the full width of the container */
+    padding: 8px 0; /* Add padding to the buttons for better spacing */
+    margin-top: 5px;
+  }
+  
+  .edit-button {
+    margin-top: 15px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid #979797;  
+    padding: 5px 10px;
+    width: 120px;
+    cursor: pointer;
+  }
+
+  .delete-button {
+    margin-top: 10px;
+    background-color: rgb(194, 194, 194);
+    color: rgb(0, 0, 0);
+    border: 1px solid #474747;  
+    padding: 5px 10px;
+    width: 120px;
+    cursor: pointer;
+  }
+
+  .EditImagesTitle {
+    font-size: 24px;
+    margin-bottom: 50px;
+  }

@@ -1,0 +1,145 @@
+.subtitleDiv {
+  display: flex;
+  flex-direction: column;
+  width: 40%; 
+  border-bottom: 1px solid #5e5e5e;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Container for the entire editing area */
+.edit-image-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 20px auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Static shape (mask) in the center */
+.static-shape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure mask is on top */
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Prevent interaction */
+}
+
+.shape-overlay {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure the shape scales correctly */
+  opacity: 0.8; /* Slight transparency to help visualize the edit area */
+}
+
+/* Editable image container */
+.editable-image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Below the mask */
+  width: 100%;
+  height: 100%;
+  cursor: grab; /* Indicate draggable area */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Center the image inside the container */
+}
+
+/* Editable image */
+.editable-image {
+  position: absolute;
+  object-fit: contain; /* Preserve aspect ratio while scaling */
+  width: auto; /* Allow dynamic resizing */
+  height: auto; /* Maintain aspect ratio */
+  max-width: none; /* Prevent scaling limits */
+  max-height: none; /* Prevent scaling limits */
+}
+
+/* Controls container */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.controls label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.controls input[type="range"] {
+  width: 80%;
+  margin: 10px 0;
+  accent-color: #242424; /* Change slider color */
+}
+
+/* Buttons container */
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.cancel-button,
+.save-button {
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.cancel-button {
+    background-color: rgb(194, 194, 194);
+    color: rgb(0, 0, 0);
+    border: 1px solid #474747;  
+    padding: 5px 10px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.save-button {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid #979797;  
+    padding: 5px 10px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+  border: 2px solid #1b1b1b; 
+}
+
+.save-button:hover {
+  border: 2px solid #1b1b1b; 
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .edit-image-container {
+    width: 90%;
+    height: 250px;
+  }
+
+  .controls input[type="range"] {
+    width: 100%;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

@@ -1,0 +1,63 @@
+.drop-area {
+    width: 40%;
+    height: 40%;
+    border: 2px dashed #5e5e5e;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    position: relative;
+  }
+  
+  .drop-area p {
+    margin: 0;
+  }
+  
+  #image-preview {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start; /* Align images to the left in a row */
+    flex-wrap: nowrap; /* Prevent wrapping to a new line */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    gap: 10px; /* Add space between images */
+  }
+  
+  #image-preview img {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 8px;
+  }
+
+  /* Hidden default file input */
+.file-input {
+  display: none;
+}
+
+/* Custom file input button that looks like the InputButton */
+.InputButtonFile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border: 1px solid #979797;
+  margin-top: 8px;
+  width: 150px;
+  height: 30px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Optional: Customize the label to look more like a button */
+.InputButtonFile:hover {
+  background-color: #f1f1f1; /* Light hover effect */
+}
+
+.ImportTitle {
+  font-size: 24px;
+}
