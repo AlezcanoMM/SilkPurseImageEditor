@@ -2,21 +2,21 @@ import React, { useState } from "react";
 import '../css/LocketDetails.css';
 import '../css/CommonStyles.css';
 
+import buttonCircle from '../assets/images/Circle.png';
+import buttonHeart from '../assets/images/Heart.png';
+import buttonHexagon from '../assets/images/Hex.png';
+import buttonRectangle from '../assets/images/Rectangle.png';
+import buttonOval from '../assets/images/Oval.png';
+
+import hexagon from '../assets/shapes/WhiteHexagon.png';
+import circle from '../assets/shapes/WhiteCircle.png';
+import oval from '../assets/shapes/WhiteOval.png';
+import rectangle from '../assets/shapes/WhitePolaroid.png';
+import heart from '../assets/shapes/WhiteHeart.png';
+
 const Section = ({ setShape, onContinue, onBack }) => {
     const [selectedType, setSelectedType] = useState(null); // For ButtonType selection
     const [selectedShape, setSelectedShape] = useState(null); // For ButtonShape selection
-
-    const buttonCircle = '/images/Circle.png';
-    const buttonHeart = '/images/Heart.png';
-    const buttonHexagon = '/images/Hex.png';
-    const buttonRectangle = '/images/Rectangle.png';
-    const buttonOval = '/images/Oval.png';
-
-    const hexagon = '/shapes/WhiteHexagon.png';
-    const circle = '/shapes/WhiteCircle.png';
-    const oval = '/shapes/WhiteOval.png';
-    const rectangle = '/shapes/WhitePolaroid.png';
-    const heart = '/shapes/WhiteHeart.png';
 
     const handleShapeClick = (shape, index) => {
         setSelectedShape(index); // Highlight the selected shape button

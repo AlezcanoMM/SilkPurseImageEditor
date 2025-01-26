@@ -1,5 +1,5 @@
 import './css/App.css';
-import './css/CommonStyles.css'
+import './css/CommonStyles.css';
 import React, { useState } from 'react';
 
 import OrderDetails from './sections/OrderDetails.js';
@@ -11,12 +11,14 @@ import EditImage from './sections/EditImage.js';
 import ConfirmDetails from './sections/ConfirmDetails.js';
 import ConfirmedOrder from './sections/ConfirmedOrder.js';
 
+import SPTitle from './assets/images/SPTitle.png';
+
 function App() {
   const [orderNum, setOrderNum] = useState(null);
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   const [currentSection, setCurrentSection] = useState(0);
-  const [shape, setShape] = useState('/shapes/WhiteCircle.png');
+  const [shape, setShape] = useState(null);
   const [numberImages, setNumberImages] = useState(0);
   const [images, setImages] = useState([]);
   const [editedImages, setEditedImages] = useState([]);
@@ -45,7 +47,7 @@ function App() {
   return (
     <div className="App">
       <div className="SilkPurseHeader">
-        <img src="/images/SPTitle.png" alt="Silk Purse"/>
+        <img src={SPTitle} alt="Silk Purse"/>
       </div>
 
       <div className="Sections">
