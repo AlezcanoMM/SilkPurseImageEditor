@@ -3,46 +3,69 @@ import '../css/ConfirmDetails.css';
 import '../css/CommonStyles.css';
 
 const Section = ({ editedImages, onContinue, orderNum, name, email, onBack }) => {
+
   const handleConfirm = () => {
-    // Create a new canvas element
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    // Calculate the size of the canvas (for simplicity, let's say we're doing a horizontal row of images)
-    const padding = 10; // Padding between images
-    const imageWidth = 300; // Width of each image
-    const imageHeight = 300; // Height of each image
+    const padding = 10;
+    const imageWidth = 300;
+    const imageHeight = 300;
     const totalWidth = editedImages.length * imageWidth + (editedImages.length - 1) * padding;
-    const totalHeight = imageHeight; // Just one row of images
+    const totalHeight = imageHeight;
 
-    // Set canvas size
     canvas.width = totalWidth;
     canvas.height = totalHeight;
 
-    // Draw each image on the canvas
+    let loadedImages = 0;
+
     editedImages.forEach((image, index) => {
       const img = new Image();
-      img.src = image.edited || image.original; // Use edited version or original image
+      img.src = image.edited || image.original;
+      img.crossOrigin = "anonymous"; // Ensure CORS is enabled if necessary.
 
       img.onload = () => {
-        const x = index * (imageWidth + padding); // X position for each image
-        const y = 0; // Y position (we're keeping all images in one row)
+        const x = index * (imageWidth + padding);
+        ctx.drawImage(img, x, 0, imageWidth, imageHeight);
+        loadedImages++;
 
-        // Draw the image onto the canvas
-        ctx.drawImage(img, x, y, imageWidth, imageHeight);
+        if (loadedImages === editedImages.length) {
+          // Convert the canvas to a data URL.
+          const combinedImageDataUrl = canvas.toDataURL("image/png");
+          // Remove the data URL prefix so that only the base64 data remains.
+          const base64Data = combinedImageDataUrl.replace(/^data:image\/png;base64,/, "");
 
-        // If it's the last image, we trigger the download once all images are loaded
-        if (index === editedImages.length - 1) {
-          // Convert canvas to a downloadable data URL (PNG format)
-          const combinedImageURL = canvas.toDataURL("image/png");
+          // Construct a custom file name.
+          // You might want to sanitize name/email strings if necessary.
+          const fileName = `${orderNum}_${name}_${email}.png`;
 
-          // Create a link element to trigger the download
-          const link = document.createElement("a");
-          link.href = combinedImageURL;
-          link.download = "silk_purse_edits.png"; // Name of the file to download
-          link.click();
+          // Prepare the POST request parameters including the secret token and custom filename.
+          const formData = new URLSearchParams();
+          formData.append("image", base64Data);
+          formData.append("token", "LAKSHlkjashdflIAUHljfahliu78689AYOLIUh"); // Must match the token in your Apps Script.
+          formData.append("filename", fileName);
+
+          // Apps Script Web App URL.
+          fetch("https://script.google.com/macros/s/AKfycbylbuesyi-4dezGMKYQLGQeD4E4fdnihiu2nNkIwnd3QNQPmg9IBTAxiQm52EaI74Th9Q/exec", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: formData.toString(),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                console.log("Image uploaded successfully!");
+              } else {
+                console.error("Upload failed:", data.error);
+              }
+            })
+            .catch((err) => console.error("Error during upload:", err));
         }
       };
+
+      img.onerror = (err) => console.error("Image load error:", err);
     });
 
     onContinue();
