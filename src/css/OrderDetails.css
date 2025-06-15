@@ -71,7 +71,7 @@ a {
 .ModalContent {
   width: 90vw;
   max-width: 400px;
-  min-height: 30vh;
+  min-height: 20vh;
   background-color: white;
   padding: 2rem;
   border-radius: 10px;
