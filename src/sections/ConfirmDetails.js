@@ -1,10 +1,21 @@
-import React from "react";
-import '../css/ConfirmDetails.css';
+import React, { useState } from "react";
 import '../css/CommonStyles.css';
+import '../css/ConfirmDetails.css';
 
-const Section = ({ editedImages, onContinue, orderNum, name, email, onBack }) => {
+const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMessage, engravingSide, selectedFont, onBack }) => {
+
+  const [isConfirmed, setIsConfirmed] = useState(false);
+  const [highlight, setHighlight] = useState(false);
 
   const handleConfirm = () => {
+
+    if (!isConfirmed) {
+      setHighlight(true);
+      // Remove highlight after animation duration (e.g. 1s)
+      setTimeout(() => setHighlight(false), 1000);
+      return;
+    }
+
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
@@ -36,17 +47,19 @@ const Section = ({ editedImages, onContinue, orderNum, name, email, onBack }) =>
           const base64Data = combinedImageDataUrl.replace(/^data:image\/png;base64,/, "");
 
           // Construct a custom file name.
-          // You might want to sanitize name/email strings if necessary.
-          const fileName = `${orderNum}_${name}_${email}.png`;
+          const fileName = `${orderNum}_${locketCode}.png`;
 
           // Prepare the POST request parameters including the secret token and custom filename.
           const formData = new URLSearchParams();
           formData.append("image", base64Data);
           formData.append("token", "LAKSHlkjashdflIAUHljfahliu78689AYOLIUh"); // Must match the token in your Apps Script.
           formData.append("filename", fileName);
+          // Include order details for your Google Sheet
+          formData.append("orderNum", orderNum);
+          formData.append("locketCode", locketCode);
 
           // Apps Script Web App URL.
-          fetch("https://script.google.com/macros/s/AKfycbylbuesyi-4dezGMKYQLGQeD4E4fdnihiu2nNkIwnd3QNQPmg9IBTAxiQm52EaI74Th9Q/exec", {
+          fetch("https://script.google.com/macros/s/AKfycbxGamRR0yXd3CFQVQwYQ7uulR4GLh4WRyJn6YKoFTz2SvBLit9CAW05lNXLjJS1xN0npQ/exec", {
             method: "POST",
             headers: {
               "Content-Type": "application/x-www-form-urlencoded",
@@ -57,6 +70,7 @@ const Section = ({ editedImages, onContinue, orderNum, name, email, onBack }) =>
             .then((data) => {
               if (data.success) {
                 console.log("Image uploaded successfully!");
+                console.log("File URL:", data.fileUrl);
               } else {
                 console.error("Upload failed:", data.error);
               }
@@ -76,6 +90,60 @@ const Section = ({ editedImages, onContinue, orderNum, name, email, onBack }) =>
       <div>
         <h1>Confirm Details</h1>
       </div>
+      
+      <div className="parentDiv">
+        {/* Order Details Row */}
+        <div className="rowDiv order-details">
+          <div>
+            <h4>Order Number</h4>
+            <span>{orderNum}</span>
+          </div>
+
+          {engravingMessage.trim() !== "" && (
+            <div className="EngravingRow">
+              <div>
+                <h4>Engraving</h4>
+                <span>{engravingMessage}</span>
+              </div>
+              <div>
+                <h4>Font</h4>
+                <span>{selectedFont}</span>
+              </div>
+              <div>
+                <h4>Side</h4>
+                <span>{engravingSide}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="edited-images-container">
+          {editedImages && editedImages.length > 0 ? (
+            editedImages.map((image, index) => (
+              <div key={index} className="edited-image-item">
+                <div className="edited-image-wrapper">
+                  <div className="side-text">{image.side}</div>
+                  <img src={image.edited} alt={`Edited ${index + 1}`} className="edited-image" />
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No edited images available</p>
+          )}
+        </div>
+      </div>
+
+      <div className={`confirmSubmission ${highlight ? "highlight" : ""}`}>
+        <label>
+          <input
+            type="checkbox"
+            checked={isConfirmed}
+            onChange={(e) => setIsConfirmed(e.target.checked)}
+          />{" "}
+          I can confirm that I am happy with my submission and you can now proceed with my order.
+        </label>
+      </div>
+
       <div className="buttonDiv">
         <div>
           <input
@@ -92,45 +160,6 @@ const Section = ({ editedImages, onContinue, orderNum, name, email, onBack }) =>
             onClick={handleConfirm}
             className="InputButton"
           />
-        </div>
-      </div>
-
-      <div className="parentDiv">
-        {/* Order Details Row */}
-        <div className="rowDiv order-details">
-          <h1>Order Details</h1>
-
-          <div className="detail-row">
-            <div className="detail-pair">
-              <h4>Order Number</h4>
-              <span>{orderNum}</span>
-            </div>
-
-            <div className="detail-pair">
-              <h4>Name</h4>
-              <span>{name}</span>
-            </div>
-
-            <div className="detail-pair">
-              <h4>Email</h4>
-              <span>{email}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Images Row */}
-        <div className="rowDiv images">
-          <div className="edited-images-container">
-            {editedImages && editedImages.length > 0 ? (
-              editedImages.map((image, index) => (
-                <div key={index} className="edited-image-item">
-                  <img src={image.edited} alt={`Edited ${index + 1}`} className="edited-image" />
-                </div>
-              ))
-            ) : (
-              <p>No edited images available</p>
-            )}
-          </div>
         </div>
       </div>
     </div>

@@ -64,3 +64,16 @@ h1 {
     font-size: 24px;
     margin-bottom: 50px;
   }
+
+  .side-select {
+    width: 120px;           /* same width as buttons */
+    padding: 5px 10px;      /* same padding */
+    margin-top: 10px;       /* spacing consistent with buttons */
+    border: 1px solid #979797;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+    box-sizing: border-box; /* ensure padding is included in width */
+    border-radius: 2px;
+  }

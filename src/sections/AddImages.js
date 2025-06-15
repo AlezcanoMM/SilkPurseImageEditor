@@ -2,22 +2,27 @@ import React, { useState, useEffect } from "react";
 import '../css/AddImages.css';
 import '../css/CommonStyles.css';
 
-const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack, images }) => {
-  const [localImages, setLocalImages] = useState([]); // Local state to manage images within this component
+import CroppingAdvice from '../assets/images/photoAdvice/Cropping.png';
+import LightingAdvice from '../assets/images/photoAdvice/Lighting.png';
+import BnWAdvice from '../assets/images/photoAdvice/BnW.png';
+import SizeAdvice from '../assets/images/photoAdvice/Size.png';
 
-  // Update localImages whenever images prop changes
+
+const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack, images }) => {
+  const [localImages, setLocalImages] = useState([]);
+  const [showAdviceModal, setShowAdviceModal] = useState(false); // Modal visibility
+
   useEffect(() => {
     if (images && images.length > 0) {
-      setLocalImages(images); // Sync with images prop if it has content
+      setLocalImages(images);
     } else {
-      setLocalImages([]); // If images is empty or null, set localImages to an empty array
+      setLocalImages([]);
     }
-  }, [images]); // Run this effect when images prop changes
+  }, [images]);
 
   const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
-
     const files = Array.from(e.dataTransfer.files);
     const validImages = files.filter(file => file.type.startsWith('image/'));
 
@@ -27,11 +32,11 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
-          return { original: imageURL, edited: imageURL }; // Both original and edited versions
+          return { original: imageURL, edited: imageURL };
         });
-        setLocalImages(prevImages => [...prevImages, ...newImages]);
-        setImages(prevImages => [...prevImages, ...newImages]); // Update parent state
-        setEditedImages(prevImages => [...prevImages, ...newImages]);
+        setLocalImages(prev => [...prev, ...newImages]);
+        setImages(prev => [...prev, ...newImages]);
+        setEditedImages(prev => [...prev, ...newImages]);
       }
     } else {
       alert('Please drop valid image files.');
@@ -53,11 +58,11 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
-          return { original: imageURL, edited: imageURL, hasBeenEdited: false }; // Both original and edited versions
+          return { original: imageURL, edited: imageURL, hasBeenEdited: false, side: "left" };
         });
-        setLocalImages(prevImages => [...prevImages, ...newImages]);
-        setImages(prevImages => [...prevImages, ...newImages]); // Update parent state
-        setEditedImages(prevImages => [...prevImages, ...newImages]);
+        setLocalImages(prev => [...prev, ...newImages]);
+        setImages(prev => [...prev, ...newImages]);
+        setEditedImages(prev => [...prev, ...newImages]);
       }
     } else {
       alert('Please select valid image files.');
@@ -66,7 +71,7 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
 
   const handleClick = () => {
     if (localImages.length === 0 || localImages.length > numberImages) {
-      alert('Please upload at least one image and a maximum of ' + numberImages);
+      alert(`Please upload at least one image and a maximum of ${numberImages}`);
     } else {
       onContinue();
     }
@@ -74,16 +79,56 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
 
   return (
     <div className="SectionDetails">
-      <h1 className="ImportTitle">Import your photos</h1>
 
-      <div
-        className="drop-area"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-      >
+      <div className="photoAdviceContainer">
+        <p>Learn how to choose the right photos with our advice to create a beautiful locket necklace.</p>
+        <button className="photoAdviceButton" onClick={() => setShowAdviceModal(true)}>
+          How to choose the right photos?
+        </button>
+      </div>
+
+      {showAdviceModal && (
+        <div className="modalOverlay">
+          <div className="modalContent">
+            <button className="closeModalButton" onClick={() => setShowAdviceModal(false)}>X</button>
+            <div className="adviceGrid">
+              {/* Left column */}
+              <div className="adviceColumn">
+                <div className="adviceBlock">
+                  <h3>Cropping</h3>
+                  <div className="imagePlaceholder"><img src={CroppingAdvice} alt="Cropping"/></div>
+                  <p>Some background is helpful. It might be difficult to work with a photo which is cropped very closely</p>
+                </div>
+                <div className="adviceBlock">
+                  <h3>Lighting</h3>
+                  <div className="imagePlaceholder"><img src={LightingAdvice} alt="Lighting"/></div>
+                  <p>Very pale or overexposed images won't work very well. Neither will very dark images.</p>
+                </div>
+              </div>
+
+              {/* Right column */}
+              <div className="adviceColumn">
+                <div className="adviceBlock">
+                  <h3>Size</h3>
+                  <div className="imagePlaceholder"><img src={SizeAdvice} alt="Size"/></div>
+                  <p>Think of the size of the locket (for tiny lockets we'd recommend no more than 2 faces close together).</p>
+                </div>
+                <div className="adviceBlock">
+                  <h3>Black & White</h3>
+                  <div className="imagePlaceholder"><img src={BnWAdvice} alt="Black and White"/></div>
+                  <p>We wouldn't recommend black and white photos for our tiny SILVER locket, but for most other lockets they should work well!.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <h1 className="ImportTitle">Add Images:</h1>
+
+      <div className="drop-area" onDrop={handleDrop} onDragOver={handleDragOver}>
         <p>Drag & Drop your image(s) here</p>
         <p>OR</p>
-        {/* Hidden file input */}
         <input
           type="file"
           accept="image/*"
@@ -92,7 +137,6 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
           id="file-input"
           className="file-input"
         />
-        {/* Custom button */}
         <label htmlFor="file-input" className="InputButtonFile">
           Import
         </label>
@@ -101,12 +145,7 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
       <div id="image-preview">
         {localImages.length > 0 ? (
           localImages.map((image, index) => (
-            <img
-              key={index}
-              src={image.original} // Display the original image as a preview
-              alt={`Preview ${index}`}
-              className="image-preview"
-            />
+            <img key={index} src={image.original} alt={`Preview ${index}`} className="image-preview" />
           ))
         ) : (
           <p>No images selected</p>
@@ -115,20 +154,10 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
 
       <div className="buttonDiv">
         <div>
-          <input
-            type="button"
-            value="Back"
-            onClick={() => onBack()}
-            className="InputButton"
-          />
+          <input type="button" value="Back" onClick={() => onBack()} className="InputButton" />
         </div>
         <div>
-          <input
-            type="button"
-            value="Confirm"
-            onClick={handleClick}
-            className="InputButton"
-          />
+          <input type="button" value="Confirm" onClick={handleClick} className="InputButton" />
         </div>
       </div>
     </div>

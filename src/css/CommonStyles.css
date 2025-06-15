@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap');
 * {
   font-family: "Antic Didone", sans-serif !important;
-  font-size: 20px;
+  font-size: 18px;
  }
 
  .SectionDetails {
@@ -47,6 +47,12 @@
   .DivColumn {
     display: flex;
     flex-direction: column;
+    gap: 3px;
+  }
+
+  .DivRow {
+    display: flex;
+    flex-direction: row;
     gap: 3px;
   }
 

@@ -2,39 +2,123 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: sans-serif;
 }
 
-/* SilkPurseHeader remains unchanged */
+/* Header */
 .SilkPurseHeader {
   height: 20vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   text-align: center;
   background-color: rgb(255, 255, 255);
+  gap: 8px;
 }
 
-/* Sections container with horizontal layout */
+.SilkPurseHeader img {
+  max-height: 60%;
+  width: auto;
+  object-fit: contain;
+}
+
+.SilkPurseHeader h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Sections container */
 .Sections {
   display: flex;
   width: 100%;
-  height: 80vh; /* 80% of screen height */
+  height: 80vh;
   position: relative;
+  overflow: hidden; /* prevent scrollbars */
 }
 
-/* Styling for each section */
+/* Each Section */
 .Section {
-  width: 100vw; /* Each section takes full width of viewport */
-  height: 100%; /* Take full height */
+  width: 100vw;
+  height: 100%;
   position: absolute;
   top: 0;
-  left: 100%; /* Initially off-screen to the right */
+  left: 100%;
   opacity: 0;
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  overflow-y: auto; /* allow vertical scroll if content overflows */
 }
 
 .Section.active {
-  left: 0; /* Active section is fully visible */
+  left: 0;
   opacity: 1;
+}
+
+/* RESPONSIVE */
+
+/* Tablets and smaller desktops */
+@media (max-width: 1024px) {
+  .SilkPurseHeader {
+    height: 18vh;
+    gap: 6px;
+  }
+
+  .SilkPurseHeader img {
+    max-height: 50%;
+  }
+
+  .SilkPurseHeader h2 {
+    font-size: 1.3rem;
+  }
+
+  .Sections {
+    height: 75vh;
+  }
+}
+
+/* Phones and small tablets */
+@media (max-width: 768px) {
+  .SilkPurseHeader {
+    height: 15vh;
+    gap: 4px;
+    padding: 0 10px;
+  }
+
+  .SilkPurseHeader img {
+    max-height: 45%;
+  }
+
+  .SilkPurseHeader h2 {
+    font-size: 1.1rem;
+  }
+
+  .Sections {
+    height: 70vh;
+  }
+
+  .Section {
+    width: 100vw;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .SilkPurseHeader {
+    height: 12vh;
+    gap: 3px;
+    padding: 0 8px;
+  }
+
+  .SilkPurseHeader img {
+    max-height: 40%;
+  }
+
+  .SilkPurseHeader h2 {
+    font-size: 1rem;
+  }
+
+  .Sections {
+    height: 65vh;
+  }
 }

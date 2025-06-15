@@ -63,6 +63,7 @@
   .edited-image-item {
     width: 100%; /* Ensures the image fits within the grid cell */
     aspect-ratio: 1; /* Maintain a square aspect ratio */
+    position: relative; /* Needed for absolutely positioning the label */
   }
   
   .edited-image {
@@ -71,9 +72,89 @@
     object-fit: cover; /* Crop the image if needed to fit the square */
     border-radius: 8px; /* Optional: Add rounded corners to the images */
   }
-
+  
   .edited-image-item img {
     max-width: 100px;
     max-height: 100px;
     object-fit: cover;
+  }
+
+  .edited-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* centers both text and image horizontally */
+    gap: 6px;             /* spacing between text and image */
+  }
+  
+  .side-text {
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    text-align: center;
+    color: #333;          /* choose a nice readable color */
+  }
+  
+  .side-label {
+    display: block;             /* make it block so it sits above image */
+    text-align: center;         /* center the text horizontally */
+    margin-bottom: 6px;         /* space between label and image */
+    font-size: 0.75rem;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    text-transform: capitalize;
+  }
+  
+
+  .order-details h4 {
+    margin-bottom: 4px; /* Reduce space between h4 and span */
+  }
+  
+  .order-details span {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 0px;
+  }
+
+  .EngravingRow {
+    display: flex;
+    justify-content: space-around;  /* or space-between depending on spacing preference */
+    align-items: center;
+    gap: 40px;                     /* space between each item */
+    margin: 20px 0;
+  }
+  
+  .EngravingRow > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;              /* optional: ensures minimum size */
+  }
+  
+  .EngravingRow h4 {
+    margin: 0 0 6px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .EngravingRow span {
+    font-size: 0.9rem;
+    color: #444;
+  }
+
+  .confirmSubmission {
+    transition: background-color 0.3s ease;
+  }
+  
+  .confirmSubmission.highlight {
+    animation: highlightAnimation 1s ease forwards;
+  }
+  
+  @keyframes highlightAnimation {
+    0% { background-color: #ddedff; }
+    50% { background-color: #afc4ff; }
+    100% { background-color: transparent; }
   }

@@ -1,32 +1,182 @@
+/* Base styles */
 body {
-    overflow-x: hidden;  /* Disables horizontal scrolling */
-    overflow-y: hidden;
-    margin: 0;           /* Removes default margins */
-    padding: 0;          /* Removes default padding */
-  }
+  padding-bottom: 80px; /* slightly bigger to be safe */
+  overflow-x: hidden;
+  margin: 0;
+  font-family: "Antic Didone", sans-serif;
+}
 
 .subtitleDiv {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  max-width: 600px;
+  border-bottom: 1px solid #5e5e5e;
+  margin: 0 auto;
+  padding: 1.5rem; /* use rem for scalability */
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+a {
+  text-decoration: none;
+  color: gray;
+  font-size: 1rem;
+}
+
+.footerContainer {
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+  background-color: white;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.websiteLink a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.websiteLink a:hover {
+  text-decoration: underline;
+}
+
+.copyright {
+  color: gray;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.ModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem; /* add padding so modal doesn't touch edges */
+}
+
+.ModalContent {
+  width: 90vw;
+  max-width: 400px;
+  min-height: 30vh;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.ModalContent p {
+  margin: 0.5rem 0 2.5rem;
+  font-size: 1.1rem;
+}
+
+.ModalButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.ModalButtons button {
+  flex: 1 1 100px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: 100px;
+  max-width: 150px;
+}
+
+.subtitleIntro p,
+.subtitleInstructions p {
+  margin: 0.125rem 0;
+}
+
+.subtitleGap {
+  margin: 0.75rem 0 0.625rem;
+  font-weight: bold;
+}
+
+.PageWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+
+/* Small tablets and large phones */
+@media (max-width: 768px) {
+  .subtitleDiv {
+    width: 80%;
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .ModalContent {
+    width: 95vw;
+    max-width: 350px;
+    padding: 1.5rem;
+  }
+
+  .ModalButtons button {
+    flex: 1 1 45%;
+    min-width: auto;
+  }
+
+  .footerContainer {
+    font-size: 0.9rem;
+    padding: 0.75rem 0;
+  }
+}
+
+/* Phones and very small screens */
+@media (max-width: 480px) {
+  .subtitleDiv {
+    width: 90%;
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .ModalContent {
+    width: 95vw;
+    padding: 1rem;
+  }
+
+  .ModalButtons {
     flex-direction: column;
-    width: 40%; 
-    border-bottom: 1px solid #5e5e5e;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
+    gap: 1rem;
   }
 
-  a {
-    text-decoration: none;  
-    color: gray;           
-    font-size: 16px;       
+  .ModalButtons button {
+    flex: 1 1 100%;
+    min-width: auto;
   }
 
-  .websiteLink {
-    margin-top: 50px;
+  .footerContainer {
+    font-size: 0.85rem;
+    padding: 0.5rem 0;
   }
+}
 
-  .copyright {
-    margin-top: 200px;
-    color: gray;           
-    font-size: 16px;  
-  }

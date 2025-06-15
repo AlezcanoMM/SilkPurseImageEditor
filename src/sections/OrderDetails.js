@@ -1,25 +1,57 @@
+import React, { useState } from 'react';
 import '../css/OrderDetails.css';
 import '../css/CommonStyles.css'
 
-const Section =({ onContinue, setOrderNum, setName, setEmail, orderNum, name, email })=>{
+import heart from '../assets/shapes/WhiteHeart.png';
+
+import Purchases from '../assets/images/FirstPagePurchases.png';
+
+const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setNumberImages, setShape, orderNum, locketCode })=>{
+
+    const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
+        setShowModal(true);
+    };
+
+    const handleConfirm = () => {
+        setNumberImages(20);
+        setShape(heart);
+
+        setShowModal(false);
+        onEngraving();
+    };
+
+    const handleCancel = () => {
+        setNumberImages(20);
+        setShape(heart);
+
+        setShowModal(false);
         onContinue();
     };
 
     return(
         <div className="SectionDetails">
 
-            <div className='subtitleDiv'>
-                <span>This is a free tool to help you resize and send us your images for your locket!</span>
-                <span>Follow these steps to find the correct photos for your Locket.</span>
+            <div className="subtitleDiv">
+                <div className="subtitleIntro">
+                    <p>To continue you will need to let us know your ORDER NUMBER and locket LOCKET CODE.</p>
+                    <p>This will help us locate your order and ensure that we use the correct locket!</p>
+                </div>
+
+                <p className="subtitleGap">How To Find Your Order Number And Locket Code.</p>
+
+                <div className="subtitleInstructions">
+                    <p>Order Number: Profile Or Account &gt; Account &gt; Purchases</p>
+                    <p>Locket Code: Can be found at the end of the product title on the product page.</p>
+                </div>
             </div>
 
             <div>
-                <h1>Order details</h1>
+                <img src={Purchases} alt="Purchase deatils"/>
             </div>
 
-            <div className='DivColumn'>
+            <div className='DivRow'>
                 <input
                     type="text"
                     value={orderNum}
@@ -30,17 +62,9 @@ const Section =({ onContinue, setOrderNum, setName, setEmail, orderNum, name, em
 
                 <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Name"
-                    className='InputField'
-                />
-
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
+                    value={locketCode}
+                    onChange={(e) => setLocketCode(e.target.value)}
+                    placeholder="Locket Code"
                     className='InputField'
                 />
             </div>
@@ -54,14 +78,29 @@ const Section =({ onContinue, setOrderNum, setName, setEmail, orderNum, name, em
                 />
             </div>
 
-            <div className='websiteLink'>
-                <a href="https://silkpursesowsear.com/" target="_blank" rel="noopener noreferrer">Visit our website & social media</a>
+            <div className="footerContainer">
+                <div className='websiteLink'>
+                    <a href="https://silkpursesowsear.com/" target="_blank" rel="noopener noreferrer">Visit our website & social media</a>
+                </div>
+
+                <div className='copyright'>
+                    Copyright © 2025 Silk Purse, Sow's Ear.
+                </div>
             </div>
 
-            <div className='copyright'>
-                Copyright © 2025 Silk Purse, Sow's Ear.
-            </div>
 
+            {/* Popup Modal */}
+            {showModal && (
+                <div className="ModalOverlay">
+                    <div className="ModalContent">
+                    <p>Have you paid for the outside of your locket to be engraved?</p>
+                    <div className="ModalButtons">
+                        <button onClick={handleCancel}>No</button>
+                        <button onClick={handleConfirm}>Yes</button>
+                    </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

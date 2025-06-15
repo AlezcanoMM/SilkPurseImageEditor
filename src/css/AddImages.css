@@ -61,3 +61,103 @@
 .ImportTitle {
   font-size: 24px;
 }
+
+.photoAdviceContainer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.photoAdviceContainer p {
+  margin: 0;
+  margin-bottom: 3px; /* 3px spacing */
+  font-size: 16px;
+}
+
+.photoAdviceButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  height: 80%;
+  cursor: pointer;
+}
+
+.photoAdviceButton:hover {
+  background-color: #f2f2f2;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background-color: #fff;
+  width: 80%;
+  max-width: 900px;
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.closeModalButton {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.adviceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 30px;
+}
+
+.adviceColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.adviceBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  height: 100%;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.imagePlaceholder img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
