@@ -1,17 +1,29 @@
 {
   "files": {
-    "main.css": "/SilkPurseImageEditor/static/css/main.dbf0122c.css",
-    "main.js": "/SilkPurseImageEditor/static/js/main.7f45352e.js",
+    "main.css": "/SilkPurseImageEditor/static/css/main.0cfcee54.css",
+    "main.js": "/SilkPurseImageEditor/static/js/main.994eff8b.js",
     "static/js/453.c4df6758.chunk.js": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js",
-    "static/media/WhiteCircle.png": "/SilkPurseImageEditor/static/media/WhiteCircle.c0f656d6e77bed557e34.png",
-    "static/media/SPTitle.png": "/SilkPurseImageEditor/static/media/SPTitle.9d5c685805400d9cb11c.png",
+    "static/media/MotifEngraving.png": "/SilkPurseImageEditor/static/media/MotifEngraving.8073fad3c57df110e9e8.png",
+    "static/media/giftWrap.jpg": "/SilkPurseImageEditor/static/media/giftWrap.0a0a81f88a9b00c37b71.jpg",
+    "static/media/neckalce.jpg": "/SilkPurseImageEditor/static/media/neckalce.0b06b3d00ee7383830e1.jpg",
+    "static/media/SilkPurseLogo.png": "/SilkPurseImageEditor/static/media/SilkPurseLogo.6b0f5ce909669c721d81.png",
+    "static/media/Cropping.png": "/SilkPurseImageEditor/static/media/Cropping.402a14f2d4463aeed9d0.png",
+    "static/media/FirstPagePurchases.png": "/SilkPurseImageEditor/static/media/FirstPagePurchases.dc0536143403fd1cb2ff.png",
+    "static/media/Lighting.png": "/SilkPurseImageEditor/static/media/Lighting.0fe03fc7dde88258a9a1.png",
+    "static/media/Font101.png": "/SilkPurseImageEditor/static/media/Font101.1eeeaa7ca01c03869d2b.png",
+    "static/media/Font89.png": "/SilkPurseImageEditor/static/media/Font89.f0d6b99a342481552d6d.png",
+    "static/media/Font66.png": "/SilkPurseImageEditor/static/media/Font66.69ae17123202e64fc0d1.png",
+    "static/media/Font212.png": "/SilkPurseImageEditor/static/media/Font212.dc3d9983290988a5e748.png",
+    "static/media/Font22.png": "/SilkPurseImageEditor/static/media/Font22.20c87f20b5a3756f44af.png",
+    "static/media/Size.png": "/SilkPurseImageEditor/static/media/Size.4291f4dca73293d27cc7.png",
+    "static/media/BnW.png": "/SilkPurseImageEditor/static/media/BnW.f5f8922f1298e81e5cfb.png",
     "index.html": "/SilkPurseImageEditor/index.html",
-    "main.dbf0122c.css.map": "/SilkPurseImageEditor/static/css/main.dbf0122c.css.map",
-    "main.7f45352e.js.map": "/SilkPurseImageEditor/static/js/main.7f45352e.js.map",
+    "main.0cfcee54.css.map": "/SilkPurseImageEditor/static/css/main.0cfcee54.css.map",
+    "main.994eff8b.js.map": "/SilkPurseImageEditor/static/js/main.994eff8b.js.map",
     "453.c4df6758.chunk.js.map": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.dbf0122c.css",
-    "static/js/main.7f45352e.js"
+    "static/css/main.0cfcee54.css",
+    "static/js/main.994eff8b.js"
   ]
 }
