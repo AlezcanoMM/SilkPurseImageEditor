@@ -69,12 +69,23 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
     }
   };
 
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const handleClick = () => {
     if (localImages.length === 0 || localImages.length > numberImages) {
       alert(`Please upload at least one image and a maximum of ${numberImages}`);
     } else {
-      onContinue();
+      setShowConfirmModal(true); // Show modal instead of continuing immediately
     }
+  };
+
+  const handleConfirmYes = () => {
+    setShowConfirmModal(false);
+    onContinue(); // Proceed
+  };
+
+  const handleConfirmNo = () => {
+    setShowConfirmModal(false); // Just close the modal
   };
 
   return (
@@ -160,6 +171,18 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
           <input type="button" value="Confirm" onClick={handleClick} className="InputButton" />
         </div>
       </div>
+
+      {showConfirmModal && (
+        <div className="modalOverlay">
+          <div className="modalContent">
+            <p>Have you selected all your photos?</p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
+              <button className="InputButton" onClick={handleConfirmNo}>No</button>
+              <button className="InputButton" onClick={handleConfirmYes}>Yes</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
