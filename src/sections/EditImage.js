@@ -4,6 +4,7 @@ import "../css/CommonStyles.css";
 
 const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const [zoom, setZoom] = useState(1); // Default zoom level
+  const [zoomSlider, setZoomSlider] = useState(0); // range
   const [rotation, setRotation] = useState(0); // Default rotation angle
   const [offsetX, setOffsetX] = useState(0); // Image offset for dragging
   const [offsetY, setOffsetY] = useState(0); // Image offset for dragging
@@ -16,6 +17,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
   const resetState = () => {
     setZoom(1);
+    setZoomSlider(0);
     setRotation(0);
     setOffsetX(0);
     setOffsetY(0);
@@ -30,7 +32,16 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
   // Handle zoom change
   const handleZoomChange = (e) => {
-    setZoom(e.target.value);
+    const sliderValue = parseFloat(e.target.value);
+    setZoomSlider(sliderValue);
+
+    if (sliderValue === 0) {
+      setZoom(1);
+    } else if (sliderValue > 0) {
+      setZoom(sliderValue+1);
+    } else {
+      setZoom(1 / Math.abs(sliderValue-1));
+    }
   };
 
   // Handle rotation change
@@ -178,25 +189,33 @@ const stopDrag = () => {
 
       {/* Controls */}
       <div className="controls">
-        <label>Zoom:</label>
-        <input
-          type="range"
-          min="0.25"
-          max="4"
-          step="0.01"
-          value={zoom}
-          onChange={handleZoomChange}
-        />
+        <div className="control-group">
+          <label htmlFor="zoom">Zoom:</label>
+          <input
+            id="zoom"
+            type="range"
+            min="-6"
+            max="6"
+            step="0.01"
+            value={zoomSlider}
+            onChange={handleZoomChange}
+          />
+        </div>
 
-        <label>Rotate:</label>
-        <input
-          type="range"
-          min="-180"
-          max="180"
-          step="1"
-          value={rotation}
-          onChange={handleRotationChange}
-        />
+        <div className="control-group">
+          <label htmlFor="rotation">Rotate:</label>
+          <input
+            id="rotation"
+            type="range"
+            min="-180"
+            max="180"
+            step="1"
+            value={rotation}
+            onChange={handleRotationChange}
+          />
+        </div>
+
+        <button onClick={resetState} className="reset-button">Reset</button>
       </div>
 
       {/* Buttons */}

@@ -8,7 +8,7 @@ import BnWAdvice from '../assets/images/photoAdvice/BnW.png';
 import SizeAdvice from '../assets/images/photoAdvice/Size.png';
 
 
-const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack, images }) => {
+const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBack, images }) => {
   const [localImages, setLocalImages] = useState([]);
   const [showAdviceModal, setShowAdviceModal] = useState(false); // Modal visibility
 
@@ -27,8 +27,8 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
     const validImages = files.filter(file => file.type.startsWith('image/'));
 
     if (validImages.length > 0) {
-      if (localImages.length + validImages.length > numberImages) {
-        alert(`You can only upload up to ${numberImages} images.`);
+      if (localImages.length + validImages.length > maxNumberImages) {
+        alert(`You can only upload up to ${maxNumberImages} images.`);
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
@@ -53,8 +53,8 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
     const validImages = files.filter(file => file.type.startsWith('image/'));
 
     if (validImages.length > 0) {
-      if (localImages.length + validImages.length > numberImages) {
-        alert(`You can only upload up to ${numberImages} images.`);
+      if (localImages.length + validImages.length > maxNumberImages) {
+        alert(`You can only upload up to ${maxNumberImages} images.`);
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
@@ -72,8 +72,8 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleClick = () => {
-    if (localImages.length === 0 || localImages.length > numberImages) {
-      alert(`Please upload at least one image and a maximum of ${numberImages}`);
+    if (localImages.length === 0 || localImages.length > maxNumberImages) {
+      alert(`Please upload at least one image and a maximum of ${maxNumberImages}`);
     } else {
       setShowConfirmModal(true); // Show modal instead of continuing immediately
     }

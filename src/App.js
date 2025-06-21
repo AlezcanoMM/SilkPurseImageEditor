@@ -17,7 +17,8 @@ function App() {
   const [locketCode, setLocketCode] = useState(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [shape, setShape] = useState(null);
-  const [numberImages, setNumberImages] = useState(0);
+  const [maxNumberImages, setMaxNumberImages] = useState(0);
+  const [maxEngraving, setMaxEngraving] = useState(0);
   const [selectedFont, setSelectedFont] = useState("101");
   const [engravingMessage, setEngravingMessage] = useState("");
   const [images, setImages] = useState([]);
@@ -34,9 +35,9 @@ function App() {
 
   // Sections to display
   const sections = [
-    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setNumberImages={setNumberImages} setShape={setShape} orderNum={orderNum} locketCode={locketCode} />,
+    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setMaxNumberImages={setMaxNumberImages} setShape={setShape} orderNum={orderNum} locketCode={locketCode} />,
     <Engravings onContinue={() => setCurrentSection(2)} onBack={() => setCurrentSection(0)} selectedFont={selectedFont} engravingMessage={engravingMessage} setSelectedFont={setSelectedFont} setEngravingMessage={setEngravingMessage}/>,
-    <AddImages numberImages={numberImages} onContinue={() => setCurrentSection(3)} onBack={() => setCurrentSection(0)} setImages={setImages} setEditedImages={setEditedImages} images={images}/>,
+    <AddImages maxNumberImages={maxNumberImages} onContinue={() => setCurrentSection(3)} onBack={() => setCurrentSection(0)} setImages={setImages} setEditedImages={setEditedImages} images={images}/>,
     <EditImages setImageToEdit={setImageToEdit} images={images} setImages={setImages} editedImages={editedImages} setEditedImages={setEditedImages} onEditImage={() => setCurrentSection(4)} onBack={() => setCurrentSection(2)} onContinue={() => setCurrentSection(5)} />,
     <EditImage imageToEdit={imageToEdit} shape={shape} onSave={handleSaveImage} onCancel={() => setCurrentSection(3)} />,
     <ConfirmDetails orderNum={orderNum} locketCode={locketCode} engravingMessage={engravingMessage} selectedFont={selectedFont} editedImages={editedImages} onContinue={() => setCurrentSection(6)} onBack={() => setCurrentSection(3)}/>,

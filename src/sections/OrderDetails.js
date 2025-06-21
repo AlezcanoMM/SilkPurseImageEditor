@@ -6,7 +6,7 @@ import heart from '../assets/shapes/WhiteHeart.png';
 
 import Purchases from '../assets/images/FirstPagePurchases.png';
 
-const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setNumberImages, setShape, orderNum, locketCode })=>{
+const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setMaxNumberImages, setShape, orderNum, locketCode })=>{
 
     const [showModal, setShowModal] = useState(false);
 
@@ -23,7 +23,7 @@ const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setNumber
     };
 
     const handleConfirm = () => {
-        setNumberImages(20);
+        setMaxNumberImages(20);
         setShape(heart);
 
         setShowModal(false);
@@ -31,7 +31,7 @@ const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setNumber
     };
 
     const handleCancel = () => {
-        setNumberImages(20);
+        setMaxNumberImages(20);
         setShape(heart);
 
         setShowModal(false);
