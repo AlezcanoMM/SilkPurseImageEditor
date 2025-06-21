@@ -37,28 +37,31 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const handleRotationChange = (e) => setRotation(e.target.value);
 
   // Start dragging
-  const startDrag = (e) => {
-    // Only start drag if mouse button is pressed
-    setDragging(true);
-    setStartX(e.clientX - offsetX);
-    setStartY(e.clientY - offsetY);
-  };
+const startDrag = (e) => {
+  e.preventDefault();
+  setDragging(true);
+  setStartX(e.clientX);
+  setStartY(e.clientY);
+};
 
-  // Stop dragging
-  const stopDrag = () => {
-    setDragging(false); // Stop dragging on mouseup or mouseleave
-  };
+// Drag image while holding down the mouse
+const dragImage = (e) => {
+  if (!dragging) return;
 
-  // Drag image
-  const dragImage = (e) => {
-    if (!dragging) return; // If not dragging, don't update position
+  const dx = e.clientX - startX;
+  const dy = e.clientY - startY;
 
-    const newOffsetX = e.clientX - startX;
-    const newOffsetY = e.clientY - startY;
+  setStartX(e.clientX);
+  setStartY(e.clientY);
 
-    setOffsetX(newOffsetX);
-    setOffsetY(newOffsetY);
-  };
+  setOffsetX(prev => prev + dx);
+  setOffsetY(prev => prev + dy);
+};
+
+// Stop dragging
+const stopDrag = () => {
+  setDragging(false);
+};
 
   const handleSave = () => {
     const canvas = canvasRef.current;
@@ -151,7 +154,12 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
         }}
       >
         {/* Editable image */}
-        <div className="editable-image-container">
+        <div
+          className="editable-image-container"
+          onMouseMove={dragImage}
+          onMouseUp={stopDrag}
+          onMouseLeave={stopDrag}
+        >
           <img
             ref={imageRef}
             src={imageToEdit?.original}
@@ -161,9 +169,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
               transform: `translate(${offsetX}px, ${offsetY}px) scale(${zoom}) rotate(${rotation}deg)`,
             }}
             onMouseDown={startDrag}
-            onMouseMove={dragImage}
-            onMouseUp={stopDrag}
-            onMouseLeave={stopDrag}
           />
         </div>
 

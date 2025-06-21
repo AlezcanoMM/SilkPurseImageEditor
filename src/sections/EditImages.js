@@ -30,20 +30,6 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
     onContinue();
   };
 
-  const handleSideChange = (index, newSide) => {
-    setImages(prev => {
-      const updated = [...prev];
-      updated[index] = { ...updated[index], side: newSide };
-      return updated;
-    });
-  
-    setEditedImages(prev => {
-      const updated = [...prev];
-      updated[index] = { ...updated[index], side: newSide };
-      return updated;
-    });
-  };
-
   return (
     <div className="SectionDetails">
       <h1 className="EditImagesTitle">Edit your photos</h1>
@@ -58,15 +44,6 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
                   alt={`Preview ${index}`}
                   className="image-preview"
                 />
-
-                <select
-                  className="side-select"
-                  value={image.side || "left"}   // you can manage state accordingly
-                  onChange={(e) => handleSideChange(index, e.target.value)}
-                >
-                  <option value="left">Left</option>
-                  <option value="right">Right</option>
-                </select>
 
                 <button onClick={() => handleEdit(index)} className="edit-button">
                   Edit

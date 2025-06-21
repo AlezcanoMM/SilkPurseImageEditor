@@ -58,7 +58,7 @@ const Section = ({ onContinue, setImages, numberImages, setEditedImages, onBack,
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
-          return { original: imageURL, edited: imageURL, hasBeenEdited: false, side: "left" };
+          return { original: imageURL, edited: imageURL, hasBeenEdited: false };
         });
         setLocalImages(prev => [...prev, ...newImages]);
         setImages(prev => [...prev, ...newImages]);

@@ -11,6 +11,14 @@ const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setNumber
     const [showModal, setShowModal] = useState(false);
 
     const handleClick = () => {
+        if (
+            orderNum === null || orderNum.trim() === "" ||
+            locketCode === null || locketCode.trim() === ""
+        ) {
+            alert("Please enter both the Order Number and Locket Code before continuing.");
+            return;
+        }
+
         setShowModal(true);
     };
 

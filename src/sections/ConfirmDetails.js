@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
-const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMessage, engravingSide, selectedFont, onBack }) => {
+const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMessage, selectedFont, onBack }) => {
 
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [highlight, setHighlight] = useState(false);
@@ -108,10 +108,6 @@ const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMess
               <div>
                 <h4>Font</h4>
                 <span>{selectedFont}</span>
-              </div>
-              <div>
-                <h4>Side</h4>
-                <span>{engravingSide}</span>
               </div>
             </div>
           )}
