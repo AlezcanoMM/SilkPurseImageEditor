@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SilkPurseImageEditor/static/css/main.a33eaa93.css",
-    "main.js": "/SilkPurseImageEditor/static/js/main.1a319897.js",
+    "main.css": "/SilkPurseImageEditor/static/css/main.ccd2274a.css",
+    "main.js": "/SilkPurseImageEditor/static/js/main.dfb3e4b0.js",
     "static/js/453.c4df6758.chunk.js": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js",
     "static/media/MotifEngraving.png": "/SilkPurseImageEditor/static/media/MotifEngraving.8073fad3c57df110e9e8.png",
     "static/media/giftWrap.jpg": "/SilkPurseImageEditor/static/media/giftWrap.0a0a81f88a9b00c37b71.jpg",
@@ -18,12 +18,12 @@
     "static/media/Size.png": "/SilkPurseImageEditor/static/media/Size.4291f4dca73293d27cc7.png",
     "static/media/BnW.png": "/SilkPurseImageEditor/static/media/BnW.f5f8922f1298e81e5cfb.png",
     "index.html": "/SilkPurseImageEditor/index.html",
-    "main.a33eaa93.css.map": "/SilkPurseImageEditor/static/css/main.a33eaa93.css.map",
-    "main.1a319897.js.map": "/SilkPurseImageEditor/static/js/main.1a319897.js.map",
+    "main.ccd2274a.css.map": "/SilkPurseImageEditor/static/css/main.ccd2274a.css.map",
+    "main.dfb3e4b0.js.map": "/SilkPurseImageEditor/static/js/main.dfb3e4b0.js.map",
     "453.c4df6758.chunk.js.map": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a33eaa93.css",
-    "static/js/main.1a319897.js"
+    "static/css/main.ccd2274a.css",
+    "static/js/main.dfb3e4b0.js"
   ]
 }
