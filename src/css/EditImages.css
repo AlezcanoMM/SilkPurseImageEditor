@@ -73,6 +73,12 @@ button {
   font-size: 0.85rem;
 }
 
+.edit-button.edited {
+  background-color: rgba(184, 238, 184, 0.3);
+  border-color: #78a578;
+  transition: background-color 0.3s ease;
+}
+
 /* ------------------------------
    Responsive adjustments
 ------------------------------ */

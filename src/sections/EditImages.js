@@ -45,7 +45,10 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
                   className="image-preview"
                 />
 
-                <button onClick={() => handleEdit(index)} className="edit-button">
+                <button
+                  onClick={() => handleEdit(index)}
+                  className={`edit-button ${image.hasBeenEdited ? "edited" : ""}`}
+                >
                   Edit
                 </button>
 

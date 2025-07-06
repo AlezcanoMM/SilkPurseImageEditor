@@ -48,31 +48,59 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const handleRotationChange = (e) => setRotation(e.target.value);
 
   // Start dragging
-const startDrag = (e) => {
-  e.preventDefault();
-  setDragging(true);
-  setStartX(e.clientX);
-  setStartY(e.clientY);
-};
+  const startDrag = (e) => {
+    e.preventDefault();
+    setDragging(true);
+    setStartX(e.clientX);
+    setStartY(e.clientY);
+  };
 
-// Drag image while holding down the mouse
-const dragImage = (e) => {
-  if (!dragging) return;
+  // Drag image while holding down the mouse
+  const dragImage = (e) => {
+    if (!dragging) return;
 
-  const dx = e.clientX - startX;
-  const dy = e.clientY - startY;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
 
-  setStartX(e.clientX);
-  setStartY(e.clientY);
+    setStartX(e.clientX);
+    setStartY(e.clientY);
 
-  setOffsetX(prev => prev + dx);
-  setOffsetY(prev => prev + dy);
-};
+    setOffsetX(prev => prev + dx);
+    setOffsetY(prev => prev + dy);
+  };
 
-// Stop dragging
-const stopDrag = () => {
-  setDragging(false);
-};
+  // Stop dragging
+  const stopDrag = () => {
+    setDragging(false);
+  };
+
+  //PHONE AND TOUCH EVENTS
+  // Start dragging (touch)
+  const startTouchDrag = (e) => {
+    const touch = e.touches[0];
+    setDragging(true);
+    setStartX(touch.clientX);
+    setStartY(touch.clientY);
+  };
+
+  // Drag image (touch)
+  const touchDragImage = (e) => {
+    if (!dragging) return;
+    const touch = e.touches[0];
+    const dx = touch.clientX - startX;
+    const dy = touch.clientY - startY;
+
+    setStartX(touch.clientX);
+    setStartY(touch.clientY);
+
+    setOffsetX((prev) => prev + dx);
+    setOffsetY((prev) => prev + dy);
+  };
+
+  // Stop dragging (touch)
+  const stopTouchDrag = () => {
+    setDragging(false);
+  };
 
   const handleSave = () => {
     const canvas = canvasRef.current;
@@ -172,6 +200,9 @@ const stopDrag = () => {
           onMouseMove={dragImage}
           onMouseUp={stopDrag}
           onMouseLeave={stopDrag}
+          onTouchMove={touchDragImage}
+          onTouchEnd={stopTouchDrag}
+          onTouchCancel={stopTouchDrag}
         >
           <img
             ref={imageRef}
@@ -182,6 +213,7 @@ const stopDrag = () => {
               transform: `translate(${offsetX}px, ${offsetY}px) scale(${zoom}) rotate(${rotation}deg)`,
             }}
             onMouseDown={startDrag}
+            onTouchStart={startTouchDrag}
           />
         </div>
 
