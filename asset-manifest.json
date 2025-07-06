@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/SilkPurseImageEditor/static/css/main.7c3fa273.css",
+    "main.css": "/SilkPurseImageEditor/static/css/main.51499eeb.css",
     "main.js": "/SilkPurseImageEditor/static/js/main.5d84f495.js",
     "static/js/453.51224a5c.chunk.js": "/SilkPurseImageEditor/static/js/453.51224a5c.chunk.js",
     "static/media/MotifEngraving.png": "/SilkPurseImageEditor/static/media/MotifEngraving.8073fad3c57df110e9e8.png",
@@ -49,12 +49,12 @@
     "static/media/LKSP-10_Horse Head Silver_2_E.png": "/SilkPurseImageEditor/static/media/LKSP-10_Horse Head Silver_2_E.8ba0950c7d4a043f2007.png",
     "static/media/LKGP-66_Large Oval Keepsake_1_E.png": "/SilkPurseImageEditor/static/media/LKGP-66_Large Oval Keepsake_1_E.ac3863ac18d8e54cff04.png",
     "index.html": "/SilkPurseImageEditor/index.html",
-    "main.7c3fa273.css.map": "/SilkPurseImageEditor/static/css/main.7c3fa273.css.map",
+    "main.51499eeb.css.map": "/SilkPurseImageEditor/static/css/main.51499eeb.css.map",
     "main.5d84f495.js.map": "/SilkPurseImageEditor/static/js/main.5d84f495.js.map",
     "453.51224a5c.chunk.js.map": "/SilkPurseImageEditor/static/js/453.51224a5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7c3fa273.css",
+    "static/css/main.51499eeb.css",
     "static/js/main.5d84f495.js"
   ]
 }
