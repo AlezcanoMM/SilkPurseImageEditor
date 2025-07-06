@@ -4,22 +4,28 @@
   width: 40%;
   border-bottom: 1px solid #5e5e5e;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.25rem; /* 20px */
   text-align: center;
+  box-sizing: border-box;
 }
 
-/* Container for the entire editing area */
 .edit-image-container {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 20px auto;
-  overflow: hidden;
+  width: 18.75rem; /* ~300px */
+  height: 18.75rem; /* ~300px */
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 300px; /* Add a minimum height to avoid it from shrinking too much */
-  box-sizing: border-box; /* Ensures padding does not affect width/height */
+  position: relative;
+  overflow: hidden;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  mask-mode: alpha;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-mode: alpha;
+  box-sizing: border-box;
 }
 
 /* Static shape (mask) in the center */
@@ -53,6 +59,7 @@
   display: flex;
   justify-content: center;
   align-items: center; /* Center the image inside the container */
+  box-sizing: border-box;
 }
 
 /* Editable image */
@@ -73,7 +80,8 @@
   margin: 2rem auto;
   gap: 1.5rem;
   width: 90%;
-  max-width: 500px;
+  max-width: 31.25rem; /* 500px */
+  box-sizing: border-box;
 }
 
 .control-group {
@@ -92,45 +100,48 @@
   width: 100%;
   height: 2rem;
   accent-color: #242424;
+  box-sizing: border-box;
 }
 
 /* Buttons container */
 .buttons {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
-  gap: 10px;
+  margin-top: 1.25rem; /* 20px */
+  gap: 0.625rem; /* 10px */
   flex-shrink: 0; /* Prevent buttons from shrinking */
+  box-sizing: border-box;
 }
 
 /* Buttons styling */
 .cancel-button,
 .save-button {
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem; /* 10px 20px */
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
+  font-size: 1rem;
+  margin-left: 0.625rem;
+  margin-right: 0.625rem;
+  margin-top: 0.625rem;
+  box-sizing: border-box;
+  border-radius: 3px;
+  flex: 1 1 auto;
+  max-width: 7.5rem; /* ~120px */
+  text-align: center;
 }
 
 .cancel-button {
   background-color: rgb(194, 194, 194);
   color: rgb(0, 0, 0);
   border: 1px solid #474747;
-  padding: 5px 10px;
-  width: 120px;
-  cursor: pointer;
+  padding: 0.3125rem 0.625rem; /* 5px 10px */
 }
 
 .save-button {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   border: 1px solid #979797;
-  padding: 5px 10px;
-  width: 120px;
-  cursor: pointer;
+  padding: 0.3125rem 0.625rem; /* 5px 10px */
 }
 
 .cancel-button:hover {
@@ -147,10 +158,11 @@
   color: rgb(0, 0, 0);
   border: 1px solid #777;
   padding: 0.5rem 1rem;
-  width: 100%;
+  width: 30%;
   font-size: 1rem;
   cursor: pointer;
-  width: 30%;
+  box-sizing: border-box;
+  border-radius: 3px;
 }
 
 .reset-button:hover {
@@ -158,24 +170,56 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 480px) {
-  .edit-image-container {
-    width: 90%;
-    height: 250px;
-    min-height: 250px; /* Ensure the image container is not too small */
+@media (max-width: 768px) {
+  .subtitleDiv {
+    width: 70%;
+    padding: 1rem;
   }
 
-  .controls input[type="range"] {
-    width: 100%;
+  .edit-image-container {
+    width: 15rem; /* ~240px */
+    height: 15rem; /* ~240px */
+  }
+
+  .buttons {
+    gap: 0.5rem;
+  }
+
+  .cancel-button,
+  .save-button {
+    max-width: none;
+    flex: 1 1 45%;
+  }
+
+  .reset-button {
+    width: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .subtitleDiv {
+    width: 90%;
+    padding: 0.625rem;
+  }
+
+  .edit-image-container {
+    width: 90%;
+    height: 12.5rem; /* 200px */
+    min-height: 12.5rem;
   }
 
   .buttons {
     flex-direction: column;
-    gap: 10px;
+    gap: 0.75rem;
   }
 
-  .subtitleDiv {
-    width: 100%; /* Ensure subtitle div takes full width */
-    padding: 10px; /* Add padding to prevent squishing */
+  .cancel-button,
+  .save-button {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .reset-button {
+    width: 100%;
   }
 }

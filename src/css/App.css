@@ -1,3 +1,4 @@
+/* Reset and base styles */
 body, html {
   margin: 0;
   padding: 0;
@@ -7,7 +8,7 @@ body, html {
 
 /* Header */
 .SilkPurseHeader {
-  height: 20vh;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,10 +17,11 @@ body, html {
   text-align: center;
   background-color: rgb(255, 255, 255);
   gap: 8px;
+  border-bottom: 1px solid #ccc; /* Optional visual separation */
 }
 
 .SilkPurseHeader img {
-  max-height: 60%;
+  max-height: 60px;
   width: auto;
   object-fit: contain;
 }
@@ -32,27 +34,26 @@ body, html {
 /* Sections container */
 .Sections {
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 80vh;
   position: relative;
-  overflow: hidden; /* prevent scrollbars */
 }
 
 /* Each Section */
 .Section {
-  width: 100vw;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 100%;
+  width: 100%;
+  position: relative;
   opacity: 0;
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
-  overflow-y: auto; /* allow vertical scroll if content overflows */
+  transition: opacity 0.5s ease-in-out;
+  display: none; /* Only show active section */
+  padding: 20px; /* Optional padding inside each section */
+  box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .Section.active {
-  left: 0;
   opacity: 1;
+  display: block;
 }
 
 /* RESPONSIVE */
@@ -60,65 +61,59 @@ body, html {
 /* Tablets and smaller desktops */
 @media (max-width: 1024px) {
   .SilkPurseHeader {
-    height: 18vh;
+    padding: 16px 0;
     gap: 6px;
   }
 
   .SilkPurseHeader img {
-    max-height: 50%;
+    max-height: 50px;
   }
 
   .SilkPurseHeader h2 {
     font-size: 1.3rem;
   }
 
-  .Sections {
-    height: 75vh;
+  .Section {
+    padding: 16px;
   }
 }
 
 /* Phones and small tablets */
 @media (max-width: 768px) {
   .SilkPurseHeader {
-    height: 15vh;
+    padding: 12px 10px;
     gap: 4px;
-    padding: 0 10px;
   }
 
   .SilkPurseHeader img {
-    max-height: 45%;
+    max-height: 45px;
   }
 
   .SilkPurseHeader h2 {
     font-size: 1.1rem;
   }
 
-  .Sections {
-    height: 70vh;
-  }
-
   .Section {
-    width: 100vw;
+    padding: 12px;
   }
 }
 
 /* Very small phones */
 @media (max-width: 480px) {
   .SilkPurseHeader {
-    height: 12vh;
+    padding: 10px 8px;
     gap: 3px;
-    padding: 0 8px;
   }
 
   .SilkPurseHeader img {
-    max-height: 40%;
+    max-height: 40px;
   }
 
   .SilkPurseHeader h2 {
     font-size: 1rem;
   }
 
-  .Sections {
-    height: 65vh;
+  .Section {
+    padding: 10px;
   }
 }

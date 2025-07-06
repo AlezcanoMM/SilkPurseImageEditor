@@ -1,79 +1,115 @@
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .image-preview-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 50px;
-  }
-  
-  .image-preview-row {
-    display: flex;
-    flex-direction: row; /* Ensure items are laid out in a row */
-    flex-wrap: wrap; /* Wrap items to the next line if necessary */
-    gap: 10px; /* Add space between items */
-  }
-  
+h1,
+.EditImagesTitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.image-preview-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.image-preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 7.5rem; /* responsive equivalent to ~120px */
+  box-sizing: border-box;
+}
+
+.image-preview {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+/* Buttons */
+button {
+  margin-top: 0.3rem;
+}
+
+.edit-button,
+.delete-button,
+.side-select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+/* Specific styles */
+.edit-button {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #979797;
+  margin-top: 0.8rem;
+}
+
+.delete-button {
+  background-color: #c2c2c2;
+  color: #000;
+  border: 1px solid #474747;
+  margin-top: 0.6rem;
+}
+
+.side-select {
+  margin-top: 0.6rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #979797;
+  font-size: 0.85rem;
+}
+
+/* ------------------------------
+   Responsive adjustments
+------------------------------ */
+
+@media (max-width: 768px) {
   .image-item {
-    display: flex;
-    flex-direction: column; /* Align image and button vertically */
-    align-items: center; /* Center the content within each image-item */
-    width: 120px; /* Set a fixed width for each image item */
-  }
-  
-  .image-preview {
-    width: 120px; /* Constrain image width to 120px */
-    height: 120px; /* Constrain image height to 120px */
-    object-fit: cover; /* Ensure the image maintains its aspect ratio and fills the 120px by 120px box */
-  }
-  
-  button {
-    margin-top: 5px; /* Space between the image and the button */
-  }
-  
-  .edit-button, .delete-button {
-    width: 100%; /* Ensure buttons take up the full width of the container */
-    padding: 8px 0; /* Add padding to the buttons for better spacing */
-    margin-top: 5px;
-  }
-  
-  .edit-button {
-    margin-top: 15px;
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border: 1px solid #979797;  
-    padding: 5px 10px;
-    width: 120px;
-    cursor: pointer;
+    width: 6rem;
   }
 
-  .delete-button {
-    margin-top: 10px;
-    background-color: rgb(194, 194, 194);
-    color: rgb(0, 0, 0);
-    border: 1px solid #474747;  
-    padding: 5px 10px;
-    width: 120px;
-    cursor: pointer;
-  }
-
-  .EditImagesTitle {
-    font-size: 24px;
-    margin-bottom: 50px;
-  }
-
+  .edit-button,
+  .delete-button,
   .side-select {
-    width: 120px;           /* same width as buttons */
-    padding: 5px 10px;      /* same padding */
-    margin-top: 10px;       /* spacing consistent with buttons */
-    border: 1px solid #979797;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    font-size: 14px;
-    box-sizing: border-box; /* ensure padding is included in width */
-    border-radius: 2px;
+    font-size: 0.8rem;
+    padding: 0.4rem;
   }
+
+  h1,
+  .EditImagesTitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-item {
+    width: 5rem;
+  }
+
+  .edit-button,
+  .delete-button,
+  .side-select {
+    font-size: 0.75rem;
+    padding: 0.35rem;
+  }
+
+  h1,
+  .EditImagesTitle {
+    font-size: 1.1rem;
+  }
+}

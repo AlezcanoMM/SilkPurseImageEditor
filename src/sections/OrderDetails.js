@@ -1,147 +1,167 @@
 import React, { useState } from 'react';
 import '../css/OrderDetails.css';
-import '../css/CommonStyles.css'
+import '../css/CommonStyles.css';
 
 import shapes from '../assets/shapes.json';
-
 import Purchases from '../assets/images/FirstPagePurchases.png';
 
-const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setMaxNumberImages, setShape, orderNum, locketCode, setLocketName, setEngravingAllowed, shape })=>{
+//Import all images from src/assets/shapes dynamically
+const importAll = (r) => {
+  let images = {};
+  r.keys().forEach((key) => {
+    const filename = key.replace('./', '');
+    images[filename] = r(key);
+  });
+  return images;
+};
 
-    const [showModal, setShowModal] = useState(false);
+//This will give you a map of { "filename.jpg": resolvedImportPath }
+const shapeImages = importAll(require.context('../assets/shapes', false, /\.(png|jpe?g)$/));
 
-    const handleClick = () => {
-        if (
-            orderNum === null || orderNum.trim() === "" ||
-            locketCode === null || locketCode.trim() === ""
-        ) {
-            alert("Please enter both the Order Number and Locket Code before continuing.");
-            return;
-        }
+const Section = ({
+  onContinue,
+  onEngraving,
+  setOrderNum,
+  setLocketCode,
+  setMaxNumberImages,
+  setShape,
+  orderNum,
+  locketCode,
+  setLocketName,
+  setEngravingAllowed,
+  shape
+}) => {
+  const [showModal, setShowModal] = useState(false);
 
-        handleConfirm()
-        //setShowModal(true);
-    };
+  const handleClick = () => {
+    if (!orderNum?.trim() || !locketCode?.trim()) {
+      alert("Please enter both the Order Number and Locket Code before continuing.");
+      return;
+    }
 
-    const handleConfirm = () => {
-        const normalizedCode = locketCode.trim().toUpperCase();
+    handleConfirm();
+  };
 
-        // Find first key in shapes.json that starts with the given code
-        const matchingKey = Object.keys(shapes).find(key =>
-            key.toUpperCase().startsWith(normalizedCode)
-        );
+  const handleConfirm = () => {
+    const normalizedCode = locketCode.trim().toUpperCase();
 
-        if (!matchingKey) {
-            alert("We couldn't find a matching shape for this locket code.");
-            return;
-        }
+    const matchingKey = Object.keys(shapes).find(key =>
+      key.toUpperCase().startsWith(normalizedCode)
+    );
 
-        try {
-            // Extract metadata from the key
-            const [code, name, numImages, engrave] = matchingKey
-            .replace('.png', '')
-            .replace('.jpg', '')
-            .split('_');
+    if (!matchingKey) {
+      alert("We couldn't find a matching shape for this locket code.");
+      return;
+    }
 
-            // Use the path from the JSON directly — it's relative to /public
-            const imagePath = shapes[matchingKey]; // e.g. "/assets/shapes/LKGP-117_Moon Bracelet_2_E.jpg"
-            const fullUrl = process.env.PUBLIC_URL + imagePath;
+    try {
+      const [code, name, numImages, engrave] = matchingKey
+        .replace('.png', '')
+        .replace('.jpg', '')
+        .split('_');
 
-            setShape(fullUrl); //Set the shape as the image URL
-            setLocketName(name);
-            setMaxNumberImages(parseInt(numImages, 10));
-            setEngravingAllowed(engrave === 'E');
+      const fullPath = shapes[matchingKey]; // e.g. "/assets/shapes/FILENAME.jpg"
+      const filename = fullPath.split('/').pop(); // e.g. "LKGP-117_Moon Bracelet_2_E.jpg"
 
-            // Log for debugging
-            console.log("Matched Key:", matchingKey);
-            console.log("Image Path:", fullUrl);
-            console.log("Parsed Name:", name);
-            console.log("Parsed Num Images:", parseInt(numImages, 10));
-            console.log("Engraving Allowed:", engrave === 'E');
+      const importedImage = shapeImages[filename];
 
-            onContinue(); // Or onEngraving();
-        } catch (err) {
-            console.error("Error extracting shape metadata:", err);
-            alert("There was a problem processing your locket. Please try again.");
-        }
-    };
+      if (!importedImage) {
+        throw new Error(`Image "${filename}" not found in src/assets/shapes`);
+      }
 
-    const handleCancel = () => {
+      setShape(importedImage);
+      setLocketName(name);
+      setMaxNumberImages(parseInt(numImages, 10));
+      setEngravingAllowed(engrave === 'E' || engrave === 'e');
 
-    };
+      // Debug logs
+      console.log("Matched Key:", matchingKey);
+      console.log("Parsed Name:", name);
+      console.log("Num Images:", numImages);
+      console.log("Engraving Allowed:", engrave === 'E');
+      console.log("Shape URL:", importedImage);
 
-    return(
-        <div className="SectionDetails">
+      if(engrave === 'E' || engrave === 'e') {
+        setShowModal(true);
+      } else {
+        onContinue();
+      }
+    } catch (err) {
+      console.error("Error processing shape image:", err);
+      alert("There was a problem processing your locket. Please try again.");
+    }
+  };
 
-            <div className="subtitleDiv">
-                <div className="subtitleIntro">
-                    <p>To continue you will need to let us know your ORDER NUMBER and locket LOCKET CODE.</p>
-                    <p>This will help us locate your order and ensure that we use the correct locket!</p>
-                </div>
-
-                <p className="subtitleGap">How To Find Your Order Number And Locket Code.</p>
-
-                <div className="subtitleInstructions">
-                    <p>Order Number: Profile Or Account &gt; Account &gt; Purchases</p>
-                    <p>Locket Code: Can be found at the end of the product title on the product page.</p>
-                </div>
-            </div>
-
-            <div>
-                <img src={Purchases} alt="Purchase deatils"/>
-            </div>
-
-            <div className='DivRow'>
-                <input
-                    type="text"
-                    value={orderNum}
-                    onChange={(e) => setOrderNum(e.target.value)}
-                    placeholder="Order Number"
-                    className='InputField'
-                />
-
-                <input
-                    type="text"
-                    value={locketCode}
-                    onChange={(e) => setLocketCode(e.target.value)}
-                    placeholder="Locket Code"
-                    className='InputField'
-                />
-            </div>
-
-            <div>
-                <input
-                    type="button"
-                    value="Continue"
-                    onClick={handleClick}
-                    className='InputButton'
-                />
-            </div>
-
-            <div className="footerContainer">
-                <div className='websiteLink'>
-                    <a href="https://silkpursesowsear.com/" target="_blank" rel="noopener noreferrer">Visit our website & social media</a>
-                </div>
-
-                <div className='copyright'>
-                    Copyright © 2025 Silk Purse, Sow's Ear.
-                </div>
-            </div>
-
-            {/* Popup Modal */}
-            {showModal && (
-                <div className="ModalOverlay">
-                    <div className="ModalContent">
-                    <p>Have you paid for the outside of your locket to be engraved?</p>
-                    <div className="ModalButtons">
-                        <button onClick={handleCancel}>No</button>
-                        <button onClick={handleConfirm}>Yes</button>
-                    </div>
-                    </div>
-                </div>
-            )}
+  return (
+    <div className="SectionDetails">
+      <div className="subtitleDiv">
+        <div className="subtitleIntro">
+          <p>To continue you will need to let us know your ORDER NUMBER and locket LOCKET CODE.</p>
+          <p>This will help us locate your order and ensure that we use the correct locket!</p>
         </div>
-    )
-}
+
+        <p className="subtitleGap">How To Find Your Order Number And Locket Code.</p>
+
+        <div className="subtitleInstructions">
+          <p>Order Number: Profile Or Account &gt; Account &gt; Purchases</p>
+          <p>Locket Code: Can be found at the end of the product title on the product page.</p>
+        </div>
+      </div>
+
+      <div>
+        <img src={Purchases} alt="Purchase details"/>
+      </div>
+
+      <div className='DivRow'>
+        <input
+          type="text"
+          value={orderNum}
+          onChange={(e) => setOrderNum(e.target.value)}
+          placeholder="Order Number"
+          className='InputField'
+        />
+
+        <input
+          type="text"
+          value={locketCode}
+          onChange={(e) => setLocketCode(e.target.value)}
+          placeholder="Locket Code"
+          className='InputField'
+        />
+      </div>
+
+      <div>
+        <input
+          type="button"
+          value="Continue"
+          onClick={handleClick}
+          className='InputButton'
+        />
+      </div>
+
+      <div className="footerContainer">
+        <div className='websiteLink'>
+          <a href="https://silkpursesowsear.com/" target="_blank" rel="noopener noreferrer">Visit our website & social media</a>
+        </div>
+
+        <div className='copyright'>
+          Copyright © 2025 Silk Purse, Sow's Ear.
+        </div>
+      </div>
+
+      {showModal && (
+        <div className="ModalOverlay">
+          <div className="ModalContent">
+            <p>Have you paid for the outside of your locket to be engraved?</p>
+            <div className="ModalButtons">
+              <button onClick={onContinue}>No</button>
+              <button onClick={onEngraving}>Yes</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Section;

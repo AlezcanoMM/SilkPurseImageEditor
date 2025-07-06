@@ -99,8 +99,8 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       </div>
 
       {showAdviceModal && (
-        <div className="modalOverlay">
-          <div className="modalContent">
+        <div className="modalOverlay1">
+          <div className="modalContent1">
             <button className="closeModalButton" onClick={() => setShowAdviceModal(false)}>X</button>
             <div className="adviceGrid">
               {/* Left column */}
@@ -173,8 +173,8 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       </div>
 
       {showConfirmModal && (
-        <div className="modalOverlay">
-          <div className="modalContent">
+        <div className="modalOverlay2">
+          <div className="modalContent2">
             <p>Have you selected all your photos?</p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
               <button className="InputButton" onClick={handleConfirmNo}>No</button>

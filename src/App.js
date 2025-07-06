@@ -37,12 +37,12 @@ function App() {
 
   // Sections to display
   const sections = [
-    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setMaxNumberImages={setMaxNumberImages} setShape={setShape} setLocketName={setLocketName} setEngravingAllowed={setEngravingAllowed} orderNum={orderNum} locketCode={locketCode} />,
+    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setMaxNumberImages={setMaxNumberImages} setShape={setShape} setLocketName={setLocketName} setEngravingAllowed={setEngravingAllowed} orderNum={orderNum} locketCode={locketCode} shape={shape} />,
     <Engravings onContinue={() => setCurrentSection(2)} onBack={() => setCurrentSection(0)} selectedFont={selectedFont} engravingMessage={engravingMessage} setSelectedFont={setSelectedFont} setEngravingMessage={setEngravingMessage}/>,
     <AddImages maxNumberImages={maxNumberImages} onContinue={() => setCurrentSection(3)} onBack={() => setCurrentSection(0)} setImages={setImages} setEditedImages={setEditedImages} images={images}/>,
     <EditImages setImageToEdit={setImageToEdit} images={images} setImages={setImages} editedImages={editedImages} setEditedImages={setEditedImages} onEditImage={() => setCurrentSection(4)} onBack={() => setCurrentSection(2)} onContinue={() => setCurrentSection(5)} />,
     <EditImage imageToEdit={imageToEdit} shape={shape} onSave={handleSaveImage} onCancel={() => setCurrentSection(3)} />,
-    <ConfirmDetails orderNum={orderNum} locketCode={locketCode} engravingMessage={engravingMessage} selectedFont={selectedFont} editedImages={editedImages} onContinue={() => setCurrentSection(6)} onBack={() => setCurrentSection(3)}/>,
+    <ConfirmDetails orderNum={orderNum} locketCode={locketCode} engravingAllowed={engravingAllowed} engravingMessage={engravingMessage} selectedFont={selectedFont} editedImages={editedImages} locketName={locketName} onContinue={() => setCurrentSection(6)} onBack={() => setCurrentSection(3)}/>,
     <ConfirmedOrder onBack={() => setCurrentSection(5)}/>
   ];
 

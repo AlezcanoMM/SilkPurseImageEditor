@@ -16,6 +16,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const canvasRef = useRef(null); // Reference for the canvas
 
   const resetState = () => {
+    console.log("shape", shape);
     setZoom(1);
     setZoomSlider(0);
     setRotation(0);
@@ -83,9 +84,9 @@ const stopDrag = () => {
     maskImg.src = shape; // The mask shape image URL (e.g., heart, circle, etc.)
 
     maskImg.onload = () => {
-      // Set the canvas size to match the edit-image-container size (300x300)
-      canvas.width = 300;
-      canvas.height = 300;
+      // Set canvas size to match shape image size
+      canvas.width = maskImg.width;
+      canvas.height = maskImg.height;
 
       // Clear the canvas before drawing
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -153,15 +154,11 @@ const stopDrag = () => {
       <div
         className="edit-image-container"
         style={{
-          maskImage: `url(${shape})`,
-          maskComposite: "intersect",
-          WebkitMaskImage: `url(${shape})`,
-          WebkitMaskComposite: "intersect",
-          maskRepeat: "no-repeat", // Prevent repeating the mask image
-          WebkitMaskRepeat: "no-repeat", // For Safari compatibility
-          backgroundImage: `url(${shape})`, // Use background image to center the mask
-          backgroundPosition: "center", // Center the mask image
-          backgroundSize: "contain", // Ensure the mask scales properly without stretching
+          maskImage: `url("${shape}")`,
+          WebkitMaskImage: `url("${shape}")`,
+          backgroundImage: `url("${shape}")`,
+          backgroundPosition: "center",
+          backgroundSize: "contain",
         }}
       >
         {/* Editable image */}
@@ -184,7 +181,7 @@ const stopDrag = () => {
         </div>
 
         {/* Hidden canvas for saving */}
-        <canvas ref={canvasRef} width={300} height={300} style={{ display: "none" }}></canvas>
+        <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
       </div>
 
       {/* Controls */}

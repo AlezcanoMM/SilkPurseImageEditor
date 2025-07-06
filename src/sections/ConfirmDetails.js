@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
-const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMessage, selectedFont, onBack }) => {
+const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMessage, selectedFont, onBack, engravingAllowed, locketName }) => {
 
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [highlight, setHighlight] = useState(false);
