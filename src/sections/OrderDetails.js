@@ -5,18 +5,18 @@ import '../css/CommonStyles.css';
 import shapes from '../assets/shapes.json';
 import Purchases from '../assets/images/FirstPagePurchases.png';
 
-//Import all images from src/assets/shapes dynamically
+// Import all shape images using Webpack
 const importAll = (r) => {
   let images = {};
   r.keys().forEach((key) => {
-    const filename = key.replace('./', '');
-    images[filename] = r(key);
+    const cleanedKey = key.replace('./', '');
+    images[`/assets/shapes/${cleanedKey}`] = r(key);
   });
   return images;
 };
 
-//This will give you a map of { "filename.jpg": resolvedImportPath }
 const shapeImages = importAll(require.context('../assets/shapes', false, /\.(png|jpe?g)$/));
+
 
 const Section = ({
   onContinue,
@@ -45,9 +45,10 @@ const Section = ({
   const handleConfirm = () => {
     const normalizedCode = locketCode.trim().toUpperCase();
 
-    const matchingKey = Object.keys(shapes).find(key =>
-      key.toUpperCase().startsWith(normalizedCode)
-    );
+    const matchingKey = Object.keys(shapes).find(key => {
+      const codePart = key.split('_')[0].toUpperCase();
+      return codePart === normalizedCode;
+    });
 
     if (!matchingKey) {
       alert("We couldn't find a matching shape for this locket code.");
@@ -60,13 +61,13 @@ const Section = ({
         .replace('.jpg', '')
         .split('_');
 
-      const fullPath = shapes[matchingKey]; // e.g. "/assets/shapes/FILENAME.jpg"
-      const filename = fullPath.split('/').pop(); // e.g. "LKGP-117_Moon Bracelet_2_E.jpg"
-
-      const importedImage = shapeImages[filename];
+      const imagePath = shapes[matchingKey]; // e.g. "/assets/shapes/LKGP-117_Moon Bracelet_2_E.png"
+      const importedImage = shapeImages[imagePath];
 
       if (!importedImage) {
-        throw new Error(`Image "${filename}" not found in src/assets/shapes`);
+        console.error("Could not find image in shapeImages for:", imagePath);
+        alert("Image file not found. Please check your locket code and try again.");
+        return;
       }
 
       setShape(importedImage);
@@ -75,6 +76,7 @@ const Section = ({
       setEngravingAllowed(engrave === 'E' || engrave === 'e');
 
       // Debug logs
+      console.log("All shape image keys:", Object.keys(shapeImages));
       console.log("Matched Key:", matchingKey);
       console.log("Parsed Name:", name);
       console.log("Num Images:", numImages);

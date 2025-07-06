@@ -1,160 +1,238 @@
-.SectionDetails{
-  padding-top: 0px;
+.SectionDetails {
+  padding-top: 0;
+  padding-left: 5vw;
+  padding-right: 5vw;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: system-ui, sans-serif;
 }
 
 .parentDiv {
-    display: flex;
-    flex-direction: column; /* Stack rows vertically */
-    height: 80%; /* Full height for the parent */
-    width: 80%; /* Full width for the parent */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rowDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.order-details {
+  flex: 0 0 auto;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.images {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* wrap on small screens */
+  padding: 0.5rem 0;
+}
+
+.detail-pair {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  min-width: 6rem;
+  flex: 1 1 6rem;
+}
+
+.detail-pair h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.detail-pair span {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: #444;
+}
+
+.edited-images-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edited-image-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.edited-image-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.edited-image {
+  max-width: 100%;
+  max-height: 110px; /* limit max height */
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.side-text {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  text-align: center;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.side-label {
+  display: block;
+  text-align: center;
+  margin-bottom: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.order-details h4 {
+  margin-bottom: 0.25rem;
+}
+
+.order-details span {
+  margin-top: 0;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+h1 {
+  margin-bottom: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.EngravingRow {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2.5rem;
+  margin: 1.25rem 0;
+  flex-wrap: wrap;
+}
+
+.EngravingRow > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 8rem;
+  flex: 1 1 8rem;
+}
+
+.EngravingRow h4 {
+  margin: 0 0 0.375rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.EngravingRow span {
+  font-size: 0.9rem;
+  color: #444;
+  word-break: break-word;
+  text-align: center;
+}
+
+.confirmSubmission {
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+  padding: 0 1rem;
+}
+
+.confirmSubmission.highlight {
+  animation: highlightAnimation 1s ease forwards;
+}
+
+@keyframes highlightAnimation {
+  0% { background-color: #ddedff; }
+  50% { background-color: #afc4ff; }
+  100% { background-color: transparent; }
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 768px) {
+  .parentDiv {
+    height: auto;
+    width: 100%;
+    padding: 0 2vw;
   }
-  
-  .rowDiv {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
-  }
-  
-  .order-details {
-    flex: 0.1; /* Take 10% of the parent's height */
-    border-bottom: 1px solid #ddd; /* Optional: Divider between rows */
-    padding: 8px;
-  }
-  
-  .images {
-    flex: 0.9; /* Take 90% of the parent's height */
-    overflow-y: auto; /* Allow scrolling if images exceed container height */
-    padding: 16px;
-  }
-  
-  .detail-row {
-    display: flex; /* Align elements in a row */
-    justify-content: space-between; /* Space out items evenly */
-    align-items: center; /* Vertically center the items */
-    gap: 16px; /* Add spacing between the detail pairs */
-  }
-  
-  .detail-pair {
-    display: flex;
-    flex-direction: column; /* Stack h4 and span vertically inside each pair */
-    text-align: center; /* Center-align text within each pair */
-  }
-  
-  .detail-pair h4 {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .detail-pair span {
-    margin-top: 4px;
-    font-size: 12px;
-  }
-  
-  .edited-images-container {
-    display: grid; /* Use grid layout */
-    grid-template-columns: repeat(5, 1fr); /* 5 columns of equal width */
-    gap: 16px; /* Add spacing between grid items */
-    justify-content: center; /* Center the grid horizontally */
-    padding: 16px;
-  }
-  
-  .edited-image-item {
-    width: 100%; /* Ensures the image fits within the grid cell */
-    aspect-ratio: 1; /* Maintain a square aspect ratio */
-    position: relative; /* Needed for absolutely positioning the label */
-  }
-  
   .edited-image {
-    width: 100%; /* Make the image fill its container */
-    height: 100%; /* Ensure the image respects the square aspect ratio */
-    object-fit: cover; /* Crop the image if needed to fit the square */
-    border-radius: 8px; /* Optional: Add rounded corners to the images */
+    max-height: 90px;
   }
-  
-  .edited-image-item img {
-    max-width: 100px;
-    max-height: 100px;
-    object-fit: cover;
-  }
-
-  .edited-image-wrapper {
-    display: flex;
+  .buttonDiv {
     flex-direction: column;
-    align-items: center;  /* centers both text and image horizontally */
-    gap: 6px;             /* spacing between text and image */
+    max-width: 100%;
   }
-  
-  .side-text {
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-transform: capitalize;
-    text-align: center;
-    color: #333;          /* choose a nice readable color */
-  }
-  
-  .side-label {
-    display: block;             /* make it block so it sits above image */
-    text-align: center;         /* center the text horizontally */
-    margin-bottom: 6px;         /* space between label and image */
-    font-size: 0.75rem;
-    font-weight: 600;
-    pointer-events: none;
-    user-select: none;
-    white-space: nowrap;
-    text-transform: capitalize;
-  }
-  
+}
 
-  .order-details h4 {
-    margin-bottom: 4px; /* Reduce space between h4 and span */
+@media (max-width: 480px) {
+  .edited-image {
+    max-height: 70px;
   }
-  
-  .order-details span {
-    margin-top: 0;
-  }
-
-  h1 {
-    margin-bottom: 0px;
-  }
-
   .EngravingRow {
-    display: flex;
-    justify-content: space-around;  /* or space-between depending on spacing preference */
-    align-items: center;
-    gap: 40px;                     /* space between each item */
-    margin: 20px 0;
+    gap: 1rem;
   }
-  
-  .EngravingRow > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 100px;              /* optional: ensures minimum size */
+  .detail-row {
+    gap: 0.75rem;
   }
-  
-  .EngravingRow h4 {
-    margin: 0 0 6px;
-    font-weight: 600;
-    font-size: 1rem;
+  .detail-pair h4 {
+    font-size: 0.85rem;
   }
-  
-  .EngravingRow span {
-    font-size: 0.9rem;
-    color: #444;
+  .detail-pair span {
+    font-size: 0.75rem;
   }
-
-  .confirmSubmission {
-    transition: background-color 0.3s ease;
-  }
-  
-  .confirmSubmission.highlight {
-    animation: highlightAnimation 1s ease forwards;
-  }
-  
-  @keyframes highlightAnimation {
-    0% { background-color: #ddedff; }
-    50% { background-color: #afc4ff; }
-    100% { background-color: transparent; }
-  }
+}

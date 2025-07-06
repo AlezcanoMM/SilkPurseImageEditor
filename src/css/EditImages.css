@@ -30,8 +30,7 @@ h1,
 
 .image-preview {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 0.25rem;
 }
 

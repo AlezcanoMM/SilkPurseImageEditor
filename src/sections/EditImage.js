@@ -88,6 +88,8 @@ const stopDrag = () => {
       canvas.width = maskImg.width;
       canvas.height = maskImg.height;
 
+      console.log("Canvas size set to:", canvas.width, canvas.height);
+
       // Clear the canvas before drawing
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
