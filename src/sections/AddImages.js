@@ -88,6 +88,15 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
     setShowConfirmModal(false); // Just close the modal
   };
 
+  const handleDelete = (index) => {
+    const updatedLocal = localImages.filter((_, i) => i !== index);
+    const updatedGlobal = images.filter((_, i) => i !== index);
+
+    setLocalImages(updatedLocal);
+    setImages(updatedGlobal);
+    setEditedImages(updatedGlobal);
+  };
+
   return (
     <div className="SectionDetails">
 
@@ -156,7 +165,15 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       <div id="image-preview">
         {localImages.length > 0 ? (
           localImages.map((image, index) => (
-            <img key={index} src={image.original} alt={`Preview ${index}`} className="image-preview" />
+            <div key={index} className="image-preview-item">
+              <img src={image.original} alt={`Preview ${index}`} className="image-preview" />
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(index)}
+              >
+                Delete
+              </button>
+            </div>
           ))
         ) : (
           <p>No images selected</p>

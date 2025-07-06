@@ -16,7 +16,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const canvasRef = useRef(null); // Reference for the canvas
 
   const resetState = () => {
-    console.log("shape", shape);
     setZoom(1);
     setZoomSlider(0);
     setRotation(0);
@@ -84,61 +83,65 @@ const stopDrag = () => {
     maskImg.src = shape; // The mask shape image URL (e.g., heart, circle, etc.)
 
     maskImg.onload = () => {
-      // Set canvas size to match shape image size
-      canvas.width = maskImg.width;
-      canvas.height = maskImg.height;
+      const container = canvas.parentElement; // .edit-image-container
+      const containerRect = container.getBoundingClientRect();
 
+      const containerWidth = containerRect.width;
+      const containerHeight = containerRect.height;
+
+      const maskAspectRatio = maskImg.width / maskImg.height;
+      const containerAspectRatio = containerWidth / containerHeight;
+
+      let canvasWidth, canvasHeight;
+
+      if (maskAspectRatio > containerAspectRatio) {
+        // Limit by width (landscape or square-ish mask)
+        canvasWidth = containerWidth;
+        canvasHeight = containerWidth / maskAspectRatio;
+      } else {
+        // Limit by height (tall/portrait mask)
+        canvasHeight = containerHeight;
+        canvasWidth = containerHeight * maskAspectRatio;
+      }
+
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+
+      console.log("Mask image size:", maskImg.width, maskImg.height);
       console.log("Canvas size set to:", canvas.width, canvas.height);
 
-      // Clear the canvas before drawing
+      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw the mask shape (the mask will be used to clip the image)
+      // Step 2: Draw the mask to the canvas at correct size
       ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
 
-      // Apply clipping based on the mask
-      ctx.globalCompositeOperation = "source-in"; // Ensures that only the part of the image covered by the mask is visible
+      // Step 3: Use the mask as a clipping mask
+      ctx.globalCompositeOperation = "source-in";
 
-      // Save the current canvas state before applying transformations
+      // Step 4: Draw the transformed image
       ctx.save();
-
-      // Translate to the center of the canvas (150, 150) - since the canvas is 300x300
-      ctx.translate((canvas.width / 2) + offsetX, (canvas.height / 2) + offsetY); // Move to the center of the canvas
-
-      // Apply rotation to the image
-      ctx.rotate((rotation * Math.PI) / 180); // Convert rotation to radians
-
-      // Apply zoom (scaling)
+      ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+      ctx.rotate((rotation * Math.PI) / 180);
       ctx.scale(zoom, zoom);
 
-      // Calculate the rotated image's new width and height
       const imageWidth = img.width;
       const imageHeight = img.height;
+      ctx.drawImage(img, -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight);
 
-      const drawX = -imageWidth / 2;
-      const drawY = -imageHeight / 2;
-
-      // Draw the image on the canvas with proper positioning
-      ctx.drawImage(img, drawX, drawY, imageWidth, imageHeight);
-
-      // Restore the canvas state after drawing
       ctx.restore();
-
-      // Reset composite operation to default
       ctx.globalCompositeOperation = "source-over";
 
-      // Export the result as a PNG image
+      // Step 5: Export
       const editedImage = canvas.toDataURL("image/png");
 
-      // Optionally, update the state to save the edited image in your app (base64 string)
-      const editedImageObject = {
+      onSave({
         original: imageToEdit.original,
         edited: editedImage,
-        hasBeenEdited: true
-      };
-
-      onSave(editedImageObject); // Save the edited image state
+        hasBeenEdited: true,
+      });
     };
+
 
     maskImg.onerror = () => {
       console.error("Error loading the mask image:", shape);

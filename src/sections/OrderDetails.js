@@ -76,7 +76,7 @@ const Section = ({
       setEngravingAllowed(engrave === 'E' || engrave === 'e');
 
       // Debug logs
-      console.log("All shape image keys:", Object.keys(shapeImages));
+      //console.log("All shape image keys:", Object.keys(shapeImages));
       console.log("Matched Key:", matchingKey);
       console.log("Parsed Name:", name);
       console.log("Num Images:", numImages);
