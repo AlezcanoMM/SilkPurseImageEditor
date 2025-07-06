@@ -74,8 +74,9 @@ const Section = ({
             formData.append("orderNum", orderNum);
             formData.append("locketName", locketName);
             formData.append("engravingMessage", engravingMessage);
+            formData.append("selectedFont", selectedFont);
 
-            fetch("https://script.google.com/macros/s/AKfycbza3ZpskStmLFLZc9KnICk3LbY6XovQymi1ujOvasB2Kpugl-zeBOSNM-dzzvbVsmn-ww/exec", {
+            fetch("https://script.google.com/macros/s/AKfycby1Oeahh_7wfx8hADUCgh7S_wI49r7tLt4tjAhB2qOoEwwcKtrD2awY-rcXbXc-7drNdg/exec", {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

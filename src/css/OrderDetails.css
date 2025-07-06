@@ -10,7 +10,6 @@ body {
   display: flex;
   flex-direction: column;
   width: 60%;
-  max-width: 600px;
   border-bottom: 1px solid #5e5e5e;
   margin: 0 auto;
   padding: 1.5rem; /* use rem for scalability */
