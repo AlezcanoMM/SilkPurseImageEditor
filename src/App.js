@@ -42,7 +42,7 @@ function App() {
     <AddImages maxNumberImages={maxNumberImages} onContinue={() => setCurrentSection(3)} onBack={() => setCurrentSection(0)} setImages={setImages} setEditedImages={setEditedImages} images={images}/>,
     <EditImages setImageToEdit={setImageToEdit} images={images} setImages={setImages} editedImages={editedImages} setEditedImages={setEditedImages} onEditImage={() => setCurrentSection(4)} onBack={() => setCurrentSection(2)} onContinue={() => setCurrentSection(5)} />,
     <EditImage imageToEdit={imageToEdit} shape={shape} onSave={handleSaveImage} onCancel={() => setCurrentSection(3)} />,
-    <ConfirmDetails orderNum={orderNum} locketCode={locketCode} engravingAllowed={engravingAllowed} engravingMessage={engravingMessage} selectedFont={selectedFont} editedImages={editedImages} locketName={locketName} onContinue={() => setCurrentSection(6)} onBack={() => setCurrentSection(3)}/>,
+    <ConfirmDetails orderNum={orderNum} locketCode={locketCode} engravingAllowed={engravingAllowed} engravingMessage={engravingMessage} selectedFont={selectedFont} editedImages={editedImages} locketName={locketName} shape={shape} onContinue={() => setCurrentSection(6)} onBack={() => setCurrentSection(3)}/>,
     <ConfirmedOrder onBack={() => setCurrentSection(5)}/>
   ];
 

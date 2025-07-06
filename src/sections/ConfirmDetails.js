@@ -2,87 +2,116 @@ import React, { useState } from "react";
 import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
-const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMessage, selectedFont, onBack, engravingAllowed, locketName }) => {
-
+const Section = ({
+  editedImages,
+  onContinue,
+  orderNum,
+  locketCode,
+  engravingMessage,
+  selectedFont,
+  onBack,
+  engravingAllowed,
+  locketName,
+  shape,
+}) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [highlight, setHighlight] = useState(false);
+  const [loading, setLoading] = useState(false); // <-- new loading state
 
   const handleConfirm = () => {
-
     if (!isConfirmed) {
       setHighlight(true);
-      // Remove highlight after animation duration (e.g. 1s)
       setTimeout(() => setHighlight(false), 1000);
       return;
     }
 
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    if (!shape) {
+      alert("Shape image is missing.");
+      return;
+    }
 
-    const padding = 10;
-    const imageWidth = 300;
-    const imageHeight = 300;
-    const totalWidth = editedImages.length * imageWidth + (editedImages.length - 1) * padding;
-    const totalHeight = imageHeight;
+    setLoading(true); // show loading overlay
 
-    canvas.width = totalWidth;
-    canvas.height = totalHeight;
+    const shapeImg = new Image();
+    shapeImg.src = shape;
+    shapeImg.crossOrigin = "anonymous";
 
-    let loadedImages = 0;
+    shapeImg.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
-    editedImages.forEach((image, index) => {
-      const img = new Image();
-      img.src = image.edited || image.original;
-      img.crossOrigin = "anonymous"; // Ensure CORS is enabled if necessary.
+      const padding = 10;
+      const imageWidth = shapeImg.naturalWidth;
+      const imageHeight = shapeImg.naturalHeight;
+      const totalWidth = editedImages.length * imageWidth + (editedImages.length - 1) * padding;
+      const totalHeight = imageHeight;
 
-      img.onload = () => {
-        const x = index * (imageWidth + padding);
-        ctx.drawImage(img, x, 0, imageWidth, imageHeight);
-        loadedImages++;
+      canvas.width = totalWidth;
+      canvas.height = totalHeight;
 
-        if (loadedImages === editedImages.length) {
-          // Convert the canvas to a data URL.
-          const combinedImageDataUrl = canvas.toDataURL("image/png");
-          // Remove the data URL prefix so that only the base64 data remains.
-          const base64Data = combinedImageDataUrl.replace(/^data:image\/png;base64,/, "");
+      let loadedImages = 0;
 
-          // Construct a custom file name.
-          const fileName = `${orderNum}_${locketCode}.png`;
+      editedImages.forEach((image, index) => {
+        const img = new Image();
+        img.src = image.edited || image.original;
+        img.crossOrigin = "anonymous";
 
-          // Prepare the POST request parameters including the secret token and custom filename.
-          const formData = new URLSearchParams();
-          formData.append("image", base64Data);
-          formData.append("token", "LAKSHlkjashdflIAUHljfahliu78689AYOLIUh"); // Must match the token in your Apps Script.
-          formData.append("filename", fileName);
-          // Include order details for your Google Sheet
-          formData.append("orderNum", orderNum);
-          formData.append("locketCode", locketCode);
+        img.onload = () => {
+          const x = index * (imageWidth + padding);
+          ctx.drawImage(img, x, 0, imageWidth, imageHeight);
+          loadedImages++;
 
-          // Apps Script Web App URL.
-          fetch("https://script.google.com/macros/s/AKfycbxGamRR0yXd3CFQVQwYQ7uulR4GLh4WRyJn6YKoFTz2SvBLit9CAW05lNXLjJS1xN0npQ/exec", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: formData.toString(),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.success) {
-                console.log("Image uploaded successfully!");
-                console.log("File URL:", data.fileUrl);
-              } else {
-                console.error("Upload failed:", data.error);
-              }
+          if (loadedImages === editedImages.length) {
+            const combinedImageDataUrl = canvas.toDataURL("image/png");
+            const base64Data = combinedImageDataUrl.replace(/^data:image\/png;base64,/, "");
+
+            const fileName = `${orderNum}_${locketCode}.png`;
+
+            const formData = new URLSearchParams();
+            formData.append("image", base64Data);
+            formData.append("token", "LAKSHlkjashdflIAUHljfahliu78689AYOLIUh");
+            formData.append("filename", fileName);
+            formData.append("orderNum", orderNum);
+            formData.append("locketName", locketName);
+            formData.append("engravingMessage", engravingMessage);
+
+            fetch("https://script.google.com/macros/s/AKfycbza3ZpskStmLFLZc9KnICk3LbY6XovQymi1ujOvasB2Kpugl-zeBOSNM-dzzvbVsmn-ww/exec", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+              body: formData.toString(),
             })
-            .catch((err) => console.error("Error during upload:", err));
-        }
-      };
+              .then((res) => res.json())
+              .then((data) => {
+                setLoading(false); // hide loading overlay
+                if (data.success) {
+                  console.log("Image uploaded successfully!");
+                  console.log("File URL:", data.fileUrl);
+                  onContinue(); // proceed on success
+                } else {
+                  alert("Upload failed, please try again.");
+                }
+              })
+              .catch((err) => {
+                setLoading(false); // hide loading overlay
+                alert("Error during upload, please try again.");
+                console.error("Error during upload:", err);
+              });
+          }
+        };
 
-      img.onerror = (err) => console.error("Image load error:", err);
-    });
+        img.onerror = (err) => {
+          setLoading(false);
+          alert("Image load error, please try again.");
+          console.error("Image load error:", err);
+        };
+      });
+    };
 
-    onContinue();
+    shapeImg.onerror = () => {
+      alert("Failed to load shape image.");
+    };
   };
 
   return (
@@ -90,7 +119,7 @@ const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMess
       <div>
         <h1>Confirm Details</h1>
       </div>
-      
+
       <div className="parentDiv">
         {/* Order Details Row */}
         <div className="rowDiv order-details">
@@ -119,7 +148,11 @@ const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMess
               <div key={index} className="edited-image-item">
                 <div className="edited-image-wrapper">
                   <div className="side-text">{image.side}</div>
-                  <img src={image.edited} alt={`Edited ${index + 1}`} className="edited-image" />
+                  <img
+                    src={image.edited}
+                    alt={`Edited ${index + 1}`}
+                    className="edited-image"
+                  />
                 </div>
               </div>
             ))
@@ -136,7 +169,8 @@ const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMess
             checked={isConfirmed}
             onChange={(e) => setIsConfirmed(e.target.checked)}
           />{" "}
-          I can confirm that I am happy with my submission and you can now proceed with my order.
+          I can confirm that I am happy with my submission and you can now proceed
+          with my order.
         </label>
       </div>
 
@@ -147,6 +181,7 @@ const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMess
             value="Back"
             onClick={() => onBack()}
             className="InputButton"
+            disabled={loading}
           />
         </div>
         <div>
@@ -155,9 +190,16 @@ const Section = ({ editedImages, onContinue, orderNum, locketCode, engravingMess
             value="Confirm"
             onClick={handleConfirm}
             className="InputButton"
+            disabled={loading}
           />
         </div>
       </div>
+
+      {loading && (
+        <div className="loadingOverlay">
+          <div className="spinner"></div>
+        </div>
+      )}
     </div>
   );
 };
