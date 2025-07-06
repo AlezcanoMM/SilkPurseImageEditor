@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import '../css/OrderDetails.css';
 import '../css/CommonStyles.css'
 
-import heart from '../assets/shapes/WhiteHeart.png';
+import shapes from '../assets/shapes.json';
 
 import Purchases from '../assets/images/FirstPagePurchases.png';
 
-const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setMaxNumberImages, setShape, orderNum, locketCode })=>{
+const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setMaxNumberImages, setShape, orderNum, locketCode, setLocketName, setEngravingAllowed, shape })=>{
 
     const [showModal, setShowModal] = useState(false);
 
@@ -19,23 +19,55 @@ const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setMaxNum
             return;
         }
 
-        setShowModal(true);
+        handleConfirm()
+        //setShowModal(true);
     };
 
     const handleConfirm = () => {
-        setMaxNumberImages(20);
-        setShape(heart);
+        const normalizedCode = locketCode.trim().toUpperCase();
 
-        setShowModal(false);
-        onEngraving();
+        // Find first key in shapes.json that starts with the given code
+        const matchingKey = Object.keys(shapes).find(key =>
+            key.toUpperCase().startsWith(normalizedCode)
+        );
+
+        if (!matchingKey) {
+            alert("We couldn't find a matching shape for this locket code.");
+            return;
+        }
+
+        try {
+            // Extract metadata from the key
+            const [code, name, numImages, engrave] = matchingKey
+            .replace('.png', '')
+            .replace('.jpg', '')
+            .split('_');
+
+            // Use the path from the JSON directly — it's relative to /public
+            const imagePath = shapes[matchingKey]; // e.g. "/assets/shapes/LKGP-117_Moon Bracelet_2_E.jpg"
+            const fullUrl = process.env.PUBLIC_URL + imagePath;
+
+            setShape(fullUrl); //Set the shape as the image URL
+            setLocketName(name);
+            setMaxNumberImages(parseInt(numImages, 10));
+            setEngravingAllowed(engrave === 'E');
+
+            // Log for debugging
+            console.log("Matched Key:", matchingKey);
+            console.log("Image Path:", fullUrl);
+            console.log("Parsed Name:", name);
+            console.log("Parsed Num Images:", parseInt(numImages, 10));
+            console.log("Engraving Allowed:", engrave === 'E');
+
+            onContinue(); // Or onEngraving();
+        } catch (err) {
+            console.error("Error extracting shape metadata:", err);
+            alert("There was a problem processing your locket. Please try again.");
+        }
     };
 
     const handleCancel = () => {
-        setMaxNumberImages(20);
-        setShape(heart);
 
-        setShowModal(false);
-        onContinue();
     };
 
     return(
@@ -95,7 +127,6 @@ const Section =({ onContinue, onEngraving, setOrderNum, setLocketCode, setMaxNum
                     Copyright © 2025 Silk Purse, Sow's Ear.
                 </div>
             </div>
-
 
             {/* Popup Modal */}
             {showModal && (

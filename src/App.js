@@ -18,6 +18,8 @@ function App() {
   const [currentSection, setCurrentSection] = useState(0);
   const [shape, setShape] = useState(null);
   const [maxNumberImages, setMaxNumberImages] = useState(0);
+  const [locketName, setLocketName] = useState("");
+  const [engravingAllowed, setEngravingAllowed] = useState(false);
   const [maxEngraving, setMaxEngraving] = useState(0);
   const [selectedFont, setSelectedFont] = useState("101");
   const [engravingMessage, setEngravingMessage] = useState("");
@@ -35,7 +37,7 @@ function App() {
 
   // Sections to display
   const sections = [
-    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setMaxNumberImages={setMaxNumberImages} setShape={setShape} orderNum={orderNum} locketCode={locketCode} />,
+    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setMaxNumberImages={setMaxNumberImages} setShape={setShape} setLocketName={setLocketName} setEngravingAllowed={setEngravingAllowed} orderNum={orderNum} locketCode={locketCode} />,
     <Engravings onContinue={() => setCurrentSection(2)} onBack={() => setCurrentSection(0)} selectedFont={selectedFont} engravingMessage={engravingMessage} setSelectedFont={setSelectedFont} setEngravingMessage={setEngravingMessage}/>,
     <AddImages maxNumberImages={maxNumberImages} onContinue={() => setCurrentSection(3)} onBack={() => setCurrentSection(0)} setImages={setImages} setEditedImages={setEditedImages} images={images}/>,
     <EditImages setImageToEdit={setImageToEdit} images={images} setImages={setImages} editedImages={editedImages} setEditedImages={setEditedImages} onEditImage={() => setCurrentSection(4)} onBack={() => setCurrentSection(2)} onContinue={() => setCurrentSection(5)} />,
