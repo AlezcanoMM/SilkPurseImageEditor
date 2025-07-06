@@ -68,20 +68,6 @@ a {
   padding: 1rem; /* add padding so modal doesn't touch edges */
 }
 
-.ModalContent {
-  width: 90vw;
-  max-width: 400px;
-  min-height: 20vh;
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
 .ModalContent p {
   margin: 0.5rem 0 2.5rem;
   font-size: 1.1rem;
@@ -94,6 +80,42 @@ a {
   flex-wrap: wrap;
   width: 100%;
 }
+
+.ModalContent {
+  position: relative; /* Crucial for absolute positioning the X button */
+  width: 90vw;
+  max-width: 400px;
+  min-height: 20vh;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.ModalCloseButton {
+  position: absolute;
+  top: -0rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  z-index: 10; /* Ensure it's on top */
+  line-height: 1;
+  padding: 0;
+}
+
+.ModalCloseButton:hover {
+  color: #000;
+}
+
 
 .ModalButtons button {
   flex: 1 1 100px;

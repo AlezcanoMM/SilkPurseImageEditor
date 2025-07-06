@@ -153,15 +153,18 @@ const Section = ({
 
       {showModal && (
         <div className="ModalOverlay">
-          <div className="ModalContent">
-            <p>Have you paid for the outside of your locket to be engraved?</p>
-            <div className="ModalButtons">
-              <button onClick={onContinue}>No</button>
-              <button onClick={onEngraving}>Yes</button>
+            <div className="ModalContent">
+                <button className="ModalCloseButton" onClick={() => setShowModal(false)}>
+                    &times;
+                </button>
+                <p>Have you paid for the outside of your locket to be engraved?</p>
+                <div className="ModalButtons">
+                    <button onClick={onContinue}>No</button>
+                    <button onClick={onEngraving}>Yes</button>
+                </div>
             </div>
-          </div>
         </div>
-      )}
+        )}
     </div>
   );
 };

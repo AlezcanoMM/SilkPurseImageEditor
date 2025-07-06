@@ -176,6 +176,42 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
     };
   };
 
+  useEffect(() => {
+    const imgElement = imageRef.current;
+
+    if (!imgElement) return;
+
+    const handleTouchStart = (e) => {
+      e.preventDefault();
+      startTouchDrag(e);
+    };
+
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      touchDragImage(e);
+    };
+
+    const handleTouchEnd = (e) => {
+      e.preventDefault();
+      stopTouchDrag();
+    };
+
+    // Attach listeners with passive: false
+    imgElement.addEventListener("touchstart", handleTouchStart, { passive: false });
+    imgElement.addEventListener("touchmove", handleTouchMove, { passive: false });
+    imgElement.addEventListener("touchend", handleTouchEnd, { passive: false });
+    imgElement.addEventListener("touchcancel", handleTouchEnd, { passive: false });
+
+    // Cleanup
+    return () => {
+      imgElement.removeEventListener("touchstart", handleTouchStart);
+      imgElement.removeEventListener("touchmove", handleTouchMove);
+      imgElement.removeEventListener("touchend", handleTouchEnd);
+      imgElement.removeEventListener("touchcancel", handleTouchEnd);
+    };
+  }, [dragging, startX, startY]);
+
+
   return (
     <div className="SectionDetails">
       <div className="subtitleDiv">
@@ -200,9 +236,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
           onMouseMove={dragImage}
           onMouseUp={stopDrag}
           onMouseLeave={stopDrag}
-          onTouchMove={touchDragImage}
-          onTouchEnd={stopTouchDrag}
-          onTouchCancel={stopTouchDrag}
         >
           <img
             ref={imageRef}
@@ -213,7 +246,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
               transform: `translate(${offsetX}px, ${offsetY}px) scale(${zoom}) rotate(${rotation}deg)`,
             }}
             onMouseDown={startDrag}
-            onTouchStart={startTouchDrag}
           />
         </div>
 
