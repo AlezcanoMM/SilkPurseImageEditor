@@ -151,9 +151,10 @@ a {
 /* Small tablets and large phones */
 @media (max-width: 768px) {
   .subtitleDiv {
-    width: 100%;
+    width: 90%;
     padding: 1rem;
     font-size: 0.9rem;
+    margin: 0 auto;
   }
 
   .ModalContent {
@@ -172,33 +173,3 @@ a {
     padding: 0.75rem 0;
   }
 }
-
-/* Phones and very small screens */
-@media (max-width: 480px) {
-  .subtitleDiv {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 0.85rem;
-  }
-
-  .ModalContent {
-    width: 95vw;
-    padding: 1rem;
-  }
-
-  .ModalButtons {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .ModalButtons button {
-    flex: 1 1 100%;
-    min-width: auto;
-  }
-
-  .footerContainer {
-    font-size: 0.85rem;
-    padding: 0.5rem 0;
-  }
-}
-
