@@ -10,7 +10,7 @@ import ConfirmDetails from './sections/ConfirmDetails.js';
 import ConfirmedOrder from './sections/ConfirmedOrder.js';
 import Engravings from './sections/Engravings.js';
 
-import SPTitle from './assets/images/SilkPurseLogo.png';
+import SPTitle from './assets/images/SilkPurseLogo3.png';
 
 function App() {
   const [orderNum, setOrderNum] = useState(null);
@@ -21,8 +21,17 @@ function App() {
   const [locketName, setLocketName] = useState("");
   const [engravingAllowed, setEngravingAllowed] = useState(false);
   const [maxEngraving, setMaxEngraving] = useState(0);
-  const [selectedFont, setSelectedFont] = useState("101");
-  const [engravingMessage, setEngravingMessage] = useState("");
+  const [engravingSides, setEngravingSides] = useState("");
+  const [isTiny, setIsTiny] = useState(false);
+  
+  const [frontEngraving, setFrontEngraving] = useState("");
+  const [frontFont, setFrontFont] = useState("");
+  const [backEngraving, setBackEngraving] = useState("");
+  const [backFont, setBackFont] = useState("");
+  const [insideEngraving, setInsideEngraving] = useState("");
+  const [insideFont, setInsideFont] = useState("");
+
+  const [notes, setNotes] = useState("");
   const [images, setImages] = useState([]);
   const [editedImages, setEditedImages] = useState([]);
   const [imageToEdit, setImageToEdit] = useState(null);
@@ -37,20 +46,95 @@ function App() {
 
   // Sections to display
   const sections = [
-    <OrderDetails onContinue={() => setCurrentSection(2)} onEngraving={() => setCurrentSection(1)} setOrderNum={setOrderNum} setLocketCode={setLocketCode} setMaxNumberImages={setMaxNumberImages} setShape={setShape} setLocketName={setLocketName} setEngravingAllowed={setEngravingAllowed} orderNum={orderNum} locketCode={locketCode} shape={shape} />,
-    <Engravings onContinue={() => setCurrentSection(2)} onBack={() => setCurrentSection(0)} selectedFont={selectedFont} engravingMessage={engravingMessage} setSelectedFont={setSelectedFont} setEngravingMessage={setEngravingMessage}/>,
-    <AddImages maxNumberImages={maxNumberImages} onContinue={() => setCurrentSection(3)} onBack={() => setCurrentSection(0)} setImages={setImages} setEditedImages={setEditedImages} images={images}/>,
-    <EditImages setImageToEdit={setImageToEdit} images={images} setImages={setImages} editedImages={editedImages} setEditedImages={setEditedImages} onEditImage={() => setCurrentSection(4)} onBack={() => setCurrentSection(2)} onContinue={() => setCurrentSection(5)} />,
-    <EditImage imageToEdit={imageToEdit} shape={shape} onSave={handleSaveImage} onCancel={() => setCurrentSection(3)} />,
-    <ConfirmDetails orderNum={orderNum} locketCode={locketCode} engravingAllowed={engravingAllowed} engravingMessage={engravingMessage} selectedFont={selectedFont} editedImages={editedImages} locketName={locketName} shape={shape} onContinue={() => setCurrentSection(6)} onBack={() => setCurrentSection(3)}/>,
-    <ConfirmedOrder onBack={() => setCurrentSection(5)}/>
+    <OrderDetails
+      onContinue={() => setCurrentSection(2)}
+      onEngraving={() => setCurrentSection(1)}
+      setOrderNum={setOrderNum}
+      setLocketCode={setLocketCode}
+      setMaxNumberImages={setMaxNumberImages}
+      setShape={setShape}
+      setLocketName={setLocketName}
+      setEngravingAllowed={setEngravingAllowed}
+      setMaxEngraving={setMaxEngraving}
+      setEngravingSides={setEngravingSides}
+      setIsTiny={setIsTiny}
+      orderNum={orderNum}
+      locketCode={locketCode}
+      shape={shape}
+    />,
+    <Engravings
+      onContinue={() => setCurrentSection(2)}
+      onBack={() => setCurrentSection(0)}
+      maxEngraving={maxEngraving}
+      engravingSides={engravingSides}
+      frontEngraving={frontEngraving}
+      setFrontEngraving={setFrontEngraving}
+      frontFont={frontFont}
+      setFrontFont={setFrontFont}
+      backEngraving={backEngraving}
+      setBackEngraving={setBackEngraving}
+      backFont={backFont}
+      setBackFont={setBackFont}
+      insideEngraving={insideEngraving}
+      setInsideEngraving={setInsideEngraving}
+      insideFont={insideFont}
+      setInsideFont={setInsideFont}
+    />,
+    <AddImages
+      maxNumberImages={maxNumberImages}
+      onContinue={() => setCurrentSection(3)}
+      onBack={() => setCurrentSection(0)}
+      setImages={setImages}
+      setEditedImages={setEditedImages}
+      images={images}
+      isTiny={isTiny}
+    />,
+    <EditImages
+      setImageToEdit={setImageToEdit}
+      images={images}
+      setImages={setImages}
+      editedImages={editedImages}
+      setEditedImages={setEditedImages}
+      notes={notes}
+      setNotes={setNotes}
+      onEditImage={() => setCurrentSection(4)}
+      onBack={() => setCurrentSection(2)}
+      onContinue={() => setCurrentSection(5)}
+    />,
+    <EditImage
+      imageToEdit={imageToEdit}
+      shape={shape}
+      onSave={handleSaveImage}
+      onCancel={() => setCurrentSection(3)}
+    />,
+    <ConfirmDetails
+      orderNum={orderNum}
+      locketCode={locketCode}
+      engravingAllowed={engravingAllowed}
+      notes={notes}
+      editedImages={editedImages}
+      locketName={locketName}
+      shape={shape}
+      frontEngraving={frontEngraving}
+      frontFont={frontFont}
+      backEngraving={backEngraving}
+      backFont={backFont}
+      insideEngraving={insideEngraving}
+      insideFont={insideFont}
+      onContinue={() => setCurrentSection(6)}
+      onBack={() => setCurrentSection(3)}
+    />,
+    <ConfirmedOrder
+      onBack={() => setCurrentSection(5)}
+    />
   ];
+
 
   return (
     <div className="App">
       <div className="SilkPurseHeader">
         <img src={SPTitle} alt="Silk Purse"/>
-        <h2>Locket Maker</h2>
+        {/* <h2>Locket Maker</h2> */}
       </div>
 
       <div className="Sections">

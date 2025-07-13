@@ -67,15 +67,6 @@ const Section =({ onBack })=>{
                     <span>If you purchase any later we may not be able to link the add-on to your locket order.</span>
                 </div>
             </div>
-
-            <div>
-                <button
-                    onClick={() => window.location.reload()}
-                    className="addOrder"
-                >
-                    Add another order
-                </button>
-            </div>
         </div>
     )
 }

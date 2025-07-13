@@ -2,7 +2,7 @@ import React from "react";
 import "../css/EditImages.css";
 import "../css/CommonStyles.css";
 
-const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedImages, onContinue, onEditImage, onBack }) => {
+const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedImages, onContinue, onEditImage, onBack, setNotes, notes }) => {
   const handleDelete = (index) => {
     // Remove the image from both `images` and `editedImages` arrays
     const updatedImages = images.filter((_, i) => i !== index);
@@ -23,7 +23,7 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
     const allImagesEdited = editedImages.every((image) => image.hasBeenEdited === true);
 
     if (!allImagesEdited) {
-      alert("Edit every image first");
+      alert("Edit all your photographs before proceeding.");
       return;
     }
 
@@ -63,7 +63,17 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
         )}
       </div>
 
-      <div className="buttonDiv">
+      <div className="notesInput">
+        <textarea
+          name="notes"
+          rows="4"
+          placeholder="Please add any notes here..."
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        ></textarea>
+      </div>
+
+      <div className="buttonDivCenter">
         <div>
           <input
             type="button"
@@ -81,6 +91,7 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
           />
         </div>
       </div>
+      
     </div>
   );
 };

@@ -3,7 +3,7 @@ import '../css/OrderDetails.css';
 import '../css/CommonStyles.css';
 
 import shapes from '../assets/shapes.json';
-import Purchases from '../assets/images/FirstPagePurchases.png';
+import Infographic from '../assets/images/INFOGRAPHIC_ORDER.png';
 
 // Import all shape images using Webpack
 const importAll = (r) => {
@@ -29,13 +29,20 @@ const Section = ({
   locketCode,
   setLocketName,
   setEngravingAllowed,
-  shape
+  setEngravingSides,
+  setMaxEngraving,
+  setIsTiny
 }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleClick = () => {
     if (!orderNum?.trim() || !locketCode?.trim()) {
       alert("Please enter both the Order Number and Locket Code before continuing.");
+      return;
+    }
+
+    if(orderNum.trim().length !== 10){
+      alert("Order number must be 10 digits long.");
       return;
     }
 
@@ -56,7 +63,7 @@ const Section = ({
     }
 
     try {
-      const [code, name, numImages, engrave] = matchingKey
+      const [code, name, numImages, engrave, engravingSides, maxEngravings, isTiny] = matchingKey
         .replace('.png', '')
         .replace('.jpg', '')
         .split('_');
@@ -74,6 +81,11 @@ const Section = ({
       setLocketName(name);
       setMaxNumberImages(parseInt(numImages, 10));
       setEngravingAllowed(engrave === 'E' || engrave === 'e');
+      if (engrave === 'E' || engrave === 'e') {
+        setEngravingSides(engravingSides);
+        setMaxEngraving(maxEngravings);
+      }
+      setIsTiny(isTiny === 'T' || isTiny === 't');
 
       // Debug logs
       //console.log("All shape image keys:", Object.keys(shapeImages));
@@ -98,39 +110,51 @@ const Section = ({
     <div className="SectionDetails">
       <div className="subtitleDiv">
         <div className="subtitleIntro">
-          <p>To continue you will need to let us know your ORDER NUMBER and locket LOCKET CODE.</p>
-          <p>This will help us locate your order and ensure that we use the correct locket!</p>
-        </div>
-
-        <p className="subtitleGap">How To Find Your Order Number And Locket Code.</p>
-
-        <div className="subtitleInstructions">
-          <p>Order Number: Profile Or Account &gt; Account &gt; Purchases</p>
-          <p>Locket Code: Can be found at the end of the product title on the product page.</p>
+          <p>Please use our photo editor to upload and submit your images for the personalised photo locket.</p>
+          <p>If you’ve paid for engraving, you’ll also be able to add your message.</p>
+          <p>Ordered more than one locket? You can add images for each at the end of the process.</p>
         </div>
       </div>
 
-      <div>
-        <img src={Purchases} alt="Purchase details"/>
+      <div className="formLayoutContainer">
+        {/* Left: Infographic */}
+        <div className="infographicWrapper">
+          <img src={Infographic} alt="Infographic" className="infographicImage" />
+        </div>
+
+        {/* Right: Form Inputs */}
+        <div className="inputFieldsWrapper">
+          <div className="formSection">
+            <h3 className="orderTitle" style={{ color: '#F69679' }}>ORDER NUMBER:</h3>
+            <p className="orderDescription">
+              To find your ORDER NUMBER go to Profile &gt; Your Purchases on Etsy.
+              You can also find your order number in your confirmation email!
+            </p>
+            <input
+              type="text"
+              value={orderNum}
+              onChange={(e) => setOrderNum(e.target.value)}
+              placeholder="Order Number"
+              className="InputField"
+            />
+          </div>
+
+          <div className="formSection">
+            <h3 className="locketTitle" style={{ color: '#82CA9C' }}>LOCKET CODE:</h3>
+            <p className="orderDescription">
+              Your LOCKET CODE can be found in the title on the Etsy product page.
+            </p>
+            <input
+              type="text"
+              value={locketCode}
+              onChange={(e) => setLocketCode(e.target.value)}
+              placeholder="Locket Code"
+              className="InputField"
+            />
+          </div>
+        </div>
       </div>
 
-      <div className='DivRow'>
-        <input
-          type="text"
-          value={orderNum}
-          onChange={(e) => setOrderNum(e.target.value)}
-          placeholder="Order Number"
-          className='InputField'
-        />
-
-        <input
-          type="text"
-          value={locketCode}
-          onChange={(e) => setLocketCode(e.target.value)}
-          placeholder="Locket Code"
-          className='InputField'
-        />
-      </div>
 
       <div>
         <input
@@ -158,6 +182,7 @@ const Section = ({
                     &times;
                 </button>
                 <p>Have you paid for the outside of your locket to be engraved?</p>
+                <p style={{ color: '#EB7676', fontSize: '12px' }}>WE WILL CHECK IF YOU ACTUALLY BOUGHT IT!</p>
                 <div className="ModalButtons">
                     <button onClick={onContinue}>No</button>
                     <button onClick={onEngraving}>Yes</button>

@@ -3,20 +3,25 @@ import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
 const Section = ({
-  editedImages,
-  onContinue,
   orderNum,
   locketCode,
-  engravingMessage,
-  selectedFont,
-  onBack,
   engravingAllowed,
+  notes,
+  editedImages,
   locketName,
   shape,
+  frontEngraving,
+  frontFont,
+  backEngraving,
+  backFont,
+  insideEngraving,
+  insideFont,
+  onContinue,
+  onBack
 }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [highlight, setHighlight] = useState(false);
-  const [loading, setLoading] = useState(false); // <-- new loading state
+  const [loading, setLoading] = useState(false);
 
   const handleConfirm = () => {
     if (!isConfirmed) {
@@ -30,8 +35,7 @@ const Section = ({
       return;
     }
 
-    setLoading(true); // show loading overlay
-
+    setLoading(true);
     const shapeImg = new Image();
     shapeImg.src = shape;
     shapeImg.crossOrigin = "anonymous";
@@ -40,7 +44,7 @@ const Section = ({
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      const padding = 10;
+      const padding = 43; 
       const imageWidth = shapeImg.naturalWidth;
       const imageHeight = shapeImg.naturalHeight;
       const totalWidth = editedImages.length * imageWidth + (editedImages.length - 1) * padding;
@@ -73,10 +77,21 @@ const Section = ({
             formData.append("filename", fileName);
             formData.append("orderNum", orderNum);
             formData.append("locketName", locketName);
-            formData.append("engravingMessage", engravingMessage);
-            formData.append("selectedFont", selectedFont);
 
-            fetch("https://script.google.com/macros/s/AKfycby1Oeahh_7wfx8hADUCgh7S_wI49r7tLt4tjAhB2qOoEwwcKtrD2awY-rcXbXc-7drNdg/exec", {
+            if (engravingAllowed) {
+              formData.append("frontEngraving", frontEngraving);
+              formData.append("frontFont", frontFont);
+              formData.append("backEngraving", backEngraving);
+              formData.append("backFont", backFont);
+              formData.append("insideEngraving", insideEngraving);
+              formData.append("insideFont", insideFont);
+            }
+
+            if (notes?.trim()) {
+              formData.append("notes", notes.trim());
+            }
+
+            fetch("https://script.google.com/macros/s/AKfycbzSJAWr8PIoeRQ7fhGBzgujhSB9MwgU4USwrn0TUF5tOLasg7XOLXBGjZ-nTwXb7KWqKA/exec", {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -85,17 +100,15 @@ const Section = ({
             })
               .then((res) => res.json())
               .then((data) => {
-                setLoading(false); // hide loading overlay
+                setLoading(false);
                 if (data.success) {
-                  console.log("Image uploaded successfully!");
-                  console.log("File URL:", data.fileUrl);
-                  onContinue(); // proceed on success
+                  onContinue();
                 } else {
                   alert("Upload failed, please try again.");
                 }
               })
               .catch((err) => {
-                setLoading(false); // hide loading overlay
+                setLoading(false);
                 alert("Error during upload, please try again.");
                 console.error("Error during upload:", err);
               });
@@ -117,34 +130,60 @@ const Section = ({
 
   return (
     <div className="SectionDetails">
-      <div>
-        <h1>Confirm Details</h1>
-      </div>
+      <h1>Confirm Details</h1>
 
       <div className="parentDiv">
-        {/* Order Details Row */}
         <div className="rowDiv order-details">
           <div>
             <h4>Order Number</h4>
             <span>{orderNum}</span>
           </div>
-
-          {engravingMessage.trim() !== "" && (
-            <div className="EngravingRow">
-              <div>
-                <h4>Engraving</h4>
-                <span>{engravingMessage}</span>
-              </div>
-              <div>
-                <h4>Font</h4>
-                <span>{selectedFont}</span>
-              </div>
-            </div>
-          )}
+          <div>
+            <h4>Locket Code</h4>
+            <span>{locketCode}</span>
+          </div>
         </div>
 
+        {engravingAllowed && (
+          <>
+            <div className="EngravingRow">
+              {frontEngraving && (
+                <div>
+                  <h4>Front Engraving</h4>
+                  <span>{frontEngraving}</span>
+                  <h4>Font</h4>
+                  <span>{frontFont}</span>
+                </div>
+              )}
+              {backEngraving && (
+                <div>
+                  <h4>Back Engraving</h4>
+                  <span>{backEngraving}</span>
+                  <h4>Font</h4>
+                  <span>{backFont}</span>
+                </div>
+              )}
+              {insideEngraving && (
+                <div>
+                  <h4>Inside Engraving</h4>
+                  <span>{insideEngraving}</span>
+                  <h4>Font</h4>
+                  <span>{insideFont}</span>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {notes?.trim() && (
+          <div className="rowDiv">
+            <h4>Notes</h4>
+            <span>{notes}</span>
+          </div>
+        )}
+
         <div className="edited-images-container">
-          {editedImages && editedImages.length > 0 ? (
+          {editedImages.length > 0 ? (
             editedImages.map((image, index) => (
               <div key={index} className="edited-image-item">
                 <div className="edited-image-wrapper">
@@ -170,30 +209,34 @@ const Section = ({
             checked={isConfirmed}
             onChange={(e) => setIsConfirmed(e.target.checked)}
           />{" "}
-          I can confirm that I am happy with my submission and you can now proceed
-          with my order.
+          I can confirm that I am happy with my submission and you can now proceed with my order.
         </label>
       </div>
 
+      <div>
+        <button
+          onClick={() => window.location.reload()}
+          className="InputButton"
+        >
+          Add another order
+        </button>
+      </div>
+
       <div className="buttonDiv">
-        <div>
-          <input
-            type="button"
-            value="Back"
-            onClick={() => onBack()}
-            className="InputButton"
-            disabled={loading}
-          />
-        </div>
-        <div>
-          <input
-            type="button"
-            value="Confirm"
-            onClick={handleConfirm}
-            className="InputButton"
-            disabled={loading}
-          />
-        </div>
+        <input
+          type="button"
+          value="Back"
+          onClick={onBack}
+          className="InputButton"
+          disabled={loading}
+        />
+        <input
+          type="button"
+          value="Confirm"
+          onClick={handleConfirm}
+          className="InputButton"
+          disabled={loading}
+        />
       </div>
 
       {loading && (

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import "../css/EditImage.css";
 import "../css/CommonStyles.css";
 
+import refresh from '../assets/images/Refresh_icon.png';
+
 const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const [zoom, setZoom] = useState(1); // Default zoom level
   const [zoomSlider, setZoomSlider] = useState(0); // range
@@ -11,7 +13,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const [dragging, setDragging] = useState(false); // Track dragging state
   const [startX, setStartX] = useState(0); // Starting mouse X position
   const [startY, setStartY] = useState(0); // Starting mouse Y position
-
+  
   const imageRef = useRef(null); // Reference for the image to edit
   const canvasRef = useRef(null); // Reference for the canvas
 
@@ -230,6 +232,13 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
           backgroundSize: "contain",
         }}
       >
+
+        <img
+          src={shape}
+          alt="Mask outline"
+          className="mask-outline"
+        />
+
         {/* Editable image */}
         <div
           className="editable-image-container"
@@ -251,6 +260,10 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
         {/* Hidden canvas for saving */}
         <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+      </div>
+
+      <div style={{width: "34%"}}>
+        <button onClick={resetState} className="reset-button-icon"> <img src={refresh} alt="Reset" /> </button>
       </div>
 
       {/* Controls */}
@@ -280,8 +293,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
             onChange={handleRotationChange}
           />
         </div>
-
-        <button onClick={resetState} className="reset-button">Reset</button>
       </div>
 
       {/* Buttons */}

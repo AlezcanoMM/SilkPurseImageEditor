@@ -8,7 +8,7 @@ import BnWAdvice from '../assets/images/photoAdvice/BnW.png';
 import SizeAdvice from '../assets/images/photoAdvice/Size.png';
 
 
-const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBack, images }) => {
+const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBack, images, isTiny }) => {
   const [localImages, setLocalImages] = useState([]);
   const [showAdviceModal, setShowAdviceModal] = useState(false); // Modal visibility
 
@@ -101,7 +101,9 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
     <div className="SectionDetails">
 
       <div className="photoAdviceContainer">
-        <p>Learn how to choose the right photos with our advice to create a beautiful locket necklace.</p>
+        <h2>Tips For Choosing The Perfect Picture!</h2>
+        <p>Please take time to read out tips before proceeding.</p>
+
         <button className="photoAdviceButton" onClick={() => setShowAdviceModal(true)}>
           How to choose the right photos?
         </button>
@@ -144,6 +146,12 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
         </div>
       )}
 
+      {isTiny && (
+        <p style={{ color: '#EB7676' }}>
+          WARNING! your locket is tiny, make sure your images do not have more than one person
+        </p>
+      )}
+
       <h1 className="ImportTitle">Add Images:</h1>
 
       <div className="drop-area" onDrop={handleDrop} onDragOver={handleDragOver}>
@@ -161,6 +169,10 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
           Import
         </label>
       </div>
+
+      <p>
+        This locket can fit a maximum of {maxNumberImages} photos.
+      </p>
 
       <div id="image-preview">
         {localImages.length > 0 ? (

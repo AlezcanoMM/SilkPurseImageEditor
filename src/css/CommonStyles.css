@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap');
 * {
-  font-family: "Antic Didone", sans-serif !important;
-  font-size: 18px;
- }
+  font-family: "Futura", sans-serif;
+  font-size: 16px;
+}
 
  .SectionDetails {
     background-color: rgb(255, 255, 255);
@@ -19,20 +18,25 @@
   
   .InputButton {
     display: flex;
-    justify-content: center;    
-    align-items: center;        
-    text-align: center;         
-    background-color: white;  
-    border: 1px solid #979797;    
-    margin-top: 8px;             
-    width: 150px;               
-    height: 30px;          
-    cursor: pointer; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #979797;
+    margin-top: 8px;
+    min-width: 150px;
+    min-height: 30px;
+    padding: 0 1rem;
+    height: auto;
+    width: auto;
+    cursor: pointer;
     box-sizing: border-box;
   }
+
   
   .InputButton:hover {
     background-color: #f0f0f0;
+    box-shadow: 0 2px 6px #BEB7A4;
   }
 
   .InputField {
