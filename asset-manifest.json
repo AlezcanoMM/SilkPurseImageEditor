@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/SilkPurseImageEditor/static/css/main.0bd5b0df.css",
-    "main.js": "/SilkPurseImageEditor/static/js/main.5b629e33.js",
+    "main.css": "/SilkPurseImageEditor/static/css/main.5e28378e.css",
+    "main.js": "/SilkPurseImageEditor/static/js/main.212cdd48.js",
     "static/js/453.51224a5c.chunk.js": "/SilkPurseImageEditor/static/js/453.51224a5c.chunk.js",
     "static/media/LKSP-38.JPG": "/SilkPurseImageEditor/static/media/LKSP-38.2c8d3667309bbb707a68.JPG",
     "static/media/LKGP-45.JPG": "/SilkPurseImageEditor/static/media/LKGP-45.edcb785908d39b1cc876.JPG",
@@ -108,12 +108,12 @@
     "static/media/LKGP-33_Gold Heart Necklace_2_E_FB_6W.png": "/SilkPurseImageEditor/static/media/LKGP-33_Gold Heart Necklace_2_E_FB_6W.5a84ba7c0852b1a94e6f.png",
     "static/media/LKGP-66_Large Oval Keepsake_1_E_B_15W.png": "/SilkPurseImageEditor/static/media/LKGP-66_Large Oval Keepsake_1_E_B_15W.83c60472ad5bf4e9d475.png",
     "index.html": "/SilkPurseImageEditor/index.html",
-    "main.0bd5b0df.css.map": "/SilkPurseImageEditor/static/css/main.0bd5b0df.css.map",
-    "main.5b629e33.js.map": "/SilkPurseImageEditor/static/js/main.5b629e33.js.map",
+    "main.5e28378e.css.map": "/SilkPurseImageEditor/static/css/main.5e28378e.css.map",
+    "main.212cdd48.js.map": "/SilkPurseImageEditor/static/js/main.212cdd48.js.map",
     "453.51224a5c.chunk.js.map": "/SilkPurseImageEditor/static/js/453.51224a5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0bd5b0df.css",
-    "static/js/main.5b629e33.js"
+    "static/css/main.5e28378e.css",
+    "static/js/main.212cdd48.js"
   ]
 }
