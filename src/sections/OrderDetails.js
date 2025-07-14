@@ -147,7 +147,7 @@ const Section = ({
             <input
               type="text"
               value={locketCode}
-              onChange={(e) => setLocketCode(e.target.value)}
+              onChange={(e) => setLocketCode(e.target.value.trim().toUpperCase())}
               placeholder="Locket Code"
               className="InputField"
             />
@@ -179,13 +179,13 @@ const Section = ({
         <div className="ModalOverlay">
             <div className="ModalContent">
                 <button className="ModalCloseButton" onClick={() => setShowModal(false)}>
-                    &times;
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
                 </button>
                 <p>Have you paid for the outside of your locket to be engraved?</p>
-                <p style={{ color: '#EB7676', fontSize: '12px' }}>WE WILL CHECK IF YOU ACTUALLY BOUGHT IT!</p>
+                <p style={{ color: '#EB7676', fontSize: '12px' }}>We’ll verify your purchase to ensure everything is in order.</p>
                 <div className="ModalButtons">
-                    <button onClick={onContinue}>No</button>
-                    <button onClick={onEngraving}>Yes</button>
+                    <button onClick={onContinue} className='InputButton'>No</button>
+                    <button onClick={onEngraving} className='InputButton'>Yes</button>
                 </div>
             </div>
         </div>

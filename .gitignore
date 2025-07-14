@@ -24,3 +24,4 @@ yarn-error.log*
 
 .env
 /proxy-server/.env
+proxy-server\.env

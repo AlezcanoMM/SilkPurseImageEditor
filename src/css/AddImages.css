@@ -217,6 +217,13 @@
   border-radius: 2px;
 }
 
+.drop-icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .drop-area {

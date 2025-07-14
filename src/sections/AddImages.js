@@ -155,6 +155,17 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       <h1 className="ImportTitle">Add Images:</h1>
 
       <div className="drop-area" onDrop={handleDrop} onDragOver={handleDragOver}>
+        <div className="drop-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48px"
+            viewBox="0 -960 960 960"
+            width="48px"
+            fill="#5e5e5e"
+          >
+            <path d="M440-320v-326L336-542l-56-58 200-200 200 200-56 58-104-104v326h-80ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/>
+          </svg>
+        </div>
         <p>Drag & Drop your image(s) here</p>
         <p>OR</p>
         <input
@@ -169,6 +180,7 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
           Import
         </label>
       </div>
+
 
       <p>
         This locket can fit a maximum of {maxNumberImages} photos.
