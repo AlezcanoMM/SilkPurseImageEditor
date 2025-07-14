@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
+import listingPhotos from '../assets/listingPhotos';
+
 const Section = ({
   orderNum,
   locketCode,
@@ -20,16 +22,31 @@ const Section = ({
   onBack
 }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
-  const [highlight, setHighlight] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const handleConfirm = () => {
+  const listingPhoto = locketCode ? listingPhotos[locketCode] : null;
+
+  const [highlightConfirm, setHighlightConfirm] = useState(false);
+
+  const handleConfirmClick = () => {
     if (!isConfirmed) {
-      setHighlight(true);
-      setTimeout(() => setHighlight(false), 1000);
+      setHighlightConfirm(true);
+      setTimeout(() => setHighlightConfirm(false), 1500);
       return;
     }
+    handleConfirm();
+  };
 
+  const handleAddAnotherClick = () => {
+    if (!isConfirmed) {
+      setHighlightConfirm(true);
+      setTimeout(() => setHighlightConfirm(false), 1500);
+      return;
+    }
+    handleConfirm(true);
+  };
+
+  const handleConfirm  = (reloadOnSuccess = false) => {
     if (!shape) {
       alert("Shape image is missing.");
       return;
@@ -102,7 +119,11 @@ const Section = ({
               .then((data) => {
                 setLoading(false);
                 if (data.success) {
-                  onContinue();
+                  if (reloadOnSuccess) {
+                    window.location.reload();
+                  } else {
+                    onContinue();
+                  }
                 } else {
                   alert("Upload failed, please try again.");
                 }
@@ -132,23 +153,24 @@ const Section = ({
     <div className="SectionDetails">
       <h1>Confirm Details</h1>
 
-      <div className="parentDiv">
-        <div className="rowDiv order-details">
-          <div>
+      <div className="confirmation-header">
+        {listingPhoto && (
+          <img src={listingPhoto} alt={locketCode} className="listing-photo" />
+        )}
+        <div className="details-text">
+          <div className="detail-item">
             <h4>Order Number</h4>
             <span>{orderNum}</span>
           </div>
-          <div>
+          <div className="detail-item">
             <h4>Locket Code</h4>
             <span>{locketCode}</span>
           </div>
-        </div>
 
-        {engravingAllowed && (
-          <>
-            <div className="EngravingRow">
+          {engravingAllowed && (
+            <>
               {frontEngraving && (
-                <div>
+                <div className="detail-item">
                   <h4>Front Engraving</h4>
                   <span>{frontEngraving}</span>
                   <h4>Font</h4>
@@ -156,7 +178,7 @@ const Section = ({
                 </div>
               )}
               {backEngraving && (
-                <div>
+                <div className="detail-item">
                   <h4>Back Engraving</h4>
                   <span>{backEngraving}</span>
                   <h4>Font</h4>
@@ -164,27 +186,31 @@ const Section = ({
                 </div>
               )}
               {insideEngraving && (
-                <div>
+                <div className="detail-item">
                   <h4>Inside Engraving</h4>
                   <span>{insideEngraving}</span>
                   <h4>Font</h4>
                   <span>{insideFont}</span>
                 </div>
               )}
+            </>
+          )}
+
+          {notes?.trim() && (
+            <div className="detail-item">
+              <h4>Notes</h4>
+              <span>{notes}</span>
             </div>
-          </>
-        )}
+          )}
+        </div>
+      </div>
 
-        {notes?.trim() && (
-          <div className="rowDiv">
-            <h4>Notes</h4>
-            <span>{notes}</span>
-          </div>
-        )}
+      <hr className="confirmation-separator" />
 
-        <div className="edited-images-container">
-          {editedImages.length > 0 ? (
-            editedImages.map((image, index) => (
+      <div className="edited-images-container">
+        {editedImages.length > 0 ? (
+          <div className="edited-grid">
+            {editedImages.map((image, index) => (
               <div key={index} className="edited-image-item">
                 <div className="edited-image-wrapper">
                   <div className="side-text">{image.side}</div>
@@ -195,48 +221,48 @@ const Section = ({
                   />
                 </div>
               </div>
-            ))
-          ) : (
-            <p>No edited images available</p>
-          )}
+            ))}
+          </div>
+        ) : (
+          <p>No edited images available</p>
+        )}
+      </div>
+
+      <div className="button-section">
+        <div className="back-button-wrapper">
+          <button onClick={onBack} className="InputButton" disabled={loading}>
+            Edit Order
+          </button>
         </div>
-      </div>
 
-      <div className={`confirmSubmission ${highlight ? "highlight" : ""}`}>
-        <label>
-          <input
-            type="checkbox"
-            checked={isConfirmed}
-            onChange={(e) => setIsConfirmed(e.target.checked)}
-          />{" "}
-          I can confirm that I am happy with my submission and you can now proceed with my order.
-        </label>
-      </div>
+        <div className={`confirmSubmission ${highlightConfirm ? "highlightConfirm" : ""}`}>
+          <label>
+            <input
+              type="checkbox"
+              checked={isConfirmed}
+              onChange={(e) => setIsConfirmed(e.target.checked)}
+            />{" "}
+            I can confirm that I am happy with my submission and you can now
+            proceed with my order.
+          </label>
+        </div>
 
-      <div>
-        <button
-          onClick={() => window.location.reload()}
-          className="InputButton"
-        >
-          Add another order
-        </button>
-      </div>
-
-      <div className="buttonDiv">
-        <input
-          type="button"
-          value="Back"
-          onClick={onBack}
-          className="InputButton"
-          disabled={loading}
-        />
-        <input
-          type="button"
-          value="Confirm"
-          onClick={handleConfirm}
-          className="InputButton"
-          disabled={loading}
-        />
+        <div className="confirm-buttons-row">
+          <button
+            onClick={handleAddAnotherClick}
+            className="InputButton"
+            disabled={loading}
+          >
+            Place New Order
+          </button>
+          <button
+            onClick={handleConfirmClick}
+            className="InputButton"
+            disabled={loading}
+          >
+            Confirm
+          </button>
+        </div>
       </div>
 
       {loading && (
