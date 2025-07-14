@@ -90,7 +90,6 @@ const Section = ({
 
             const formData = new URLSearchParams();
             formData.append("image", base64Data);
-            formData.append("token", "LAKSHlkjashdflIAUHljfahliu78689AYOLIUh");
             formData.append("filename", fileName);
             formData.append("orderNum", orderNum);
             formData.append("locketName", locketName);
@@ -108,7 +107,7 @@ const Section = ({
               formData.append("notes", notes.trim());
             }
 
-            fetch("https://script.google.com/macros/s/AKfycbzSJAWr8PIoeRQ7fhGBzgujhSB9MwgU4USwrn0TUF5tOLasg7XOLXBGjZ-nTwXb7KWqKA/exec", {
+            fetch("http://localhost:5001/submit-order", {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
