@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
@@ -27,6 +27,20 @@ const Section = ({
   const listingPhoto = locketCode ? listingPhotos[locketCode] : null;
 
   const [highlightConfirm, setHighlightConfirm] = useState(false);
+  const [showConnectionMsg, setShowConnectionMsg] = useState(false);
+
+  useEffect(() => {
+    let timeout;
+    if (loading) {
+      timeout = setTimeout(() => {
+        setShowConnectionMsg(true);
+      }, 6000);
+    } else {
+      setShowConnectionMsg(false); // reset when loading ends
+    }
+
+    return () => clearTimeout(timeout);
+  }, [loading]);
 
   const handleConfirmClick = () => {
     if (!isConfirmed) {
@@ -107,7 +121,7 @@ const Section = ({
               formData.append("notes", notes.trim());
             }
 
-            fetch("http://localhost:5001/submit-order", {
+            fetch("https://silkpurseimageeditor.onrender.com/submit-order", {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -267,6 +281,12 @@ const Section = ({
       {loading && (
         <div className="loadingOverlay">
           <div className="spinner"></div>
+          <div className="loadingText">
+            <p>Sending images...</p>
+            {showConnectionMsg && (
+              <p>Connecting to server... this can take up to a minute</p>
+            )}
+          </div>
         </div>
       )}
     </div>

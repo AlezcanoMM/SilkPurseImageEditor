@@ -38,8 +38,8 @@ body {
 }
 
 .details-text {
-  flex: 1 1 300px; /* Grow/shrink as needed but minimum 300px */
-  max-width: 30%;
+  flex: 1 1 500px; /* Grow/shrink as needed but minimum 300px */
+  max-width: 20%;
   min-width: 200px;
   display: flex;
   flex-direction: column;
@@ -164,8 +164,15 @@ body {
   background-color: rgba(0,0,0,0.5);
   z-index: 9999;
   display: flex;
+  flex-direction: column; /* Add this line */
   justify-content: center;
   align-items: center;
+}
+
+.loadingText {
+  margin-top: 12px;
+  color: #fff; /* Change to bright white */
+  text-align: center;
 }
 
 .spinner {
