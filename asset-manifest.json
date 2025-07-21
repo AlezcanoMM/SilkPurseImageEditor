@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "/SilkPurseImageEditor/static/css/main.bb5291f2.css",
-    "main.js": "/SilkPurseImageEditor/static/js/main.724df122.js",
+    "main.css": "/SilkPurseImageEditor/static/css/main.479e47e5.css",
+    "main.js": "/SilkPurseImageEditor/static/js/main.d6d3048b.js",
     "static/js/453.51224a5c.chunk.js": "/SilkPurseImageEditor/static/js/453.51224a5c.chunk.js",
+    "static/media/photos_dos_and_donts.jpg": "/SilkPurseImageEditor/static/media/photos_dos_and_donts.0ace725543e6ec246edf.jpg",
     "static/media/LKSP-38.JPG": "/SilkPurseImageEditor/static/media/LKSP-38.2c8d3667309bbb707a68.JPG",
     "static/media/LKGP-45.JPG": "/SilkPurseImageEditor/static/media/LKGP-45.edcb785908d39b1cc876.JPG",
     "static/media/LKGP-34.JPG": "/SilkPurseImageEditor/static/media/LKGP-34.f491967700f974bdba45.JPG",
@@ -67,13 +68,11 @@
     "static/media/MotifEngraving.png": "/SilkPurseImageEditor/static/media/MotifEngraving.8073fad3c57df110e9e8.png",
     "static/media/LKGP-33.JPG": "/SilkPurseImageEditor/static/media/LKGP-33.f6685662c936a6d237e8.JPG",
     "static/media/giftWrap.jpg": "/SilkPurseImageEditor/static/media/giftWrap.324d6c5064f8d7f58627.jpg",
+    "static/media/INFOGRAPHIC_ORDER_example.jpg": "/SilkPurseImageEditor/static/media/INFOGRAPHIC_ORDER_example.69ea115dc987054016fd.jpg",
     "static/media/FontsEngravings.png": "/SilkPurseImageEditor/static/media/FontsEngravings.e0b68caf419420f82947.png",
-    "static/media/INFOGRAPHIC_ORDER.png": "/SilkPurseImageEditor/static/media/INFOGRAPHIC_ORDER.ff54b5e9a692c789d263.png",
     "static/media/neckalce.jpg": "/SilkPurseImageEditor/static/media/neckalce.0b06b3d00ee7383830e1.jpg",
-    "static/media/Cropping.png": "/SilkPurseImageEditor/static/media/Cropping.402a14f2d4463aeed9d0.png",
     "static/media/LKSP-113_Tiny Daisy Silver_2_E_B_3L_T.png": "/SilkPurseImageEditor/static/media/LKSP-113_Tiny Daisy Silver_2_E_B_3L_T.0be9072e8032e8376670.png",
     "static/media/LKSP-9_Tiny Silver Round_2_E_FB_3L_T.png": "/SilkPurseImageEditor/static/media/LKSP-9_Tiny Silver Round_2_E_FB_3L_T.fa64d0947b667b87d3c3.png",
-    "static/media/Lighting.png": "/SilkPurseImageEditor/static/media/Lighting.0fe03fc7dde88258a9a1.png",
     "static/media/LKGP-6_Art Nouveau Heart_2_E_FB_1L_T.png": "/SilkPurseImageEditor/static/media/LKGP-6_Art Nouveau Heart_2_E_FB_1L_T.ed70611c4520a504f6c4.png",
     "static/media/LKSP-6_Silver Art Nouveau Heart_2_E_FB_1L.png": "/SilkPurseImageEditor/static/media/LKSP-6_Silver Art Nouveau Heart_2_E_FB_1L.1f0566b017d6b91ec4a6.png",
     "static/media/LKST-18_Sterling Silver Heart_2_E_FB_8W.png": "/SilkPurseImageEditor/static/media/LKST-18_Sterling Silver Heart_2_E_FB_8W.8e0f0f1b74603111b98f.png",
@@ -83,14 +82,12 @@
     "static/media/LKGP-117_Moon Bracelet_2_E_F_3L.png": "/SilkPurseImageEditor/static/media/LKGP-117_Moon Bracelet_2_E_F_3L.a6bdf07c71df600427f3.png",
     "static/media/LKGP-23_Tiny Brass Round_2_E_FB_3L_T.png": "/SilkPurseImageEditor/static/media/LKGP-23_Tiny Brass Round_2_E_FB_3L_T.ebcf5ac49a84b898aedc.png",
     "static/media/LKGP-17_30mm Round_2_E_FB_8W.png": "/SilkPurseImageEditor/static/media/LKGP-17_30mm Round_2_E_FB_8W.c10315e6d7e368bb32f0.png",
-    "static/media/Size.png": "/SilkPurseImageEditor/static/media/Size.4291f4dca73293d27cc7.png",
     "static/media/LKGP-42_20mm Gold Round_2_E_FB_6W.png": "/SilkPurseImageEditor/static/media/LKGP-42_20mm Gold Round_2_E_FB_6W.2d4e92346c87b2b7a5d4.png",
     "static/media/LKGP-123_Forget-Me-Not_2_E_B_6W.png": "/SilkPurseImageEditor/static/media/LKGP-123_Forget-Me-Not_2_E_B_6W.bfb2aa9f7d987ed7c17a.png",
     "static/media/LKGP-124_Antique 20mm_2_E_FB_6W.png": "/SilkPurseImageEditor/static/media/LKGP-124_Antique 20mm_2_E_FB_6W.7cf144f1889573a94c06.png",
     "static/media/LKGP-2_Tiny Oval Gold_2_E_FB_3L_T.png": "/SilkPurseImageEditor/static/media/LKGP-2_Tiny Oval Gold_2_E_FB_3L_T.81b5be1dfbdd0cafb6bd.png",
     "static/media/LKST-14_Sterling Silver Tiny Oval_2_E_FB_3L_T.png": "/SilkPurseImageEditor/static/media/LKST-14_Sterling Silver Tiny Oval_2_E_FB_3L_T.3063c3f3f1d156644030.png",
     "static/media/LKSP-38_Tiny Oval Silver_2_E_FB_3L_T.png": "/SilkPurseImageEditor/static/media/LKSP-38_Tiny Oval Silver_2_E_FB_3L_T.56a50212d28a51ac1c5d.png",
-    "static/media/BnW.png": "/SilkPurseImageEditor/static/media/BnW.f5f8922f1298e81e5cfb.png",
     "static/media/LKGP-27_Flower Locket Gold_2_E_B_8W.png": "/SilkPurseImageEditor/static/media/LKGP-27_Flower Locket Gold_2_E_B_8W.ea6024262a2268f04a90.png",
     "static/media/LKSP-27_Flower Locket Silver_2_E_B_8W.png": "/SilkPurseImageEditor/static/media/LKSP-27_Flower Locket Silver_2_E_B_8W.e1c39383b94e3459a5df.png",
     "static/media/LKSP-30_26mm Silver Round Locket_2_E_FB_8W.png": "/SilkPurseImageEditor/static/media/LKSP-30_26mm Silver Round Locket_2_E_FB_8W.1ad7b8cf08950b16ef4e.png",
@@ -107,12 +104,12 @@
     "static/media/LKGP-33_Gold Heart Necklace_2_E_FB_6W.png": "/SilkPurseImageEditor/static/media/LKGP-33_Gold Heart Necklace_2_E_FB_6W.5a84ba7c0852b1a94e6f.png",
     "static/media/LKGP-66_Large Oval Keepsake_1_E_B_15W.png": "/SilkPurseImageEditor/static/media/LKGP-66_Large Oval Keepsake_1_E_B_15W.83c60472ad5bf4e9d475.png",
     "index.html": "/SilkPurseImageEditor/index.html",
-    "main.bb5291f2.css.map": "/SilkPurseImageEditor/static/css/main.bb5291f2.css.map",
-    "main.724df122.js.map": "/SilkPurseImageEditor/static/js/main.724df122.js.map",
+    "main.479e47e5.css.map": "/SilkPurseImageEditor/static/css/main.479e47e5.css.map",
+    "main.d6d3048b.js.map": "/SilkPurseImageEditor/static/js/main.d6d3048b.js.map",
     "453.51224a5c.chunk.js.map": "/SilkPurseImageEditor/static/js/453.51224a5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bb5291f2.css",
-    "static/js/main.724df122.js"
+    "static/css/main.479e47e5.css",
+    "static/js/main.d6d3048b.js"
   ]
 }
