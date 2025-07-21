@@ -75,7 +75,7 @@ const Section = ({
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
 
-      const padding = 43; 
+      const padding = 23; //separation between images
       const imageWidth = shapeImg.naturalWidth;
       const imageHeight = shapeImg.naturalHeight;
       const totalWidth = editedImages.length * imageWidth + (editedImages.length - 1) * padding;
@@ -88,7 +88,7 @@ const Section = ({
 
       editedImages.forEach((image, index) => {
         const img = new Image();
-        img.src = image.edited || image.original;
+        img.src = image.editedWithoutOffwhite || image.editedWithOffwhite || image.original;
         img.crossOrigin = "anonymous";
 
         img.onload = () => {
@@ -228,7 +228,7 @@ const Section = ({
                 <div className="edited-image-wrapper">
                   <div className="side-text">{image.side}</div>
                   <img
-                    src={image.edited}
+                    src={image.editedWithOffwhite}
                     alt={`Edited ${index + 1}`}
                     className="edited-image"
                   />

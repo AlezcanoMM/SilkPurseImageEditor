@@ -32,7 +32,12 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
-          return { original: imageURL, edited: imageURL };
+          return {
+            original: imageURL,
+            editedWithOffwhite: null,
+            editedWithoutOffwhite: null,
+            hasBeenEdited: false
+          };
         });
         setLocalImages(prev => [...prev, ...newImages]);
         setImages(prev => [...prev, ...newImages]);
@@ -58,7 +63,12 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       } else {
         const newImages = validImages.map(file => {
           const imageURL = URL.createObjectURL(file);
-          return { original: imageURL, edited: imageURL, hasBeenEdited: false };
+          return {
+            original: imageURL,
+            editedWithOffwhite: null,
+            editedWithoutOffwhite: null,
+            hasBeenEdited: false
+          };
         });
         setLocalImages(prev => [...prev, ...newImages]);
         setImages(prev => [...prev, ...newImages]);

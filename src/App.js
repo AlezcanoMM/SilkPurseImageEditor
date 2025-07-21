@@ -38,7 +38,7 @@ function App() {
 
   const handleSaveImage = (editedImage) => {
     const updatedEditedImages = editedImages.map((img) =>
-      img.original === editedImage.original ? { ...img, edited: editedImage.edited, hasBeenEdited: editedImage.hasBeenEdited } : img
+      img.original === editedImage.original ? { ...img, editedWithOffwhite: editedImage.editedWithOffwhite, editedWithoutOffwhite: editedImage.editedWithoutOffwhite, hasBeenEdited: editedImage.hasBeenEdited } : img
     );
     setEditedImages(updatedEditedImages);
     setCurrentSection(3); // Go back to EditImages section

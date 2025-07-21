@@ -40,7 +40,7 @@ const Section = ({ setImageToEdit, images, setImages, editedImages, setEditedIma
             {editedImages.map((image, index) => (
               <div key={index} className="image-item">
                 <img
-                  src={image.edited || image.original}
+                  src={image.editedWithOffwhite || image.original}
                   alt={`Preview ${index}`}
                   className={`image-preview ${image.hasBeenEdited ? '' : 'unedited'}`}
                 />

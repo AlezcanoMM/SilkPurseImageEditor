@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import "../css/EditImage.css";
 import "../css/CommonStyles.css";
 
-import refresh from '../assets/images/Refresh_icon.png';
-
 const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   const [zoom, setZoom] = useState(1); // Default zoom level
   const [zoomSlider, setZoomSlider] = useState(0); // range
@@ -104,16 +102,17 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
     setDragging(false);
   };
 
+  
   const handleSave = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
     const img = imageRef.current;
     const maskImg = new Image();
-    maskImg.src = shape; // The mask shape image URL (e.g., heart, circle, etc.)
+    maskImg.src = shape;
 
     maskImg.onload = () => {
-      const container = canvas.parentElement; // .edit-image-container
+      const container = canvas.parentElement;
       const containerRect = container.getBoundingClientRect();
 
       const containerWidth = containerRect.width;
@@ -125,11 +124,9 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
       let canvasWidth, canvasHeight;
 
       if (maskAspectRatio > containerAspectRatio) {
-        // Limit by width (landscape or square-ish mask)
         canvasWidth = containerWidth;
         canvasHeight = containerWidth / maskAspectRatio;
       } else {
-        // Limit by height (tall/portrait mask)
         canvasHeight = containerHeight;
         canvasWidth = containerHeight * maskAspectRatio;
       }
@@ -137,46 +134,67 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
-      console.log("Mask image size:", maskImg.width, maskImg.height);
-      console.log("Canvas size set to:", canvas.width, canvas.height);
+      // --- Version A: With offwhite background ---
 
-      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Step 2: Draw the mask to the canvas at correct size
-      ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+      // Fill with offwhite
+      ctx.fillStyle = "#f2f0e9";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Step 3: Use the mask as a clipping mask
-      ctx.globalCompositeOperation = "source-in";
-
-      // Step 4: Draw the transformed image
+      // Draw transformed image
       ctx.save();
       ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
       ctx.rotate((rotation * Math.PI) / 180);
       ctx.scale(zoom, zoom);
 
-      const imageWidth = img.width;
-      const imageHeight = img.height;
-      ctx.drawImage(img, -imageWidth / 2, -imageHeight / 2, imageWidth, imageHeight);
-
+      ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
       ctx.restore();
+
+      // Clip with mask (destination-in)
+      ctx.globalCompositeOperation = "destination-in";
+      ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+
       ctx.globalCompositeOperation = "source-over";
 
-      // Step 5: Export
-      const editedImage = canvas.toDataURL("image/png");
+      // Export version with offwhite
+      const editedWithOffwhite = canvas.toDataURL("image/png");
+
+      // --- Version B: Without offwhite background ---
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw transformed image only (no background)
+      ctx.save();
+      ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+      ctx.rotate((rotation * Math.PI) / 180);
+      ctx.scale(zoom, zoom);
+
+      ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+      ctx.restore();
+
+      // Clip with mask (destination-in)
+      ctx.globalCompositeOperation = "destination-in";
+      ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+
+      ctx.globalCompositeOperation = "source-over";
+
+      // Export version without offwhite
+      const editedWithoutOffwhite = canvas.toDataURL("image/png");
 
       onSave({
         original: imageToEdit.original,
-        edited: editedImage,
+        editedWithOffwhite,
+        editedWithoutOffwhite,
         hasBeenEdited: true,
       });
     };
-
 
     maskImg.onerror = () => {
       console.error("Error loading the mask image:", shape);
     };
   };
+
 
   useEffect(() => {
     const imgElement = imageRef.current;
