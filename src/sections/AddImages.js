@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../css/AddImages.css';
 import '../css/CommonStyles.css';
 
-import CroppingAdvice from '../assets/images/photoAdvice/Cropping.png';
-import LightingAdvice from '../assets/images/photoAdvice/Lighting.png';
-import BnWAdvice from '../assets/images/photoAdvice/BnW.png';
-import SizeAdvice from '../assets/images/photoAdvice/Size.png';
-
+import AdviceImage from '../assets/images/photos_dos_and_donts.jpg';
 
 const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBack, images, isTiny }) => {
   const [localImages, setLocalImages] = useState([]);
@@ -120,39 +116,13 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
       </div>
 
       {showAdviceModal && (
-        <div className="modalOverlay1">
-          <div className="modalContent1">
-            <button className="closeModalButton" onClick={() => setShowAdviceModal(false)}>X</button>
-            <div className="adviceGrid">
-              {/* Left column */}
-              <div className="adviceColumn">
-                <div className="adviceBlock">
-                  <h3>Cropping</h3>
-                  <div className="imagePlaceholder"><img src={CroppingAdvice} alt="Cropping"/></div>
-                  <p>Some background is helpful. It might be difficult to work with a photo which is cropped very closely</p>
-                </div>
-                <div className="adviceBlock">
-                  <h3>Lighting</h3>
-                  <div className="imagePlaceholder"><img src={LightingAdvice} alt="Lighting"/></div>
-                  <p>Very pale or overexposed images won't work very well. Neither will very dark images.</p>
-                </div>
-              </div>
-
-              {/* Right column */}
-              <div className="adviceColumn">
-                <div className="adviceBlock">
-                  <h3>Size</h3>
-                  <div className="imagePlaceholder"><img src={SizeAdvice} alt="Size"/></div>
-                  <p>Think of the size of the locket (for tiny lockets we'd recommend no more than 2 faces close together).</p>
-                </div>
-                <div className="adviceBlock">
-                  <h3>Black & White</h3>
-                  <div className="imagePlaceholder"><img src={BnWAdvice} alt="Black and White"/></div>
-                  <p>We wouldn't recommend black and white photos for our tiny SILVER locket, but for most other lockets they should work well!.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="singleImageOverlay" onClick={() => setShowAdviceModal(false)}>
+          <img
+            src={AdviceImage}
+            alt="Advice on how to use the image editor"
+            className="singleImageModal"
+            onClick={(e) => e.stopPropagation()} // Prevent closing when image is clicked
+          />
         </div>
       )}
 

@@ -3,7 +3,7 @@ import '../css/OrderDetails.css';
 import '../css/CommonStyles.css';
 
 import shapes from '../assets/shapes.json';
-import Infographic from '../assets/images/INFOGRAPHIC_ORDER.png';
+import Infographic from '../assets/images/INFOGRAPHIC_ORDER_example.jpg';
 
 // Import all shape images using Webpack
 const importAll = (r) => {
