@@ -65,6 +65,11 @@ const Section =({ onBack })=>{
                     <span>Please note: Add-ons must be purchased immediately after submitting your photos.</span>
                     <span>We may not be able to link late add-on purchases to your order.</span>
                 </div>
+
+                <div>
+                    <br></br>
+                    <h2> You may close this page now. </h2>
+                </div>
             </div>
         </div>
     )
