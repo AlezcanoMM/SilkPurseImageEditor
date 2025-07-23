@@ -56,7 +56,7 @@ const Section = ({
     const [_, count, type] = match;
     const label = type.toUpperCase() === "W" ? "word" : "letter";
     const plural = parseInt(count) > 1 ? "s" : "";
-    return `Please note that this type of locket can only fit ${count} ${label}${plural}.`;
+    return `Please note your locket can only fit ${count} ${label}${plural}.`;
   };
 
   const renderEngravingSection = (title, engraving, setEngraving, font, setFont) => (
@@ -64,7 +64,7 @@ const Section = ({
       <h2 className="EngravingTitle">{title} engraving</h2>
       <div className="EngravingRow">
         <div className="EngravingColumn">
-          <label>Please let us know your ENGRAVING</label>
+          <label>ENGRAVING – Text Or Motif</label>
           <textarea
             rows="3"
             value={engraving}
@@ -75,7 +75,7 @@ const Section = ({
         </div>
 
         <div className="EngravingColumn">
-          <label>Please let us know your font</label>
+          <label>Font Choice – If Applicable</label>
           <input
             type="number"
             value={font}
@@ -139,23 +139,35 @@ const Section = ({
         renderEngravingSection("Inside", insideEngraving, setInsideEngraving, insideFont, setInsideFont)}
 
       <div className="engravingImagesContainer">
-        <div className="engravingImageWrapper">
-          <img
-            src={motifs}
-            alt="Motif Options"
-            className="engravingImage"
-            onClick={() => handleImageClick(motifs)}
-          />
+        <div className="engravingImageColumn">
+          <p className="engravingImageTitle">Motifs</p>
+          <div className="engravingImageWrapper">
+            <img
+              src={motifs}
+              alt="Motif Options"
+              className="engravingImage"
+              onClick={() => handleImageClick(motifs)}
+            />
+          </div>
         </div>
-        <div className="engravingImageWrapper">
-          <img
-            src={fonts}
-            alt="Font Options"
-            className="engravingImage"
-            onClick={() => handleImageClick(fonts)}
-          />
+
+        <div className="engravingImageColumn">
+          <p className="engravingImageTitle">Fonts</p>
+          <div className="engravingImageWrapper">
+            <img
+              src={fonts}
+              alt="Font Options"
+              className="engravingImage"
+              onClick={() => handleImageClick(fonts)}
+            />
+          </div>
+        </div>
+
+        <div className="engravingImageMessage">
+          Click image to enlarge
         </div>
       </div>
+
 
       {popupImage && (
         <div className="popupOverlay" onClick={closePopup}>

@@ -108,7 +108,7 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
 
       <div className="photoAdviceContainer">
         <h2>Tips For Choosing The Perfect Picture!</h2>
-        <p>Please take time to read out tips before proceeding.</p>
+        <p style={{ color: '#EB7676', textTransform: 'uppercase' }}>Please take time to read out tips before proceeding.</p>
 
         <button className="photoAdviceButton" onClick={() => setShowAdviceModal(true)}>
           How to choose the right photos?
@@ -189,14 +189,14 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
           <input type="button" value="Back" onClick={() => onBack()} className="InputButton" />
         </div>
         <div>
-          <input type="button" value="Confirm" onClick={handleClick} className="InputButton" />
+          <input type="button" value="Edit photos" onClick={handleClick} className="InputButton" />
         </div>
       </div>
 
       {showConfirmModal && (
         <div className="modalOverlay2">
           <div className="modalContent2">
-            <p>Have you selected all your photos?</p>
+            <p>Have you uploaded all of your photos?</p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '20px' }}>
               <button className="InputButton" onClick={handleConfirmNo}>No</button>
               <button className="InputButton" onClick={handleConfirmYes}>Yes</button>

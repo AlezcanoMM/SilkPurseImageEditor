@@ -43,7 +43,7 @@
 
 .EngravingTitle {
   font-size: 1.3rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
@@ -51,8 +51,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: clamp(0.5rem, 4vw, 2rem);
-  flex-wrap: wrap;
+  gap: clamp(1rem, 4vw, 2rem);
+  flex-wrap: nowrap;
 }
 
 .EngravingColumn {
@@ -84,21 +84,39 @@
 /* Engraving Image Section */
 .engravingImagesContainer {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   margin: 2rem auto 1rem;
   width: 50%;
-  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+  flex-direction: row;
+}
+
+.engravingImageColumn {
+  flex: 1 1 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.engravingImageTitle {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
 }
 
 .engravingImageWrapper {
-  flex: 1 1 45%;
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .engravingImage {
   width: 40%;
-  max-width: 300px;
+  max-width: 150px;
   height: auto;
   cursor: pointer;
   border: 1px solid #ccc;
@@ -106,6 +124,19 @@
   object-fit: contain;
   transition: transform 0.2s ease;
 }
+
+.engravingImage:hover {
+  transform: scale(1.05);
+}
+
+.engravingImageMessage {
+  width: 100%;
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
 
 .engravingImage:hover {
   transform: scale(1.05);

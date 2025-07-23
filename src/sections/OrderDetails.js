@@ -58,7 +58,7 @@ const Section = ({
     });
 
     if (!matchingKey) {
-      alert("We couldn't find a matching shape for this locket code.");
+      alert("We couldn't match that locket code.\nPlease check the product title on the listing page to find the correct code.");
       return;
     }
 
@@ -72,7 +72,7 @@ const Section = ({
       const importedImage = shapeImages[imagePath];
 
       if (!importedImage) {
-        console.error("Could not find image in shapeImages for:", imagePath);
+        //console.error("Could not find image in shapeImages for:", imagePath);
         alert("Image file not found. Please check your locket code and try again.");
         return;
       }
@@ -110,9 +110,9 @@ const Section = ({
     <div className="SectionDetails">
       <div className="subtitleDiv">
         <div className="subtitleIntro">
-          <p>Please use our photo editor to upload and submit your images for the personalised photo locket.</p>
-          <p>If you’ve paid for engraving, you’ll also be able to add your message.</p>
-          <p>Ordered more than one locket? You can add images for each at the end of the process.</p>
+          <p><b>Please use our photo editor to upload and submit images for your personalised photo locket.</b></p>
+          <p>If you’ve added engraving to your order, you’ll also be able to enter your message.</p>
+          <p><b>Ordered more than one locket?</b> You can upload images for each one at the end of the process.</p>
         </div>
       </div>
 
@@ -125,30 +125,30 @@ const Section = ({
         {/* Right: Form Inputs */}
         <div className="inputFieldsWrapper">
           <div className="formSection">
-            <h3 className="orderTitle" style={{ color: '#F69679' }}>ORDER NUMBER:</h3>
+            <h3 className="orderTitle" style={{ color: '#F69679' }}><b>ORDER NUMBER:</b></h3>
             <p className="orderDescription">
-              To find your ORDER NUMBER go to Profile &gt; Your Purchases on Etsy.
+              To find your <b>ORDER NUMBER</b> go to Profile &gt; Your Purchases on Etsy.
               You can also find your order number in your confirmation email!
             </p>
             <input
               type="text"
               value={orderNum}
               onChange={(e) => setOrderNum(e.target.value)}
-              placeholder="Order Number"
+              placeholder="Enter Order Number"
               className="InputField"
             />
           </div>
 
           <div className="formSection">
-            <h3 className="locketTitle" style={{ color: '#82CA9C' }}>LOCKET CODE:</h3>
+            <h3 className="locketTitle" style={{ color: '#82CA9C' }}><b>LOCKET CODE:</b></h3>
             <p className="orderDescription">
-              Your LOCKET CODE can be found in the title on the Etsy product page.
+              Your <b>LOCKET CODE</b> can be found in the title on the Etsy product page.
             </p>
             <input
               type="text"
               value={locketCode}
               onChange={(e) => setLocketCode(e.target.value.trim().toUpperCase())}
-              placeholder="Locket Code"
+              placeholder="Enter Locket Code"
               className="InputField"
             />
           </div>
@@ -182,7 +182,7 @@ const Section = ({
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
                 </button>
                 <p>Have you paid for the outside of your locket to be engraved?</p>
-                <p style={{ color: '#EB7676', fontSize: '12px' }}>We’ll verify your purchase to ensure everything is in order.</p>
+                <p style={{ color: '#EB7676', fontSize: '12px' }}>If engraving hasn’t been paid for, your locket will be sent <b>without engraving.</b></p>
                 <div className="ModalButtons">
                     <button onClick={onContinue} className='InputButton'>No</button>
                     <button onClick={onEngraving} className='InputButton'>Yes</button>

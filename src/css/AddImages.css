@@ -116,6 +116,29 @@
   cursor: default;
 }
 
+.modalOverlay2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* dimmed background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modalContent2 {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  max-width: 90vw;
+  max-height: 90vh;
+  text-align: center;
+}
+
 /* Advice layout */
 .adviceGrid {
   display: grid;
@@ -208,13 +231,6 @@
     width: 100%;
   }
 
-  .modalContent,
-  .modalContent1,
-  .modalContent2 {
-    width: 90%;
-    padding: 1.5rem;
-  }
-
   .closeModalButton {
     font-size: 1.3rem;
     right: 0.8rem;
@@ -243,13 +259,6 @@
   #image-preview img {
     width: 4rem;
     height: 4rem;
-  }
-
-  .modalContent,
-  .modalContent1,
-  .modalContent2 {
-    width: 95%;
-    padding: 1rem;
   }
 
   .image-preview-item {

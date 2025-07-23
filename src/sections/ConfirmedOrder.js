@@ -15,28 +15,27 @@ const Section =({ onBack })=>{
             
             <div className="confirmation-message">
                 <div className="line-group">
-                    <span>Thank you for sending us pictures for your Personalised Locket.</span>
+                    <span>Thanks for your photo submission!</span>
                 </div>
 
                 <div className="line-group">
-                    <span>We can confirm that we have received them, and we will begin working on your locket this week.</span>
-                    <span>Your images will almost certainly be suitable, but if there should be any unforeseen issues</span>
-                    <span>with the layout / picture quality we will be in touch via Etsy Messages to let you know.</span>
+                    <span>We've received your images and will begin crafting your personalised locket this week.</span>
                 </div>
 
                 <div className="line-group">
-                    <span>If you don't hear from us again, you can assume that your order has been made and posted.</span>
+                    <span>Your photos look great, but if we run into any issues with layout or image quality, we’ll contact you via Etsy Messages.</span>
+                    <span>If you don’t hear from us, your order is all set and will be posted as soon as it’s ready.</span>
                 </div>
 
                 <div className="line-group">
-                    <span>Please do get in touch via Etsy Messages if you have any questions in the meantime.</span>
+                    <span>If you have any questions, feel free to message us on Etsy.</span>
                 </div>
             </div>
 
             <div className='confirmation-message'>
-                <h3>ADD ONS</h3>
+                <h3>Want to add something extra?</h3>
                 <div className="line-group">
-                    <span>To Add either of the following to your order please visit the add-on section of our Etsy store.</span>
+                    <span>Visit our <i>Add-Ons</i> section to include:</span>
                 </div>
 
                 <div className="addonsGrid">
@@ -63,8 +62,8 @@ const Section =({ onBack })=>{
                 </div>
 
                 <div className="line-group">
-                    <span>Please not any add-ons MUST be purchased as soon as your photos submission is complete.</span>
-                    <span>If you purchase any later we may not be able to link the add-on to your locket order.</span>
+                    <span>Please note: Add-ons must be purchased immediately after submitting your photos.</span>
+                    <span>We may not be able to link late add-on purchases to your order.</span>
                 </div>
             </div>
         </div>

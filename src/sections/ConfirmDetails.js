@@ -255,8 +255,7 @@ const Section = ({
               checked={isConfirmed}
               onChange={(e) => setIsConfirmed(e.target.checked)}
             />{" "}
-            I can confirm that I am happy with my submission and you can now
-            proceed with my order.
+            I confirm that all my personalisation details are correct and you may proceed with my order.
           </label>
         </div>
 
@@ -266,14 +265,14 @@ const Section = ({
             className="InputButton"
             disabled={loading}
           >
-            Place New Order
+            Add Another Locket
           </button>
           <button
             onClick={handleConfirmClick}
             className="InputButton"
             disabled={loading}
           >
-            Confirm
+            Confirm And Finish
           </button>
         </div>
       </div>
