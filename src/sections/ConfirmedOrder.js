@@ -15,7 +15,7 @@ const Section =({ onBack })=>{
             
             <div className="confirmation-message">
                 <div className="line-group">
-                    <span>Thanks for your photo submission!</span>
+                    <span><b>Thanks for your photo submission!</b></span>
                 </div>
 
                 <div className="line-group">

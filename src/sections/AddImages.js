@@ -110,7 +110,7 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
         <h2>Tips For Choosing The Perfect Picture!</h2>
         <p style={{ color: '#EB7676', textTransform: 'uppercase' }}>Please take time to read out tips before proceeding.</p>
 
-        <button className="photoAdviceButton" onClick={() => setShowAdviceModal(true)}>
+        <button className="InputButton" onClick={() => setShowAdviceModal(true)}>
           How to choose the right photos?
         </button>
       </div>
@@ -128,7 +128,7 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
 
       {isTiny && (
         <p style={{ color: '#EB7676' }}>
-          WARNING! your locket is tiny, make sure your images do not have more than one person
+          WARNING! Your locket is tiny, make sure your images do not have more than one person.
         </p>
       )}
 
@@ -156,7 +156,7 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
           id="file-input"
           className="file-input"
         />
-        <label htmlFor="file-input" className="InputButtonFile">
+        <label htmlFor="file-input" className="InputButtonFile InputButton">
           Import
         </label>
       </div>
@@ -171,12 +171,12 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
           localImages.map((image, index) => (
             <div key={index} className="image-preview-item">
               <img src={image.original} alt={`Preview ${index}`} className="image-preview" />
-              <button
-                className="delete-button"
-                onClick={() => handleDelete(index)}
-              >
-                Delete
-              </button>
+                <button
+                  className="delete-button1"
+                  onClick={() => handleDelete(index)}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e67272ff"><path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z"/></svg>
+                </button>
             </div>
           ))
         ) : (

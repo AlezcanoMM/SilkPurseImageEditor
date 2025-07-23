@@ -98,16 +98,27 @@ button {
 .edit-button {
   background-color: #fff;
   color: #000;
-  border: 1px solid #979797;
+  border: 1px solid #474747;
   margin-top: 0.8rem;
 }
 
 .delete-button {
-  background-color: #c2c2c2;
+  background-color: #f7bfbf;
   color: #000;
   border: 1px solid #474747;
   margin-top: 0.6rem;
 }
+
+.edit-button:hover {
+  border: 1px solid #979797;
+  outline: 1px solid black;
+}
+
+.delete-button:hover {
+  border: 1px solid #474747;
+  outline: 1px solid black;
+}
+
 
 .side-select {
   margin-top: 0.6rem;
@@ -120,6 +131,7 @@ button {
 .edit-button.edited {
   background-color: rgba(184, 238, 184, 0.3);
   border-color: #78a578;
+  border: 1px solid #474747;
   transition: background-color 0.3s ease;
 }
 
