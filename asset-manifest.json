@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "./static/css/main.a40be210.css",
+    "main.css": "./static/css/main.a4a1634a.css",
     "main.js": "./static/js/main.dc540581.js",
     "static/js/453.51224a5c.chunk.js": "./static/js/453.51224a5c.chunk.js",
     "static/media/photos_dos_and_donts.jpg": "./static/media/photos_dos_and_donts.0ace725543e6ec246edf.jpg",
@@ -104,12 +104,12 @@
     "static/media/LKGP-33_Gold Heart Necklace_2_E_FB_6W.png": "./static/media/LKGP-33_Gold Heart Necklace_2_E_FB_6W.5a84ba7c0852b1a94e6f.png",
     "static/media/LKGP-66_Large Oval Keepsake_1_E_B_15W.png": "./static/media/LKGP-66_Large Oval Keepsake_1_E_B_15W.83c60472ad5bf4e9d475.png",
     "index.html": "./index.html",
-    "main.a40be210.css.map": "./static/css/main.a40be210.css.map",
+    "main.a4a1634a.css.map": "./static/css/main.a4a1634a.css.map",
     "main.dc540581.js.map": "./static/js/main.dc540581.js.map",
     "453.51224a5c.chunk.js.map": "./static/js/453.51224a5c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a40be210.css",
+    "static/css/main.a4a1634a.css",
     "static/js/main.dc540581.js"
   ]
 }
