@@ -27,7 +27,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
   };
 
   useEffect(() => {
-    resetState(); // Call resetState when imageToEdit changes
+    resetState();
   }, [imageToEdit]);
 
   // Handle zoom change
@@ -134,8 +134,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
-      // --- Version A: With offwhite background ---
-
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Fill with offwhite
@@ -159,8 +157,6 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
       // Export version with offwhite
       const editedWithOffwhite = canvas.toDataURL("image/png");
-
-      // --- Version B: Without offwhite background ---
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -271,6 +267,8 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
             className="editable-image"
             style={{
               transform: `translate(${offsetX}px, ${offsetY}px) scale(${zoom}) rotate(${rotation}deg)`,
+              width: `${500}px`,
+              height: "auto"
             }}
             onMouseDown={startDrag}
           />
