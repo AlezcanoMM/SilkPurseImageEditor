@@ -3,6 +3,16 @@
   font-size: 16px;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
  .SectionDetails {
     background-color: rgb(255, 255, 255);
     display: flex;
