@@ -135,7 +135,7 @@ const Section = ({
               value={orderNum}
               onChange={(e) => setOrderNum(e.target.value)}
               placeholder="Enter Order Number"
-              className="InputField"
+              className="InputField InputFieldMobile"
             />
           </div>
 
@@ -149,7 +149,7 @@ const Section = ({
               value={locketCode}
               onChange={(e) => setLocketCode(e.target.value.trim().toUpperCase())}
               placeholder="Enter Locket Code"
-              className="InputField"
+              className="InputField InputFieldMobile"
             />
           </div>
         </div>

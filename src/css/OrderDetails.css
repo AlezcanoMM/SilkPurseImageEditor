@@ -219,21 +219,30 @@ a {
   .formLayoutContainer {
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin: 0 auto; 
     padding: 1rem 4vw;
+    width: 100%;
+    text-align: center;
   }
 
-  .inputFieldsWrapper,
-  .infographicWrapper {
+  .infographicWrapper,
+  .inputFieldsWrapper {
     width: 100%;
-    display: flex;
     justify-content: center;
-    align-items: center; /* optional: vertically center content inside */
-    text-align: center;  /* optional: center text and inputs */
+    align-items: center;
   }
 
   .formSection {
     width: 90%;
     max-width: 400px;
     padding-bottom: 1rem;
+  }
+
+  .InputFieldMobile {
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    text-align: center;
   }
 }

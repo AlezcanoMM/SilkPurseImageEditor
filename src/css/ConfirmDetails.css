@@ -203,19 +203,56 @@ body {
   cursor: pointer;
 }
 
-
 @media (max-width: 768px) {
   .confirmation-header {
     flex-direction: column;
     align-items: center;
-  }
-
-  .listing-photo,
-  .details-text {
-    max-width: 90%;
-  }
-
-  .details-text {
     text-align: center;
+  }
+
+  .listing-photo {
+    max-width: 30%;
+  }
+
+  .details-text {
+    max-width: 100%;
+    flex: none;
+    width: 100%;
+  }
+
+  .edited-grid {
+    max-width: 90vw;
+  }
+
+  .edited-image-item {
+    width: 80px;
+  }
+
+  .edited-image-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .back-button-wrapper {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .edited-image-item {
+    width: 70px;
+  }
+
+  .edited-image-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .listing-photo {
+    max-width: 100%;
+  }
+
+  .side-text {
+    font-size: 0.8rem;
   }
 }

@@ -208,3 +208,64 @@
   font-size: 0.85rem;
   color: #eb7676;
 }
+
+@media (max-width: 768px) {
+  .EngravingSection {
+    width: 90%;
+    padding: 1rem 0;
+  }
+
+  .EngravingRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .EngravingColumn {
+    width: 100%;
+    flex: 1 1 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .engravingSideWrapper {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .engravingSideSelector,
+  .engravingWarning {
+    width: 100%;
+    text-align: center;
+  }
+
+  .engravingImagesContainer {
+    width: 95%;
+    gap: 1rem;
+  }
+
+  .engravingImageColumn {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+
+  .engravingImage {
+    width: 100%;
+    max-width: none;
+  }
+
+  .popupImageWrapper {
+    max-width: 95%;
+    max-height: 90%;
+    padding: 0.5rem;
+  }
+
+  .InputButton {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .buttonDiv {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+}

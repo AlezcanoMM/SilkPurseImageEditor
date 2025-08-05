@@ -151,6 +151,12 @@
   border: 2px solid #1b1b1b;
 }
 
+.reset-button-wrapper {
+  width: 34%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .reset-button-icon {
   display: flex;
   align-items: center;
@@ -210,6 +216,27 @@
 
   .reset-button {
     width: 50%;
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .control-group {
+    flex: 1 1 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .reset-button-wrapper {
+    width: 90%;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
