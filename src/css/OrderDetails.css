@@ -66,8 +66,10 @@ a {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 1rem; /* add padding so modal doesn't touch edges */
+  padding: 0;
+  box-sizing: border-box;
 }
+
 
 .ModalContent p {
   margin: 0.5rem 0 2.5rem;
@@ -83,7 +85,7 @@ a {
 }
 
 .ModalContent {
-  position: relative; /* Crucial for absolute positioning the X button */
+  position: relative;
   width: 90vw;
   max-width: 400px;
   min-height: 20vh;
@@ -96,7 +98,9 @@ a {
   align-items: center;
   text-align: center;
   box-sizing: border-box;
+  margin: 0 auto;
 }
+
 
 .ModalCloseButton {
   position: absolute;
@@ -198,17 +202,6 @@ a {
     padding: 1rem;
     font-size: 0.9rem;
     margin: 0 auto;
-  }
-
-  .ModalContent {
-    width: 95vw;
-    max-width: 350px;
-    padding: 1.5rem;
-  }
-
-  .ModalButtons button {
-    flex: 1 1 45%;
-    min-width: auto;
   }
 
   .footerContainer {
