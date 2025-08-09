@@ -2,21 +2,7 @@ import React, { useState } from 'react';
 import '../css/OrderDetails.css';
 import '../css/CommonStyles.css';
 
-import shapes from '../assets/shapes.json';
 import Infographic from '../assets/images/INFOGRAPHIC_ORDER_example.jpg';
-
-// Import all shape images using Webpack
-const importAll = (r) => {
-  let images = {};
-  r.keys().forEach((key) => {
-    const cleanedKey = key.replace('./', '');
-    images[`/assets/shapes/${cleanedKey}`] = r(key);
-  });
-  return images;
-};
-
-const shapeImages = importAll(require.context('../assets/shapes', false, /\.(png|jpe?g)$/));
-
 
 const Section = ({
   onContinue,
@@ -49,60 +35,41 @@ const Section = ({
     handleConfirm();
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     const normalizedCode = locketCode.trim().toUpperCase();
 
-    const matchingKey = Object.keys(shapes).find(key => {
-      const codePart = key.split('_')[0].toUpperCase();
-      return codePart === normalizedCode;
-    });
-
-    if (!matchingKey) {
-      alert("We couldn't match that locket code.\nPlease check the product title on the listing page to find the correct code.");
-      return;
-    }
-
     try {
-      const [code, name, numImages, engrave, engravingSides, maxEngravings, isTiny] = matchingKey
-        .replace('.png', '')
-        .replace('.jpg', '')
-        .split('_');
+      const res = await fetch(`/get-shape?code=${normalizedCode}`);
+      const data = await res.json();
 
-      const imagePath = shapes[matchingKey]; // e.g. "/assets/shapes/LKGP-117_Moon Bracelet_2_E.png"
-      const importedImage = shapeImages[imagePath];
-
-      if (!importedImage) {
-        //console.error("Could not find image in shapeImages for:", imagePath);
-        alert("Image file not found. Please check your locket code and try again.");
+      if (!data.success) {
+        alert(data.error || "Shape not found in Google Drive.");
         return;
       }
 
+      const importedImage = data.downloadUrl;
       setShape(importedImage);
+
+      const [code, name, numImages, engrave, engravingSides, maxEngravings, isTiny] =
+        data.fileName.replace(/\.(png|jpg|jpeg)$/i, '').split('_');
+
       setLocketName(name);
       setMaxNumberImages(parseInt(numImages, 10));
-      setEngravingAllowed(engrave === 'E' || engrave === 'e');
-      if (engrave === 'E' || engrave === 'e') {
+      setEngravingAllowed(engrave.toUpperCase() === 'E');
+      if (engrave.toUpperCase() === 'E') {
         setEngravingSides(engravingSides);
         setMaxEngraving(maxEngravings);
       }
-      setIsTiny(isTiny === 'T' || isTiny === 't');
+      setIsTiny(isTiny && isTiny.toUpperCase() === 'T');
 
-      // Debug logs
-      console.log("All shape image keys:", Object.keys(shapeImages));
-      console.log("Matched Key:", matchingKey);
-      console.log("Parsed Name:", name);
-      console.log("Num Images:", numImages);
-      console.log("Engraving Allowed:", engrave === 'E');
-      console.log("Shape URL:", importedImage);
-
-      if(engrave === 'E' || engrave === 'e') {
+      if (engrave.toUpperCase() === 'E') {
         setShowModal(true);
       } else {
         onContinue();
       }
     } catch (err) {
-      console.error("Error processing shape image:", err);
-      alert("There was a problem processing your locket. Please try again.");
+      console.error("Error fetching shape image:", err);
+      alert("Error fetching shape image. Please try again.");
     }
   };
 

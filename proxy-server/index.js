@@ -34,3 +34,20 @@ app.post('/submit-order', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Proxy server running on http://localhost:${PORT}`);
 });
+
+app.get('/get-shape', async (req, res) => {
+  try {
+    const code = req.query.code;
+    if (!code) {
+      return res.status(400).json({ success: false, error: "No code provided" });
+    }
+
+    const url = `${GOOGLE_SCRIPT_URL}?token=${TOKEN}&code=${encodeURIComponent(code)}`;
+    const googleRes = await fetch(url);
+    const data = await googleRes.json();
+    res.status(200).json(data);
+  } catch (err) {
+    console.error('Proxy error:', err);
+    res.status(500).json({ success: false, error: 'Proxy server error' });
+  }
+});
