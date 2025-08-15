@@ -69,27 +69,11 @@ const Section = ({
         return;
       }
 
-      const dataUri = `data:image/png;base64,${data.fileBase64}`;
-      setShape(dataUri);
-
-      if (data.listingBase64) {
-        const listingDataUri = `data:image/jpeg;base64,${data.listingBase64}`;
-        setListingPhoto(listingDataUri);
-      } else {
-        setListingPhoto(null);
-      }
-
-      if (data.fontsBase64) {
-        setEngravingFontImage(`data:image/png;base64,${data.fontsBase64}`);
-      } else {
-        setEngravingFontImage(null);
-      }
-
-      if (data.motifBase64) {
-        setEngravingMotifImage(`data:image/png;base64,${data.motifBase64}`);
-      } else {
-        setEngravingMotifImage(null);
-      }
+      // Direct URLs
+      setShape(data.shapeUrl || null);
+      setListingPhoto(data.listingUrl || null);
+      setEngravingFontImage(data.fontsUrl || null);
+      setEngravingMotifImage(data.motifUrl || null);
 
       const [code, name, numImages, engrave, engravingSides, maxEngravings, isTiny] =
         data.fileName.replace(/\.(png|jpg|jpeg)$/i, '').split('_');
@@ -97,10 +81,12 @@ const Section = ({
       setLocketName(name);
       setMaxNumberImages(parseInt(numImages, 10));
       setEngravingAllowed(engrave.toUpperCase() === 'E');
+
       if (engrave.toUpperCase() === 'E') {
         setEngravingSides(engravingSides);
         setMaxEngraving(maxEngravings);
       }
+
       setIsTiny(isTiny && isTiny.toUpperCase() === 'T');
 
       if (engrave.toUpperCase() === 'E') {
@@ -109,9 +95,11 @@ const Section = ({
         onContinue();
       }
     } catch (err) {
+      setLoading(false);
       alert("Error matching locket code. Please try again.");
     }
   };
+
 
   return (
     <div className="SectionDetails">
