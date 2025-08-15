@@ -78,7 +78,7 @@ const Section = ({
 
       const rows = Math.ceil(editedImages.length / imagesPerRow);
 
-      const totalWidth = imagesPerRow * imageWidth + (imagesPerRow - 1) * paddingX;
+      const totalWidth = (editedImages.length >= imagesPerRow ? imagesPerRow : editedImages.length) * imageWidth + ((editedImages.length >= imagesPerRow ? imagesPerRow : editedImages.length) - 1) * paddingX;
       const totalHeight = rows * imageHeight + (rows - 1) * paddingY;
 
       const canvas = document.createElement("canvas");
