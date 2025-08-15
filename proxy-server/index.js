@@ -21,33 +21,32 @@ function makeDriveUrl(fileId) {
   return `https://drive.google.com/uc?export=download&id=${fileId}`;
 }
 
-// Proxy route: streams Drive file to client efficiently
+// Proxy route to serve Google Drive images with proper CORS headers (streaming)
 app.get("/proxy/:fileId", async (req, res) => {
   const { fileId } = req.params;
   if (!fileId) return res.status(400).send("Missing file ID");
 
   try {
-    const driveUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-
+    const driveUrl = makeDriveUrl(fileId);
     const driveRes = await fetch(driveUrl);
 
     if (!driveRes.ok) {
-      return res.status(driveRes.status).send("Error fetching file from Drive");
+      return res.status(driveRes.status).send("Error fetching file");
     }
 
-    // Forward content type and CORS headers
-    res.setHeader("Content-Type", driveRes.headers.get("content-type") || "image/png");
-    res.setHeader("Access-Control-Allow-Origin", "*");
+    // Forward content type
+    res.set("Content-Type", driveRes.headers.get("content-type") || "image/png");
+    res.set("Access-Control-Allow-Origin", "*");
 
-    // Stream directly to client
+    // Stream the response body directly to the client
     driveRes.body.pipe(res);
 
     driveRes.body.on("error", (err) => {
-      console.error("Drive stream error:", err);
+      console.error("Streaming error:", err);
       res.status(500).end("Stream error");
     });
   } catch (err) {
-    console.error("Proxy server error:", err);
+    console.error("Proxy error:", err);
     res.status(500).send("Proxy server error");
   }
 });
