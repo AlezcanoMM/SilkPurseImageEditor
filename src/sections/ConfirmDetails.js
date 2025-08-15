@@ -127,7 +127,7 @@ const Section = ({
               formData.append("notes", notes.trim());
             }
 
-            fetch("https://silkpurseimageeditor.onrender.com/submit-order", {
+            fetch("https://make-my-locket.onrender.com/submit-order", {
               method: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

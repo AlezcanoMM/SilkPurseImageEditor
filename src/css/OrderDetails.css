@@ -233,4 +233,9 @@ a {
     box-sizing: border-box;
     text-align: center;
   }
+
+  .subtitleDivOD {
+    width: 85%;
+    padding-bottom: 0.8rem;
+  }
 }

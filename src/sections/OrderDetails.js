@@ -81,7 +81,7 @@ const Section = ({
     const normalizedCode = locketCode.trim().toUpperCase();
 
     try {
-      const res = await fetch(`https://silkpurseimageeditor.onrender.com/get-shape?code=${normalizedCode}`);
+      const res = await fetch(`https://make-my-locket.onrender.com/get-shape?code=${normalizedCode}`);
       const data = await res.json();
 
       if (!data.success) {

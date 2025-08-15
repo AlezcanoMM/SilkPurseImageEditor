@@ -45,7 +45,6 @@ html, body {
     border-radius: 8px;
     text-transform: uppercase;
   }
-
   
   .InputButton:hover {
     background-color: black !important;
@@ -82,9 +81,3 @@ html, body {
     flex-direction: row;
     gap: 20px;
   }
-
-@media (max-width: 768px) {
-  * {
-    font-size: 14px;
-  }
-}
