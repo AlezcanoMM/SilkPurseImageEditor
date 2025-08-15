@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import '../css/CommonStyles.css';
 import '../css/ConfirmDetails.css';
 
-import listingPhotos from '../assets/listingPhotos';
-
 const Section = ({
   orderNum,
   locketCode,
@@ -18,13 +16,12 @@ const Section = ({
   backFont,
   insideEngraving,
   insideFont,
+  listingPhoto,
   onContinue,
   onBack
 }) => {
   const [isConfirmed, setIsConfirmed] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const listingPhoto = locketCode ? listingPhotos[locketCode] : null;
 
   const [highlightConfirm, setHighlightConfirm] = useState(false);
   const [showConnectionMsg, setShowConnectionMsg] = useState(false);
@@ -72,15 +69,20 @@ const Section = ({
     shapeImg.crossOrigin = "anonymous";
 
     shapeImg.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      const paddingX = 23; // horizontal spacing
+      const paddingY = 69; // vertical spacing
+      const imagesPerRow = 5;
 
-      const padding = 23; //separation between images
       const imageWidth = shapeImg.naturalWidth;
       const imageHeight = shapeImg.naturalHeight;
-      const totalWidth = editedImages.length * imageWidth + (editedImages.length - 1) * padding;
-      const totalHeight = imageHeight;
 
+      const rows = Math.ceil(editedImages.length / imagesPerRow);
+
+      const totalWidth = imagesPerRow * imageWidth + (imagesPerRow - 1) * paddingX;
+      const totalHeight = rows * imageHeight + (rows - 1) * paddingY;
+
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
       canvas.width = totalWidth;
       canvas.height = totalHeight;
 
@@ -92,14 +94,18 @@ const Section = ({
         img.crossOrigin = "anonymous";
 
         img.onload = () => {
-          const x = index * (imageWidth + padding);
-          ctx.drawImage(img, x, 0, imageWidth, imageHeight);
-          loadedImages++;
+          const row = Math.floor(index / imagesPerRow);
+          const col = index % imagesPerRow;
 
+          const x = col * (imageWidth + paddingX);
+          const y = row * (imageHeight + paddingY);
+
+          ctx.drawImage(img, x, y, imageWidth, imageHeight);
+
+          loadedImages++;
           if (loadedImages === editedImages.length) {
             const combinedImageDataUrl = canvas.toDataURL("image/png");
             const base64Data = combinedImageDataUrl.replace(/^data:image\/png;base64,/, "");
-
             const fileName = `${orderNum}_${locketCode}.png`;
 
             const formData = new URLSearchParams();
@@ -283,7 +289,10 @@ const Section = ({
           <div className="loadingText">
             <p>Sending images...</p>
             {showConnectionMsg && (
-              <p>Connecting to server... this can take up to a minute</p>
+              <div>
+                <p>CONNECTING TO SERVER.....</p>
+                <p>PLEASE DO NOT EXIT DURING THIS STAGE OR YOUR IMAGES MAY NOT BE SUBMITTED</p>
+              </div>
             )}
           </div>
         </div>

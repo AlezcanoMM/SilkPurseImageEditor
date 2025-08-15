@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import '../css/Engravings.css';
 import '../css/CommonStyles.css';
 
-import motifs from '../assets/images/MotifEngraving.png';
-import fonts from '../assets/images/FontsEngravings.png';
-
 const Section = ({
   onContinue,
   onBack,
@@ -21,7 +18,9 @@ const Section = ({
   insideEngraving,
   setInsideEngraving,
   insideFont,
-  setInsideFont
+  setInsideFont,
+  engravingFontImage,
+  engravingMotifImage
 }) => {
   const [selectedOption, setSelectedOption] = useState(
     engravingSides === "FB" ? "front" : engravingSides === "I" ? "inside" : engravingSides
@@ -61,7 +60,7 @@ const Section = ({
 
   const renderEngravingSection = (title, engraving, setEngraving, font, setFont) => (
     <div className="EngravingSection" key={title}>
-      <h2 className="EngravingTitle">{title} engraving</h2>
+      <h2 className="EngravingTitle">{title} ENGRAVING</h2>
       <div className="EngravingRow">
         <div className="EngravingColumn">
           <label>ENGRAVING – Text Or Motif</label>
@@ -90,8 +89,9 @@ const Section = ({
 
   return (
     <div className="SectionDetails">
-      <div>
-        <h2>Please select from the following options:</h2>
+      <div style={{ textAlign: 'center'}}>
+        <h2><b>SUBMIT YOUR ENGRAVING</b></h2>
+        <h3>Please select from the following options:</h3>
       </div>
 
       {engravingSides === "FB" && (
@@ -116,11 +116,10 @@ const Section = ({
               rel="noopener noreferrer"
               className="engravingWarning"
             >
-              YOU MUST HAVE PURCHASED THE ENGRAVE BOTH SIDES ADD-ON
+              YOU MUST HAVE PURCHASED ENGRAVING FOR BOTH SIDES OF YOUR LOCKET. IF YOU HAVE NOT PAID TWO SETS OF ENGRAVING AND WOULD LIKE IT, PLEASE CLICK THIS MESSAGE AND YOU WILL BE DIRECTED TO AN ETSY ADD-ON PURCHASE FOR THIS SERVICE.
               <br />
-              IF YOU WOULD LIKE YOUR ORDER TO BE ENGRAVED ON BOTH SIDES.
               <br />
-              IF YOU HAVE NOT PLEASE DO SO BY PURCHASING THE ADD-ON HERE.
+              PLEASE NOTE THAT ANY ENGRAVING REQUESTS THAT HAVE NOT BEEN PAID FOR WILL BE DISREGARDED, AND YOUR LOCKET WILL BE MADE WITHOUT IT. 
             </a>
           )}
         </div>
@@ -129,24 +128,24 @@ const Section = ({
       {(engravingSides === "F" ||
         engravingSides === "I" ||
         (engravingSides === "FB" && (selectedOption === "front" || selectedOption === "both"))) &&
-        renderEngravingSection("Front", frontEngraving, setFrontEngraving, frontFont, setFrontFont)}
+        renderEngravingSection("FRONT", frontEngraving, setFrontEngraving, frontFont, setFrontFont)}
 
       {(engravingSides === "B" ||
         (engravingSides === "FB" && (selectedOption === "back" || selectedOption === "both"))) &&
-        renderEngravingSection("Back", backEngraving, setBackEngraving, backFont, setBackFont)}
+        renderEngravingSection("BACK", backEngraving, setBackEngraving, backFont, setBackFont)}
 
       {engravingSides === "I" &&
-        renderEngravingSection("Inside", insideEngraving, setInsideEngraving, insideFont, setInsideFont)}
+        renderEngravingSection("INSIDE", insideEngraving, setInsideEngraving, insideFont, setInsideFont)}
 
       <div className="engravingImagesContainer">
         <div className="engravingImageColumn">
           <p className="engravingImageTitle">Motifs</p>
           <div className="engravingImageWrapper">
             <img
-              src={motifs}
+              src={engravingMotifImage}
               alt="Motif Options"
               className="engravingImage"
-              onClick={() => handleImageClick(motifs)}
+              onClick={() => handleImageClick(engravingMotifImage)}
             />
           </div>
         </div>
@@ -155,10 +154,10 @@ const Section = ({
           <p className="engravingImageTitle">Fonts</p>
           <div className="engravingImageWrapper">
             <img
-              src={fonts}
+              src={engravingFontImage}
               alt="Font Options"
               className="engravingImage"
-              onClick={() => handleImageClick(fonts)}
+              onClick={() => handleImageClick(engravingFontImage)}
             />
           </div>
         </div>
@@ -172,6 +171,9 @@ const Section = ({
       {popupImage && (
         <div className="popupOverlay" onClick={closePopup}>
           <div className="popupImageWrapper" onClick={(e) => e.stopPropagation()}>
+            <button className="popupCloseButton" onClick={closePopup} aria-label="Close popup">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </button>
             <img src={popupImage} alt="Zoomed view" className="popupImage" />
           </div>
         </div>

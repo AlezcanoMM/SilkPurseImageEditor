@@ -20,12 +20,12 @@
 }
 
 #image-preview {
-  margin-top: 1.5rem;
+  margin: 1.5rem auto;
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
+  max-width: 60vw;
 }
 
 #image-preview img {
@@ -100,11 +100,17 @@
   left: 0; 
   right: 0;
   z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.6); /* Dimmed background */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  align-items: flex-start; /* place image at top */
+  padding-top: 2rem; /* some space from top */
+  overflow: auto;
+}
+
+.modalImageWrapper {
+  position: relative;
+  display: inline-block; /* shrinkwrap to image */
 }
 
 .singleImageModal {
@@ -115,6 +121,27 @@
   background: white;
   object-fit: contain;
   cursor: default;
+  display: block;
+}
+
+.popupCloseButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background-color 0.2s ease;
+}
+
+.popupCloseButton:hover {
+  background: rgba(255, 255, 255, 1);
 }
 
 .modalOverlay2 {
@@ -239,6 +266,10 @@
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+  #image-preview {
+    max-width: 90vw;
+  }
+
   .drop-area {
     width: 90%;
   }
@@ -273,6 +304,10 @@
 }
 
 @media (max-width: 480px) {
+  #image-preview {
+    max-width: 90vw;
+  }
+  
   .ImportTitle {
     font-size: 1.2rem;
   }

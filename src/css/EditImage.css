@@ -1,4 +1,4 @@
-.subtitleDiv {
+.subtitleDivE {
   display: flex;
   flex-direction: column;
   width: 40%;
@@ -194,7 +194,7 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .subtitleDiv {
+  .subtitleDivE {
     width: 70%;
     padding: 1rem;
   }
@@ -241,7 +241,7 @@
 }
 
 @media (max-width: 480px) {
-  .subtitleDiv {
+  .subtitleDivE {
     width: 90%;
     padding: 0.625rem;
   }

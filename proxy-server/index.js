@@ -26,8 +26,7 @@ app.post('/submit-order', async (req, res) => {
     const data = await googleRes.json();
     res.status(200).json(data);
   } catch (err) {
-    console.error('Proxy error:', err);
-    res.status(500).json({ success: false, error: 'Proxy server error' });
+    console.error('P1 error:', err);
   }
 });
 
@@ -39,7 +38,7 @@ app.get('/get-shape', async (req, res) => {
   try {
     const code = req.query.code;
     if (!code) {
-      return res.status(400).json({ success: false, error: "No code provided" });
+      return res.status(400).json({ success: false, error: "No locket code provided" });
     }
 
     const url = `${GOOGLE_SCRIPT_URL}?token=${TOKEN}&code=${encodeURIComponent(code)}`;
@@ -47,7 +46,6 @@ app.get('/get-shape', async (req, res) => {
     const data = await googleRes.json();
     res.status(200).json(data);
   } catch (err) {
-    console.error('Proxy error:', err);
-    res.status(500).json({ success: false, error: 'Proxy server error' });
+    console.error('P2 error');
   }
 });

@@ -8,13 +8,14 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
 }
 
 .engravingSideSelector {
   flex: 1;
   min-width: 180px;
+  max-width: 180px;
 }
 
 .engravingSideDropdown {
@@ -26,10 +27,9 @@
 
 .engravingWarning {
   flex: 2;
-  font-size: 0.9rem;
-  color: red;
-  line-height: 1.5;
-  max-width: 100%;
+  color: #EB7676;
+  max-width: 30%;
+  text-align: center;
 }
 
 /* Engraving Section Styling */
@@ -157,6 +157,7 @@
 }
 
 .popupImageWrapper {
+  position: relative;
   background: white;
   padding: 1rem;
   border-radius: 6px;
@@ -209,6 +210,27 @@
   color: #eb7676;
 }
 
+.popupCloseButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  z-index: 10;
+  transition: color 0.2s ease;
+}
+
+.popupCloseButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+
 @media (max-width: 768px) {
   .EngravingSection {
     width: 90%;
@@ -233,7 +255,7 @@
 
   .engravingSideSelector,
   .engravingWarning {
-    width: 100%;
+    width: 30%;
     text-align: center;
   }
 

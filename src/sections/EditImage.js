@@ -230,7 +230,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
   return (
     <div className="SectionDetails">
-      <div className="subtitleDiv">
+      <div className="subtitleDivE">
         <span>Click and drag the image to move it,</span>
         <span>and use the sliders to rotate or zoom the image.</span>
       </div>

@@ -17,6 +17,9 @@ function App() {
   const [locketCode, setLocketCode] = useState(null);
   const [currentSection, setCurrentSection] = useState(0);
   const [shape, setShape] = useState(null);
+  const [listingPhoto, setListingPhoto] = useState(null);
+  const [engravingFontImage, setEngravingFontImage] = useState(null);
+  const [engravingMotifImage, setEngravingMotifImage] = useState(null);
   const [maxNumberImages, setMaxNumberImages] = useState(0);
   const [locketName, setLocketName] = useState("");
   const [engravingAllowed, setEngravingAllowed] = useState(false);
@@ -53,14 +56,16 @@ function App() {
       setLocketCode={setLocketCode}
       setMaxNumberImages={setMaxNumberImages}
       setShape={setShape}
+      setListingPhoto={setListingPhoto}
       setLocketName={setLocketName}
       setEngravingAllowed={setEngravingAllowed}
       setMaxEngraving={setMaxEngraving}
       setEngravingSides={setEngravingSides}
       setIsTiny={setIsTiny}
+      setEngravingFontImage={setEngravingFontImage}
+      setEngravingMotifImage={setEngravingMotifImage}
       orderNum={orderNum}
       locketCode={locketCode}
-      shape={shape}
     />,
     <Engravings
       onContinue={() => setCurrentSection(2)}
@@ -79,11 +84,19 @@ function App() {
       setInsideEngraving={setInsideEngraving}
       insideFont={insideFont}
       setInsideFont={setInsideFont}
+      engravingFontImage={engravingFontImage}
+      engravingMotifImage={engravingMotifImage}
     />,
     <AddImages
       maxNumberImages={maxNumberImages}
       onContinue={() => setCurrentSection(3)}
-      onBack={() => setCurrentSection(0)}
+      onBack={() => {
+        if (engravingAllowed) {
+          setCurrentSection(1);
+        } else {
+          setCurrentSection(0);
+        }
+      }}
       setImages={setImages}
       setEditedImages={setEditedImages}
       images={images}
@@ -121,6 +134,7 @@ function App() {
       backFont={backFont}
       insideEngraving={insideEngraving}
       insideFont={insideFont}
+      listingPhoto={listingPhoto}
       onContinue={() => setCurrentSection(6)}
       onBack={() => setCurrentSection(3)}
     />,

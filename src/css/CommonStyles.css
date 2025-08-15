@@ -23,7 +23,7 @@ html, body {
     height: 100%;
     overflow-y: auto;
     gap: 10px;
-    padding-top: 50px; /* Add some space from the top */
+    padding-top: 50px;
   }
   
   .InputButton {

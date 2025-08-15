@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/OrderDetails.css';
 import '../css/CommonStyles.css';
 
-import Infographic from '../assets/images/INFOGRAPHIC_ORDER_example.jpg';
+import Infographic from '../assets/images/01INFOGRAPHIC_ORDER.jpg';
 
 const Section = ({
   onContinue,
@@ -17,9 +17,28 @@ const Section = ({
   setEngravingAllowed,
   setEngravingSides,
   setMaxEngraving,
-  setIsTiny
+  setIsTiny,
+  setListingPhoto,
+  setEngravingFontImage,
+  setEngravingMotifImage
 }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [showConnectionMsg, setShowConnectionMsg] = useState(false);
+
+  useEffect(() => {
+      let timeout;
+      if (loading) {
+        timeout = setTimeout(() => {
+          setShowConnectionMsg(true);
+        }, 6000);
+      } else {
+        setShowConnectionMsg(false); // reset when loading ends
+      }
+  
+      return () => clearTimeout(timeout);
+    }, [loading]);
 
   const handleClick = () => {
     if (!orderNum?.trim() || !locketCode?.trim()) {
@@ -36,19 +55,41 @@ const Section = ({
   };
 
   const handleConfirm = async () => {
+    setLoading(true);
     const normalizedCode = locketCode.trim().toUpperCase();
 
     try {
-      const res = await fetch(`/get-shape?code=${normalizedCode}`);
+      const res = await fetch(`https://silkpurseimageeditor.onrender.com/get-shape?code=${normalizedCode}`);
       const data = await res.json();
 
+      setLoading(false);
+
       if (!data.success) {
-        alert(data.error || "Shape not found in Google Drive.");
+        alert(data.error || "Locket code not found. Please check the code and try again.");
         return;
       }
 
-      const importedImage = data.downloadUrl;
-      setShape(importedImage);
+      const dataUri = `data:image/png;base64,${data.fileBase64}`;
+      setShape(dataUri);
+
+      if (data.listingBase64) {
+        const listingDataUri = `data:image/jpeg;base64,${data.listingBase64}`;
+        setListingPhoto(listingDataUri);
+      } else {
+        setListingPhoto(null);
+      }
+
+      if (data.fontsBase64) {
+        setEngravingFontImage(`data:image/png;base64,${data.fontsBase64}`);
+      } else {
+        setEngravingFontImage(null);
+      }
+
+      if (data.motifBase64) {
+        setEngravingMotifImage(`data:image/png;base64,${data.motifBase64}`);
+      } else {
+        setEngravingMotifImage(null);
+      }
 
       const [code, name, numImages, engrave, engravingSides, maxEngravings, isTiny] =
         data.fileName.replace(/\.(png|jpg|jpeg)$/i, '').split('_');
@@ -68,19 +109,16 @@ const Section = ({
         onContinue();
       }
     } catch (err) {
-      console.error("Error fetching shape image:", err);
-      alert("Error fetching shape image. Please try again.");
+      alert("Error matching locket code. Please try again.");
     }
   };
 
   return (
     <div className="SectionDetails">
-      <div className="subtitleDiv">
-        <div className="subtitleIntro">
-          <p><b>Please use our photo editor to upload and submit images for your personalised photo locket.</b></p>
-          <p>If you’ve added engraving to your order, you’ll also be able to enter your message.</p>
-          <p><b>Ordered more than one locket?</b> You can upload images for each one at the end of the process.</p>
-        </div>
+      <div className="subtitleDivOD">
+        <p><b>PLEASE USE OUR PHOTO EDITOR TO UPLOAD AND SUBMIT IMAGES FOR YOUR PERSONALISED LOCKET</b></p>
+        <p>If you´ve added engraving to your order, you will be able to give us your requirements here.</p>
+        <p><b>Ordered more than one locket?</b> You can upload images for any other lockets on order after you have completed your first submission.</p>
       </div>
 
       <div className="formLayoutContainer">
@@ -103,6 +141,7 @@ const Section = ({
               onChange={(e) => setOrderNum(e.target.value)}
               placeholder="Enter Order Number"
               className="InputField InputFieldMobile"
+              disabled={loading}
             />
           </div>
 
@@ -117,6 +156,7 @@ const Section = ({
               onChange={(e) => setLocketCode(e.target.value.trim().toUpperCase())}
               placeholder="Enter Locket Code"
               className="InputField InputFieldMobile"
+              disabled={loading}
             />
           </div>
         </div>
@@ -129,12 +169,13 @@ const Section = ({
           value="Continue"
           onClick={handleClick}
           className='InputButton'
+          disabled={loading}
         />
       </div>
 
       <div className="footerContainer">
         <div className='websiteLink'>
-          <a href="https://silkpursesowsear.com/" target="_blank" rel="noopener noreferrer">Visit our website & social media</a>
+          <a href="https://silkpursesowsear.com/pages/contact" target="_blank" rel="noopener noreferrer">Contact Us</a>
         </div>
 
         <div className='copyright'>
@@ -149,7 +190,7 @@ const Section = ({
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
                 </button>
                 <p>Have you paid for the outside of your locket to be engraved?</p>
-                <p style={{ color: '#EB7676', fontSize: '12px' }}>If engraving hasn’t been paid for, your locket will be sent <b>without engraving.</b></p>
+                <p style={{ color: '#EB7676' }}>If engraving hasn’t been paid for, your locket will be sent <b>without engraving.</b></p>
                 <div className="ModalButtons">
                     <button onClick={onContinue} className='InputButton'>No</button>
                     <button onClick={onEngraving} className='InputButton'>Yes</button>
@@ -157,6 +198,20 @@ const Section = ({
             </div>
         </div>
         )}
+
+        {loading && (
+        <div className="loadingOverlay">
+          <div className="spinner"></div>
+          <div className="loadingText">
+            <p>Processing order...</p>
+            {showConnectionMsg && (
+              <div>
+                <p>CONNECTING TO SERVER..... THIS MAY TAKE UP TO A MINUTE</p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

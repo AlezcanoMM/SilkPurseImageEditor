@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../css/AddImages.css';
 import '../css/CommonStyles.css';
 
-import AdviceImage from '../assets/images/photos_dos_and_donts.jpg';
+import AdviceImage from '../assets/images/Infographic_Tips.jpg';
 
 const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBack, images, isTiny }) => {
   const [localImages, setLocalImages] = useState([]);
@@ -107,29 +107,34 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
     <div className="SectionDetails">
 
       <div className="photoAdviceContainer">
-        <h2>Tips For Choosing The Perfect Picture!</h2>
-        <p style={{ color: '#EB7676', textTransform: 'uppercase' }}>Please take time to read out tips before proceeding.</p>
+        <h1>SUBMIT YOUR PHOTOS</h1>
 
         <button className="InputButton" onClick={() => setShowAdviceModal(true)}>
-          How to choose the right photos?
+          Tips for Choosing the Perfect Picture!
         </button>
+
+        <p style={{ color: '#EB7676', textTransform: 'uppercase', paddingTop: '5%' }}>Please take time to read out tips before proceeding.</p>
       </div>
 
       {showAdviceModal && (
         <div className="singleImageOverlay" onClick={() => setShowAdviceModal(false)}>
-          <img
-            src={AdviceImage}
-            alt="Advice on how to use the image editor"
-            className="singleImageModal"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when image is clicked
-          />
+          <div className="modalImageWrapper" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="popupCloseButton"
+              onClick={() => setShowAdviceModal(false)}
+              aria-label="Close popup"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f">
+                <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
+              </svg>
+            </button>
+            <img
+              src={AdviceImage}
+              alt="Advice on how to use the image editor"
+              className="singleImageModal"
+            />
+          </div>
         </div>
-      )}
-
-      {isTiny && (
-        <p style={{ color: '#EB7676' }}>
-          WARNING! Your locket is tiny, make sure your images do not have more than one person.
-        </p>
       )}
 
       <h1 className="ImportTitle">Add Images:</h1>
@@ -161,6 +166,11 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
         </label>
       </div>
 
+      {isTiny && (
+        <p style={{ color: '#EB7676' }}>
+          WARNING! Your locket is tiny, make sure your images do not have more than one person.
+        </p>
+      )}
 
       <p>
         This locket can fit a maximum of {maxNumberImages} photos.

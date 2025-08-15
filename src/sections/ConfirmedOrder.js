@@ -10,14 +10,10 @@ const Section =({ onBack })=>{
     return(
         <div className="SectionDetails">
             <div>
-                <h1> Thank You! </h1>
+                <h1> THANKS FOR SUBMITTING YOUR PHOTOS! </h1>
             </div>
             
             <div className="confirmation-message">
-                <div className="line-group">
-                    <span><b>Thanks for your photo submission!</b></span>
-                </div>
-
                 <div className="line-group">
                     <span>We've received your images and will begin crafting your personalised locket this week.</span>
                 </div>
@@ -35,12 +31,12 @@ const Section =({ onBack })=>{
             <div className='confirmation-message'>
                 <h3>Want to add something extra?</h3>
                 <div className="line-group">
-                    <span>Visit our <i>Add-Ons</i> section to include:</span>
+                    <span>Visit our Etsy Shop to Add:</span>
                 </div>
 
                 <div className="addonsGrid">
                     <div className="addonItem">
-                        <h4>Gift Wrappings</h4>
+                        <h4>Gift Wrap</h4>
                         <a
                         href="https://www.etsy.com/uk/listing/750160511/gift-wrap-giftwrap-wrapping-personalised?ga_search_query=gift%2Bwrap&ref=shop_items_search_1&frs=1&crt=1&sts=1&logging_key=af3a89979e728360f912b587e4655f4799d0b63a%3A750160511"
                         target="_blank"
