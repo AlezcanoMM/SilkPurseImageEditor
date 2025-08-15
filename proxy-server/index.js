@@ -57,6 +57,8 @@ app.get("/get-shape", async (req, res) => {
     const gasRes = await fetch(`${GAS_URL}?code=${encodeURIComponent(code)}`);
     const data = await gasRes.json();
 
+    console.log("Response from GAS:", text);
+
     if (!data.success) {
       return res.json(data);
     }
