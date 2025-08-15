@@ -66,6 +66,8 @@ function App() {
       setEngravingMotifImage={setEngravingMotifImage}
       orderNum={orderNum}
       locketCode={locketCode}
+      engravingFontImage={engravingFontImage}
+      engravingMotifImage={engravingMotifImage}
     />,
     <Engravings
       onContinue={() => setCurrentSection(2)}

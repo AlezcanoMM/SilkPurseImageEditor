@@ -54,6 +54,28 @@ const Section = ({
     handleConfirm();
   };
 
+  const preloadImageFromUrl = async (url, retries = 3, delay = 500) => {
+    if (!url) return null;
+
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const res = await fetch(url, { mode: "cors" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const blob = await res.blob();
+        return URL.createObjectURL(blob);
+      } catch (err) {
+        console.warn(`Attempt ${attempt} failed to load image: ${url}`, err);
+        if (attempt < retries) {
+          // wait a bit before retrying
+          await new Promise((resolve) => setTimeout(resolve, delay));
+        } else {
+          console.error("All attempts failed for image:", url);
+          return null;
+        }
+      }
+    }
+  };
+  
   const handleConfirm = async () => {
     setLoading(true);
     const normalizedCode = locketCode.trim().toUpperCase();
@@ -62,18 +84,23 @@ const Section = ({
       const res = await fetch(`https://silkpurseimageeditor.onrender.com/get-shape?code=${normalizedCode}`);
       const data = await res.json();
 
-      setLoading(false);
-
       if (!data.success) {
         alert(data.error || "Locket code not found. Please check the code and try again.");
         return;
       }
 
-      // Direct URLs
-      setShape(data.shapeUrl || null);
-      setListingPhoto(data.listingUrl || null);
-      setEngravingFontImage(data.fontsUrl || null);
-      setEngravingMotifImage(data.motifUrl || null);
+      // Preload all images as object URLs
+      const [shapeObjUrl, listingObjUrl, fontsObjUrl, motifObjUrl] = await Promise.all([
+        preloadImageFromUrl(data.shapeUrl),
+        preloadImageFromUrl(data.listingUrl),
+        preloadImageFromUrl(data.fontsUrl),
+        preloadImageFromUrl(data.motifUrl),
+      ]);
+
+      setShape(shapeObjUrl);
+      setListingPhoto(listingObjUrl);
+      setEngravingFontImage(fontsObjUrl);
+      setEngravingMotifImage(motifObjUrl);
 
       const [code, name, numImages, engrave, engravingSides, maxEngravings, isTiny] =
         data.fileName.replace(/\.(png|jpg|jpeg)$/i, '').split('_');
@@ -88,6 +115,8 @@ const Section = ({
       }
 
       setIsTiny(isTiny && isTiny.toUpperCase() === 'T');
+
+      setLoading(false);
 
       if (engrave.toUpperCase() === 'E') {
         setShowModal(true);
@@ -188,18 +217,18 @@ const Section = ({
         )}
 
         {loading && (
-        <div className="loadingOverlay">
-          <div className="spinner"></div>
-          <div className="loadingText">
-            <p>Processing order...</p>
-            {showConnectionMsg && (
-              <div>
-                <p>CONNECTING TO SERVER..... THIS MAY TAKE UP TO A MINUTE</p>
-              </div>
-            )}
+          <div className="loadingOverlay">
+            <div className="spinner"></div>
+            <div className="loadingText">
+              <p>Processing order...</p>
+              {showConnectionMsg && (
+                <div>
+                  <p>CONNECTING TO SERVER..... THIS MAY TAKE UP TO A MINUTE</p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 };
