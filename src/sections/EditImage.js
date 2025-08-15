@@ -109,6 +109,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
 
     const img = imageRef.current;
     const maskImg = new Image();
+    maskImg.crossOrigin = "anonymous";
     maskImg.src = shape;
 
     maskImg.onload = () => {
@@ -263,6 +264,7 @@ const Section = ({ imageToEdit, shape, onSave, onCancel }) => {
           <img
             ref={imageRef}
             src={imageToEdit?.original}
+            crossOrigin="anonymous"
             alt="Editable"
             className="editable-image"
             style={{

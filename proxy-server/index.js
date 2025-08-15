@@ -64,10 +64,10 @@ app.get("/get-shape", async (req, res) => {
     //return proxy links
     res.json({
       success: true,
-      shapeUrl: data.shapeId ? `${req.protocol}://${req.get("host")}/proxy/${data.shapeId}` : null,
-      listingUrl: data.listingId ? `${req.protocol}://${req.get("host")}/proxy/${data.listingId}` : null,
-      fontsUrl: data.fontsId ? `${req.protocol}://${req.get("host")}/proxy/${data.fontsId}` : null,
-      motifUrl: data.motifId ? `${req.protocol}://${req.get("host")}/proxy/${data.motifId}` : null,
+      shapeUrl: data.shapeId ? `https://${req.get("host")}/proxy/${data.shapeId}` : null,
+      listingUrl: data.listingId ? `https://${req.get("host")}/proxy/${data.listingId}` : null,
+      fontsUrl: data.fontsId ? `https://${req.get("host")}/proxy/${data.fontsId}` : null,
+      motifUrl: data.motifId ? `https://${req.get("host")}/proxy/${data.motifId}` : null,
       fileName: data.fileName
     });
   } catch (err) {
