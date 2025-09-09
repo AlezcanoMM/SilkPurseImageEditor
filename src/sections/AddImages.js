@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import '../css/AddImages.css';
 import '../css/CommonStyles.css';
 
-import AdviceImage from '../assets/images/Infographic_Tips.jpg';
+import AdviceImage from '../assets/images/general_guide_for_m_m_l_v2.jpg';
+import TinyAdviceImage from '../assets/images/tiny_guide_for_m_m_l_v2.jpg';
 
 const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBack, images, isTiny }) => {
   const [localImages, setLocalImages] = useState([]);
-  const [showAdviceModal, setShowAdviceModal] = useState(false); // Modal visibility
+  const [showAdviceModal, setShowAdviceModal] = useState(true);
 
   useEffect(() => {
     if (images && images.length > 0) {
@@ -129,7 +130,7 @@ const Section = ({ onContinue, setImages, maxNumberImages, setEditedImages, onBa
               </svg>
             </button>
             <img
-              src={AdviceImage}
+              src={isTiny ? TinyAdviceImage : AdviceImage}
               alt="Advice on how to use the image editor"
               className="singleImageModal"
             />

@@ -18,6 +18,7 @@ function App() {
   const [currentSection, setCurrentSection] = useState(0);
   const [shape, setShape] = useState(null);
   const [listingPhoto, setListingPhoto] = useState(null);
+  const [bleedBorderImage, setBleedBorderImage] = useState(null);
   const [engravingFontImage, setEngravingFontImage] = useState(null);
   const [engravingMotifImage, setEngravingMotifImage] = useState(null);
   const [maxNumberImages, setMaxNumberImages] = useState(0);
@@ -26,6 +27,7 @@ function App() {
   const [maxEngraving, setMaxEngraving] = useState(0);
   const [engravingSides, setEngravingSides] = useState("");
   const [isTiny, setIsTiny] = useState(false);
+  const [customer, setCustomer] = useState("");
   
   const [frontEngraving, setFrontEngraving] = useState("");
   const [frontFont, setFrontFont] = useState("");
@@ -57,6 +59,7 @@ function App() {
       setMaxNumberImages={setMaxNumberImages}
       setShape={setShape}
       setListingPhoto={setListingPhoto}
+      setBleedBorderImage={setBleedBorderImage}
       setLocketName={setLocketName}
       setEngravingAllowed={setEngravingAllowed}
       setMaxEngraving={setMaxEngraving}
@@ -64,8 +67,10 @@ function App() {
       setIsTiny={setIsTiny}
       setEngravingFontImage={setEngravingFontImage}
       setEngravingMotifImage={setEngravingMotifImage}
+      setCustomer={setCustomer}
       orderNum={orderNum}
       locketCode={locketCode}
+      customer={customer}
       engravingFontImage={engravingFontImage}
       engravingMotifImage={engravingMotifImage}
     />,
@@ -119,6 +124,7 @@ function App() {
     <EditImage
       imageToEdit={imageToEdit}
       shape={shape}
+      bleedBorderImage={bleedBorderImage}
       onSave={handleSaveImage}
       onCancel={() => setCurrentSection(3)}
     />,
@@ -137,6 +143,7 @@ function App() {
       insideEngraving={insideEngraving}
       insideFont={insideFont}
       listingPhoto={listingPhoto}
+      customer={customer}
       onContinue={() => setCurrentSection(6)}
       onBack={() => setCurrentSection(3)}
     />,

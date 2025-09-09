@@ -19,8 +19,11 @@ const Section = ({
   setMaxEngraving,
   setIsTiny,
   setListingPhoto,
+  setBleedBorderImage,
   setEngravingFontImage,
-  setEngravingMotifImage
+  setEngravingMotifImage,
+  setCustomer,
+  customer
 }) => {
   const [showModal, setShowModal] = useState(false);
 
@@ -81,7 +84,7 @@ const Section = ({
     const normalizedCode = locketCode.trim().toUpperCase();
 
     try {
-      const res = await fetch(`https://silkpurseimageeditor.onrender.com/get-shape?code=${normalizedCode}`);
+      const res = await fetch(`https://make-my-locket.onrender.com/get-shape?code=${normalizedCode}`);
       const data = await res.json();
 
       if (!data.success) {
@@ -91,15 +94,17 @@ const Section = ({
       }
 
       // Preload all images as object URLs
-      const [shapeObjUrl, listingObjUrl, fontsObjUrl, motifObjUrl] = await Promise.all([
+      const [shapeObjUrl, listingObjUrl, bleedBorderObjUrl, fontsObjUrl, motifObjUrl] = await Promise.all([
         preloadImageFromUrl(data.shapeUrl),
         preloadImageFromUrl(data.listingUrl),
+        preloadImageFromUrl(data.bleedBorderUrl),
         preloadImageFromUrl(data.fontsUrl),
         preloadImageFromUrl(data.motifUrl),
       ]);
 
       setShape(shapeObjUrl);
       setListingPhoto(listingObjUrl);
+      setBleedBorderImage(bleedBorderObjUrl);
       setEngravingFontImage(fontsObjUrl);
       setEngravingMotifImage(motifObjUrl);
 
@@ -147,6 +152,20 @@ const Section = ({
 
         {/* Right: Form Inputs */}
         <div className="inputFieldsWrapper">
+          <div className="formSection">
+            <h3 className="locketTitle" style={{ color: '#85bbdfff' }}><b>YOUR FULL NAME:</b></h3>
+            <p className="orderDescription">
+            </p>
+            <input
+              type="text"
+              value={customer}
+              onChange={(e) => setCustomer(e.target.value)}
+              placeholder="e.g. Alex Taylor"
+              className="InputField InputFieldMobile"
+              disabled={loading}
+            />
+          </div>
+
           <div className="formSection">
             <h3 className="orderTitle" style={{ color: '#F69679' }}><b>ORDER NUMBER:</b></h3>
             <p className="orderDescription">
@@ -224,7 +243,7 @@ const Section = ({
               <p>Processing order...</p>
               {showConnectionMsg && (
                 <div>
-                  <p>CONNECTING TO SERVER..... THIS MAY TAKE UP TO A MINUTE</p>
+                  <p>Checking your order details..... Please do not exit during this stage</p>
                 </div>
               )}
             </div>

@@ -192,8 +192,54 @@
   filter: brightness(0.9) sepia(0.2) saturate(0.5);
 }
 
+.bleed-border-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  object-fit: contain;
+  pointer-events: none; /* user can’t drag/select it */
+  opacity: 1;
+}
+
+.trimming-warning {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.trimming-warning.hidden {
+  display: none !important;
+}
+
+.trimming-warning-image {
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.desktop-only {
+  display: block;
+  position: absolute;
+  left: -220px;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 300px;
+}
+
+.editor-layout {
+  position: relative;
+}
+
+.phone-only {
+  display: none;
+}
+
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .subtitleDivE {
     width: 70%;
     padding: 1rem;
@@ -238,32 +284,16 @@
     display: flex;
     justify-content: flex-end;
   }
-}
 
-@media (max-width: 480px) {
-  .subtitleDivE {
-    width: 90%;
-    padding: 0.625rem;
+  .desktop-only {
+    display: none;
   }
 
-  .edit-image-container {
-    width: 90%;
-    height: 12.5rem; /* 200px */
-    min-height: 12.5rem;
+  .phone-only {
+    display: flex;
   }
 
-  .buttons {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .cancel-button,
-  .save-button {
-    max-width: 100%;
-    flex: 1 1 100%;
-  }
-
-  .reset-button {
-    width: 100%;
+  .trimming-warning-image {
+    max-width: 240px;
   }
 }

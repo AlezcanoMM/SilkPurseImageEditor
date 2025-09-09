@@ -71,6 +71,7 @@ app.get("/get-shape", async (req, res) => {
       success: true,
       shapeUrl: data.shapeId ? `https://${req.get("host")}/proxy/${data.shapeId}` : null,
       listingUrl: data.listingId ? `https://${req.get("host")}/proxy/${data.listingId}` : null,
+      bleedBorderUrl: data.bleedBorderId ? `https://${req.get("host")}/proxy/${data.bleedBorderId}` : null,
       fontsUrl: data.fontsId ? `https://${req.get("host")}/proxy/${data.fontsId}` : null,
       motifUrl: data.motifId ? `https://${req.get("host")}/proxy/${data.motifId}` : null,
       fileName: data.fileName
