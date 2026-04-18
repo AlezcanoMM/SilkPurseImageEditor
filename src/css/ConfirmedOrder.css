@@ -66,3 +66,19 @@
   .addOrder:hover {
     background-color: #e0e0e0;
   }
+
+  .coModalContent{
+    max-width: 450px;
+    padding: 10px 30px 30px;
+  }
+
+  .coModalContent p{
+    margin-top: 0.2;
+    margin-bottom: 0;
+  }
+
+  .SilkpurseLink {
+    text-decoration: underline;
+    color: inherit;
+    font-size: inherit;
+  }

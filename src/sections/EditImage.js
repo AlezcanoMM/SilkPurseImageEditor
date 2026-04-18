@@ -3,7 +3,7 @@ import "../css/EditImage.css";
 import "../css/CommonStyles.css";
 
 import trimming_warning from '../assets/images/TRIMMING_INFOGRAPHIC.jpg';
-import bleedTest from '../assets/images/LKGP-3_outline.png';
+import checkerboard from "../assets/images/checkerbox.png";
 
 const Section = ({ imageToEdit, shape, bleedBorderImage, onSave, onCancel }) => {
   const [zoom, setZoom] = useState(1); // Default zoom level
@@ -111,105 +111,158 @@ const Section = ({ imageToEdit, shape, bleedBorderImage, onSave, onCancel }) => 
     const ctx = canvas.getContext("2d");
 
     const img = imageRef.current;
+    if (!img) return;
+
+    const naturalWidth = img.naturalWidth;
+    const naturalHeight = img.naturalHeight;
+
     const maskImg = new Image();
     maskImg.crossOrigin = "anonymous";
     maskImg.src = shape;
 
-    const bleedBorderImg = new Image();
-    bleedBorderImg.crossOrigin = "anonymous";
-    bleedBorderImg.src = bleedTest;
-
     maskImg.onload = () => {
-      bleedBorderImg.onload = () => {
-        const container = canvas.parentElement;
-        const containerRect = container.getBoundingClientRect();
+      const container = canvas.parentElement;
+      const containerRect = container.getBoundingClientRect();
 
-        const containerWidth = containerRect.width;
-        const containerHeight = containerRect.height;
+      const containerWidth = containerRect.width;
+      const containerHeight = containerRect.height;
 
-        const maskAspectRatio = maskImg.width / maskImg.height;
-        const containerAspectRatio = containerWidth / containerHeight;
+      // Export resolution
+      const EXPORT_SIZE = 3000;
 
-        let canvasWidth, canvasHeight;
-        if (maskAspectRatio > containerAspectRatio) {
-          canvasWidth = containerWidth;
-          canvasHeight = containerWidth / maskAspectRatio;
-        } else {
-          canvasHeight = containerHeight;
-          canvasWidth = containerHeight * maskAspectRatio;
-        }
+      const maskAspectRatio = maskImg.width / maskImg.height;
 
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
+      let canvasWidth, canvasHeight;
 
-        //
-        // === 1. EXPORT WITH OFFWHITE + BLEED BORDER ===
-        //
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (maskAspectRatio > 1) {
+        canvasWidth = EXPORT_SIZE;
+        canvasHeight = EXPORT_SIZE / maskAspectRatio;
+      } else {
+        canvasHeight = EXPORT_SIZE;
+        canvasWidth = EXPORT_SIZE * maskAspectRatio;
+      }
 
-        // Fill background
-        ctx.fillStyle = "#f2f0e9";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
 
-        // Draw transformed user image
-        ctx.save();
-        ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
-        ctx.rotate((rotation * Math.PI) / 180);
-        ctx.scale(zoom, zoom);
-        ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
-        ctx.restore();
+      // UI export scale
+      const scaleFactor = canvasWidth / containerWidth;
 
-        // Clip with mask
-        ctx.globalCompositeOperation = "destination-in";
-        ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+      const displayedWidth = 500;
+      const baseScale = displayedWidth / naturalWidth;
 
-        ctx.globalCompositeOperation = "source-over";
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
 
-        // Draw bleed border overlay
-        ctx.drawImage(bleedBorderImg, 0, 0, canvas.width, canvas.height);
+      //
+      // === 1. EXPORT WITH OFFWHITE (+ optional BLEED BORDER) ===
+      //
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Background
+      ctx.fillStyle = "#f2f0e9";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw transformed image
+      ctx.save();
+
+      ctx.translate(
+        canvas.width / 2 + offsetX * scaleFactor,
+        canvas.height / 2 + offsetY * scaleFactor
+      );
+
+      ctx.rotate((rotation * Math.PI) / 180);
+
+      ctx.scale(
+        baseScale * zoom * scaleFactor,
+        baseScale * zoom * scaleFactor
+      );
+
+      ctx.drawImage(
+        img,
+        -naturalWidth / 2,
+        -naturalHeight / 2,
+        naturalWidth,
+        naturalHeight
+      );
+
+      ctx.restore();
+
+      // Apply mask
+      ctx.globalCompositeOperation = "destination-in";
+      ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
+      ctx.globalCompositeOperation = "source-over";
+
+      // Optional bleed border
+      if (bleedBorderImage) {
+        const bleedBorderImg = new Image();
+        bleedBorderImg.crossOrigin = "anonymous";
+        bleedBorderImg.src = bleedBorderImage;
+
+        bleedBorderImg.onload = () => {
+          ctx.drawImage(bleedBorderImg, 0, 0, canvas.width, canvas.height);
+          finalizeExport();
+        };
+
+        bleedBorderImg.onerror = () => {
+          console.error("Error loading bleed border:", bleedBorderImage);
+          finalizeExport();
+        };
+      } else {
+        finalizeExport();
+      }
+
+      function finalizeExport() {
         const editedWithOffwhite = canvas.toDataURL("image/png");
 
         //
-        // === 2. EXPORT WITHOUT OFFWHITE OR BLEED BORDER ===
+        // === 2. EXPORT WITHOUT OFFWHITE ===
         //
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw transformed user image again
         ctx.save();
-        ctx.translate(canvas.width / 2 + offsetX, canvas.height / 2 + offsetY);
+
+        ctx.translate(
+          canvas.width / 2 + offsetX * scaleFactor,
+          canvas.height / 2 + offsetY * scaleFactor
+        );
+
         ctx.rotate((rotation * Math.PI) / 180);
-        ctx.scale(zoom, zoom);
-        ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+
+        ctx.scale(
+          baseScale * zoom * scaleFactor,
+          baseScale * zoom * scaleFactor
+        );
+
+        ctx.drawImage(
+          img,
+          -naturalWidth / 2,
+          -naturalHeight / 2,
+          naturalWidth,
+          naturalHeight
+        );
+
         ctx.restore();
 
-        // Clip with mask
         ctx.globalCompositeOperation = "destination-in";
         ctx.drawImage(maskImg, 0, 0, canvas.width, canvas.height);
-
         ctx.globalCompositeOperation = "source-over";
 
         const editedWithoutOffwhite = canvas.toDataURL("image/png");
 
-        // Return both
         onSave({
           original: imageToEdit.original,
           editedWithOffwhite,
           editedWithoutOffwhite,
           hasBeenEdited: true,
         });
-      };
-
-      bleedBorderImg.onerror = () => {
-        console.error("Error loading the bleed border image:", bleedTest);
-      };
+      }
     };
 
     maskImg.onerror = () => {
-      console.error("Error loading the mask image:", shape);
+      console.error("Error loading mask image:", shape);
     };
   };
-
 
   useEffect(() => {
     const imgElement = imageRef.current;
@@ -249,7 +302,7 @@ const Section = ({ imageToEdit, shape, bleedBorderImage, onSave, onCancel }) => 
 
   return (
     <div className="SectionDetails">
-      <div className={`trimming-warning phone-only ${bleedTest ? "hidden" : ""}`}>
+      <div className={`trimming-warning phone-only ${bleedBorderImage ? "hidden" : ""}`}>
         <img
           src={trimming_warning}
           alt="Trimming Warning"
@@ -260,10 +313,11 @@ const Section = ({ imageToEdit, shape, bleedBorderImage, onSave, onCancel }) => 
       <div className="subtitleDivE">
         <span>Click and drag the image to move it,</span>
         <span>and use the sliders to rotate or zoom the image.</span>
+        <span>So it fits as much as possible inside the frame.</span>
       </div>
 
       <div className="editor-layout">
-        <div className={`trimming-warning desktop-only ${bleedTest ? "hidden" : ""}`}>
+        <div className={`trimming-warning desktop-only ${bleedBorderImage ? "hidden" : ""}`}>
           <img
             src={trimming_warning}
             alt="Trimming Warning"
@@ -271,47 +325,51 @@ const Section = ({ imageToEdit, shape, bleedBorderImage, onSave, onCancel }) => 
           />
         </div>
 
-        <div
-            className="edit-image-container"
-            style={{
-              maskImage: `url("${shape}")`,
-              WebkitMaskImage: `url("${shape}")`,
-              backgroundImage: `url("${shape}")`,
-              backgroundPosition: "center",
-              backgroundSize: "contain",
-            }}
-          >
-            {/* Bleed border overlay (visible only in editor) */}
-            <img
-              src={bleedTest}
-              alt="Bleed Border Overlay"
-              className="bleed-border-overlay"
-            />
+        <div className="edit-image-container">
 
-            <img src={shape} alt="Mask outline" className="mask-outline" />
-
-            {/* Editable image */}
             <div
-              className="editable-image-container"
-              onMouseMove={dragImage}
-              onMouseUp={stopDrag}
-              onMouseLeave={stopDrag}
+              className="masked-layer"
+              style={{
+                maskImage: `url("${shape}")`,
+                WebkitMaskImage: `url("${shape}")`,
+              }}
             >
-              <img
-                ref={imageRef}
-                src={imageToEdit?.original}
-                crossOrigin="anonymous"
-                alt="Editable"
-                className="editable-image"
-                style={{
-                  transform: `translate(${offsetX}px, ${offsetY}px) scale(${zoom}) rotate(${rotation}deg)`,
-                  width: `${500}px`,
-                  height: "auto",
-                }}
-                onMouseDown={startDrag}
-              />
-            </div>
+              {/* everything that should be clipped */}
+              {bleedBorderImage && (
+                <img src={bleedBorderImage} className="bleed-border-overlay" />
+              )}
 
+              <div
+                className="checkerboard-layer"
+                style={{
+                  backgroundImage: `url(${checkerboard})`,
+                }}
+              />
+
+              <img src={shape} className="mask-outline" />
+
+              {/* Editable image */}
+              <div
+                className="editable-image-container"
+                onMouseMove={dragImage}
+                onMouseUp={stopDrag}
+                onMouseLeave={stopDrag}
+              >
+                <img
+                  ref={imageRef}
+                  src={imageToEdit?.original}
+                  crossOrigin="anonymous"
+                  alt="Editable"
+                  className="editable-image"
+                  style={{
+                    transform: `translate(${offsetX}px, ${offsetY}px) scale(${zoom}) rotate(${rotation}deg)`,
+                    width: `${500}px`,
+                    height: "auto",
+                  }}
+                  onMouseDown={startDrag}
+                />
+              </div>
+            </div>
             {/* Hidden canvas for saving */}
             <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           </div>

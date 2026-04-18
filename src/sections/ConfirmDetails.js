@@ -89,47 +89,94 @@ const Section = ({
     const paddingY = 69;
     const imagesPerRow = 5;
 
-    const imageWidth = shapeImg.naturalWidth;
-    const imageHeight = shapeImg.naturalHeight;
-
-    const rows = Math.ceil(editedImages.length / imagesPerRow);
-    const totalWidth = (Math.min(editedImages.length, imagesPerRow) * imageWidth) +
-                      ((Math.min(editedImages.length, imagesPerRow) - 1) * paddingX);
-    const totalHeight = (rows * imageHeight) + ((rows - 1) * paddingY);
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = totalWidth;
-    canvas.height = totalHeight;
-
-    // load all edited images in parallel
+    // Load edited images
     const loadedImgs = await Promise.all(
       editedImages.map(imgObj =>
-        loadImage(imgObj.editedWithoutOffwhite || imgObj.editedWithOffwhite || imgObj.original)
+        loadImage(
+          imgObj.editedWithoutOffwhite ||
+          imgObj.editedWithOffwhite ||
+          imgObj.original
+        )
       )
     );
 
-    // draw each image in its position (skip nulls)
-    loadedImgs.forEach((img, index) => {
-      if (!img) return;
+    const validImages = loadedImgs.filter(img => img !== null);
+
+    if (validImages.length === 0) {
+      alert("No valid images to process.");
+      setLoading(false);
+      return;
+    }
+
+    // === TEMPLATE SIZE (final physical size) ===
+    const templateWidth = shapeImg.naturalWidth;
+    const templateHeight = shapeImg.naturalHeight;
+
+    // === SCALE from high-res editor → template ===
+    const scaleToTemplate = templateWidth / validImages[0].naturalWidth;
+
+    const imageWidth = templateWidth;
+    const imageHeight = templateHeight;
+
+    const rows = Math.ceil(validImages.length / imagesPerRow);
+
+    const totalWidth =
+      (Math.min(validImages.length, imagesPerRow) * imageWidth) +
+      ((Math.min(validImages.length, imagesPerRow) - 1) * paddingX);
+
+    const totalHeight =
+      (rows * imageHeight) +
+      ((rows - 1) * paddingY);
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = totalWidth;
+    canvas.height = totalHeight;
+
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+
+    // === DRAW IMAGES ===
+    validImages.forEach((img, index) => {
       const row = Math.floor(index / imagesPerRow);
       const col = index % imagesPerRow;
+
       const x = col * (imageWidth + paddingX);
       const y = row * (imageHeight + paddingY);
-      ctx.drawImage(img, x, y, imageWidth, imageHeight);
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        img.naturalWidth,
+        img.naturalHeight,
+        x,
+        y,
+        img.naturalWidth * scaleToTemplate,
+        img.naturalHeight * scaleToTemplate
+      );
     });
 
-    // export
+    // === EXPORT ===
     const combinedImageDataUrl = canvas.toDataURL("image/png");
     const base64Data = combinedImageDataUrl.replace(/^data:image\/png;base64,/, "");
+
     const fileName = `${customer}_${orderNum}.png`;
-    
+
+    // DEBUG DOWNLOAD
+    const link = document.createElement("a");
+    link.href = combinedImageDataUrl;
+    link.download = fileName;
+    link.click();
+
     const formData = new URLSearchParams();
     formData.append("image", base64Data);
     formData.append("filename", fileName);
     formData.append("orderNum", orderNum);
     formData.append("locketName", locketName);
     formData.append("customer", customer);
+
     if (engravingAllowed) {
       formData.append("frontEngraving", frontEngraving);
       formData.append("frontFont", frontFont);
@@ -138,18 +185,24 @@ const Section = ({
       formData.append("insideEngraving", insideEngraving);
       formData.append("insideFont", insideFont);
     }
+
     if (notes?.trim()) {
       formData.append("notes", notes.trim());
     }
 
     try {
-      const res = await fetch("https://make-my-locket.onrender.com/submit-order", {
+      const res = await fetch("eee https://make-my-locket.onrender.com/submit-order", { //DEBUG
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
         body: formData.toString(),
       });
+
       const data = await res.json();
+
       setLoading(false);
+
       if (data.success) {
         reloadOnSuccess ? window.location.reload() : onContinue();
       }
@@ -157,11 +210,12 @@ const Section = ({
       setLoading(false);
       alert("Error during upload, please try again.");
       console.error("Error during upload:", err);
+      onContinue(); // DEBUG
     }
   };
 
   return (
-    <div className="SectionDetails">
+    <div className="SectionDetails cdSectionDetails">
       <h1>Confirm Details</h1>
 
       <div className="confirmation-header">
