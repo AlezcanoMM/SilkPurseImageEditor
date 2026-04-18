@@ -1,20 +1,23 @@
 {
   "files": {
-    "main.css": "/SilkPurseImageEditor/static/css/main.66e86168.css",
-    "main.js": "/SilkPurseImageEditor/static/js/main.a7bb2513.js",
-    "static/js/453.c4df6758.chunk.js": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js",
-    "static/media/Infographic_Tips.jpg": "/SilkPurseImageEditor/static/media/Infographic_Tips.de4bfbe3c035fa396db3.jpg",
-    "static/media/giftWrap.jpg": "/SilkPurseImageEditor/static/media/giftWrap.324d6c5064f8d7f58627.jpg",
-    "static/media/01INFOGRAPHIC_ORDER.jpg": "/SilkPurseImageEditor/static/media/01INFOGRAPHIC_ORDER.f3587f86f3903bfe3e3e.jpg",
-    "static/media/neckalce.jpg": "/SilkPurseImageEditor/static/media/neckalce.0b06b3d00ee7383830e1.jpg",
-    "static/media/SilkPurseLogo3.png": "/SilkPurseImageEditor/static/media/SilkPurseLogo3.6e3db3ad23ce2dee8e52.png",
-    "index.html": "/SilkPurseImageEditor/index.html",
-    "main.66e86168.css.map": "/SilkPurseImageEditor/static/css/main.66e86168.css.map",
-    "main.a7bb2513.js.map": "/SilkPurseImageEditor/static/js/main.a7bb2513.js.map",
-    "453.c4df6758.chunk.js.map": "/SilkPurseImageEditor/static/js/453.c4df6758.chunk.js.map"
+    "main.css": "./static/css/main.e523c970.css",
+    "main.js": "./static/js/main.bd63d7b3.js",
+    "static/js/453.c4df6758.chunk.js": "./static/js/453.c4df6758.chunk.js",
+    "static/media/tiny_guide_for_m_m_l_v2.jpg": "./static/media/tiny_guide_for_m_m_l_v2.f08fdec7a1386cd0db09.jpg",
+    "static/media/general_guide_for_m_m_l_v2.jpg": "./static/media/general_guide_for_m_m_l_v2.2600cc7934f7b03a46b7.jpg",
+    "static/media/TRIMMING_INFOGRAPHIC.jpg": "./static/media/TRIMMING_INFOGRAPHIC.e0805bf2ced8620219da.jpg",
+    "static/media/05INFOGRAPHIC_ORDER.jpg": "./static/media/05INFOGRAPHIC_ORDER.52cf2d2fbb855b08f307.jpg",
+    "static/media/giftWrap.jpg": "./static/media/giftWrap.324d6c5064f8d7f58627.jpg",
+    "static/media/neckalce.jpg": "./static/media/neckalce.0b06b3d00ee7383830e1.jpg",
+    "static/media/SilkPurseLogo3.png": "./static/media/SilkPurseLogo3.6e3db3ad23ce2dee8e52.png",
+    "static/media/checkerbox.png": "./static/media/checkerbox.4d663fadd313fd7eef17.png",
+    "index.html": "./index.html",
+    "main.e523c970.css.map": "./static/css/main.e523c970.css.map",
+    "main.bd63d7b3.js.map": "./static/js/main.bd63d7b3.js.map",
+    "453.c4df6758.chunk.js.map": "./static/js/453.c4df6758.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.66e86168.css",
-    "static/js/main.a7bb2513.js"
+    "static/css/main.e523c970.css",
+    "static/js/main.bd63d7b3.js"
   ]
 }
